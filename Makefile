@@ -1,6 +1,10 @@
 ARTISAN = php artisan
 
 # Init file
+.PHONY: package start clear-cache cache controller api resource model migration seeder base util dump middleware
+
+first : migrate start
+
 init:
 	composer install
 	@cp .env.example .env
@@ -25,9 +29,9 @@ controller:
 	@read -p 'Controller name: ' controller; \
 	${ARTISAN} make:controller $$controller
 
-controller-r:
-	@read -p 'Resource Controller name: ' controller; \
-	${ARTISAN} make:controller $$controller --resource
+api:
+	@read -p 'API Controller name: ' controller; \
+	${ARTISAN} make:controller $$controller --api
 
 resource:
 	@read -p 'Resource name: ' resource; \
@@ -43,6 +47,9 @@ migration:
 	@read -p 'Migration name: ' migration; \
 	@read -p 'Table target : ' table; \
 	${ARTISAN} make:migration $$migration --table=$$table
+
+migrate:
+	${ARTISAN} migrate:fresh --seed
 
 # Create new seeder
 seeder:

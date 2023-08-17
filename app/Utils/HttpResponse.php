@@ -1,5 +1,6 @@
 <?php 
 namespace App\Utils;
+
 trait HttpResponse {
     public static function success($data = null, $code = 200) {
         return response()->json([
@@ -17,6 +18,7 @@ trait HttpResponse {
         ], $code);
     }
 }
+
 class HttpResponseCode {
     public const HTTP_OK = 200;
     public const HTTP_CREATED = 201;

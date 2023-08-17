@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Utils\HttpResponse;
 use App\Utils\HttpResponseCode;
+use App\Utils\ValidateRequest;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class BaseController extends Controller
 {
-    use HttpResponse;
+    use HttpResponse, ValidateRequest;
 
     protected $model;
     protected $service;
@@ -20,37 +22,14 @@ class BaseController extends Controller
         $this->model = $model;
         $this->service = $model->service();
     }
-    
-    public function test() {
-        return $this->error([
-            'test' => 'test'
-        ], HttpResponseCode::HTTP_INTERNAL_SERVER_ERROR);
-        /* return $this->success([
-            'test' => 'test'
-        ], HttpResponseCode::HTTP_OK); */
-
-    }
     /**
      * Display a listing of the resource.
      */
     public function index()
-    // public function index()
     {
-        $u = $this->model->all();
+        $data = $this->service->getAll();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Model retrieved',
-            'data' => $u,
-        ], 200);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return $this->success($data, HttpResponseCode::HTTP_OK);
     }
 
     /**
@@ -60,12 +39,13 @@ class BaseController extends Controller
     {
         // validate
         // $this->validate($request, $this->model->rules());
+        $this->validateRequest($request->all(), $this->model);
 
         // store
         $data = $this->service->create($request->all());
 
         // return
-        return HttpResponse::success($data, HttpResponseCode::HTTP_CREATED);
+        return $this->success($data, HttpResponseCode::HTTP_CREATED);
 
     }
 
@@ -75,12 +55,13 @@ class BaseController extends Controller
     public function update(Request $request, string $id)
     {
         //validate
+        $this->validateRequest($request->all(), $this->model);
 
         //update
         $data = $this->service->update($id, $request->all());
 
         //return
-        return HttpResponse::success($data, HttpResponseCode::HTTP_OK);
+        return $this->success($data, HttpResponseCode::HTTP_OK);
     }
 
     /**
@@ -91,6 +72,17 @@ class BaseController extends Controller
         //
         $this->service->delete($id);
 
-        return HttpResponse::success(null, HttpResponseCode::HTTP_NO_CONTENT);
+        return $this->success(null, HttpResponseCode::HTTP_NO_CONTENT);
     }
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+        $data = $this->service->getById($id);
+
+        return $this->success($data, HttpResponseCode::HTTP_OK);
+    }
+
 }
