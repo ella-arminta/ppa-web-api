@@ -2,13 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Utils\HttpResponse;
+use App\Utils\HttpResponseCode;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class BaseController extends Controller
 {
+    use HttpResponse;
 
-    public $model;
+    protected $model;
+    protected $service;
+
+
+    public function __construct(Model $model)
+    {
+        $this->model = $model;
+        $this->service = $model->service();
+    }
+    
+    public function test() {
+        return $this->error([
+            'test' => 'test'
+        ], HttpResponseCode::HTTP_INTERNAL_SERVER_ERROR);
+        /* return $this->success([
+            'test' => 'test'
+        ], HttpResponseCode::HTTP_OK); */
+
+    }
     /**
      * Display a listing of the resource.
      */
@@ -37,23 +58,15 @@ class BaseController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        // validate
+        // $this->validate($request, $this->model->rules());
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        // store
+        $data = $this->service->create($request->all());
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        // return
+        return HttpResponse::success($data, HttpResponseCode::HTTP_CREATED);
+
     }
 
     /**
@@ -61,7 +74,13 @@ class BaseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //validate
+
+        //update
+        $data = $this->service->update($id, $request->all());
+
+        //return
+        return HttpResponse::success($data, HttpResponseCode::HTTP_OK);
     }
 
     /**
@@ -70,5 +89,8 @@ class BaseController extends Controller
     public function destroy(string $id)
     {
         //
+        $this->service->delete($id);
+
+        return HttpResponse::success(null, HttpResponseCode::HTTP_NO_CONTENT);
     }
 }

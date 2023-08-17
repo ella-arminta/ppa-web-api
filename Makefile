@@ -14,6 +14,8 @@ clear-cache:
 	${ARTISAN} config:clear
 	${ARTISAN} route:clear
 	${ARTISAN} view:clear
+
+cache:
 	${ARTISAN} config:cache
 	${ARTISAN} route:cache
 	${ARTISAN} view:cache
@@ -51,6 +53,13 @@ base:
 	@read -p 'Base type: ' base; \
 	mkdir ./app/$$base; \
 	touch ./app/$$base/Base$$base.php;
+
+util:
+	@read -p 'Util name: ' util; \
+	touch ./app/Utils/$$util.php;
+
+dump:
+	composer dump-autoload
 
 # Create new middleware
 middleware:

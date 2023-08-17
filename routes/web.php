@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\BaseController as Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,8 @@ use App\Http\Controllers\API\UserController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get('/test', [Controller::class, 'test']);
 
 // Route::controller(AuthController::class)->group(function() {
 //     Route::get('/token', 'getToken')->name('getToken');
