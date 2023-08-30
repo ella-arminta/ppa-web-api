@@ -40,7 +40,7 @@ resource:
 # Create new model
 model:
 	@read -p 'Model name: ' model; \
-	${ARTISAN} make:model $$model -mf
+	${ARTISAN} make:model $$model -mfc
 
 # Create new migration
 migration:
