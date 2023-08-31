@@ -11,7 +11,7 @@ class Laporans extends Model
     // masih kosong kok tenang aja
     use HasFactory, SoftDeletes;
 
-    protected $table = 'roles';
+    protected $table = 'laporans';
     /**
      * @var string[]
      */

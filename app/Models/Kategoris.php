@@ -10,7 +10,7 @@ class Kategoris extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'roles';
+    protected $table = 'kategoris';
     /**
      * @var string[]
      */
