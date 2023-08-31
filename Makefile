@@ -27,7 +27,7 @@ cache:
 # Create new controller
 controller:
 	@read -p 'Controller name: ' controller; \
-	${ARTISAN} make:controller $$controller
+	${ARTISAN} make:controller API/$$controller
 
 api:
 	@read -p 'API Controller name: ' controller; \
@@ -40,7 +40,7 @@ resource:
 # Create new model
 model:
 	@read -p 'Model name: ' model; \
-	${ARTISAN} make:model $$model -mf
+	${ARTISAN} make:model $$model -mfc
 
 # Create new migration
 migration:
