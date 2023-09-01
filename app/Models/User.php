@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Http\Resources\API\RoleResource;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
@@ -47,8 +49,38 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function service() {
+
+    }
+
+    public function repository() {
+
+    }
+
+    public function resource() {
+
+    }
+
+
+    public static function resourceData($request) {
+        return [
+            'id' => $request->id,
+            'nama' => $request->nama,
+            'no_telp' => $request->no_telp,
+            'email' => $request->email,
+            // 'role_id' => $request->role_id,
+            'role' => new RoleResource($request->role),
+        ];
+    }
+
     public function role()
     {
         return $this->belongsTo(Roles::class, 'role_id', 'id');
+    }
+
+    public function relations() {
+        return [
+            'role'
+        ];
     }
 }

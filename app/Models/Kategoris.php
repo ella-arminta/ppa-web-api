@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
+
 class Kategoris extends Model
 {
     use HasFactory, SoftDeletes;
@@ -24,4 +26,31 @@ class Kategoris extends Model
     protected $casts = [
         'nama' => 'string',
     ];
+
+    public static function resourceData($request)
+    {
+        return [
+            'id' => $request->id,
+            'nama' => $request->nama,
+        ];
+    }
+
+    public function service()
+    {
+    }
+
+    public function repository()
+    {
+    }
+
+    public function resource()
+    {
+    }
+    
+    public function relations()
+    {
+        return [
+            ''
+        ];
+    }
 }

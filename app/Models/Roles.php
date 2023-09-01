@@ -27,6 +27,31 @@ class Roles extends Model
         'name' => 'string',
     ];
 
+    public static function resourceData($request)
+    {
+        return [
+            'id' => $request->id,
+            'name' => $request->name,
+        ];
+    }
+
+    public function service()
+    {
+    }
+
+    public function repository()
+    {
+    }
+
+    public function resource()
+    {
+    }
+    public function relations()
+    {
+        return [
+        ];
+    }
+
     public function users()
     {
         return $this->hasMany(Users::class, 'role_id', 'id');

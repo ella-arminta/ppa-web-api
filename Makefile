@@ -35,7 +35,7 @@ api:
 
 resource:
 	@read -p 'Resource name: ' resource; \
-	${ARTISAN} make:resource $$resource
+	${ARTISAN} make:resource API/$$resource
 
 # Create new model
 model:
@@ -72,3 +72,7 @@ dump:
 middleware:
 	@read -p 'Middleware name: ' middleware; \
 	${ARTISAN} make:middleware $$middleware
+
+service:
+	@read -p 'Service name: ' service; \
+	${ARTISAN} make:service $$service
