@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Models;
+namespace App\Models{{ classDirectory }};
 
 use App\Models\ModelUtils;
-use App\Repositories\PendidikansRepository;
-use App\Services\PendidikansService;
-use App\Http\Resources\PendidikansResource;
+use App\Repositories{{ classDirectory }}\{{ class }}Repository;
+use App\Services{{ classDirectory }}\{{ class }}Service;
+use App\Http\Resources{{ classDirectory }}\{{ class }}Resource;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Pendidikans extends Model
+class {{ class }} extends Model
 {
     use HasFactory;
 
@@ -20,11 +20,7 @@ class Pendidikans extends Model
      *
      * @var array
      */
-    protected $primaryKey = 'id';
-
-    protected $fillable = [
-        'nama',
-    ];
+    protected $fillable; 
 
     /**
      * Rules that applied in this model
@@ -33,12 +29,7 @@ class Pendidikans extends Model
      */
     public static function validationRules()
     {
-        return [
-            'nama' => [
-                'required',
-                'string',
-            ],
-        ];
+        return [];
     }
 
     /**
@@ -48,10 +39,7 @@ class Pendidikans extends Model
      */
     public static function validationMessages()
     {
-        return [
-            'nama.required' => 'Nama harus diisi',
-            'nama.string' => 'Nama harus berupa string',
-        ];
+        return [];
     }
 
     /**
@@ -61,10 +49,7 @@ class Pendidikans extends Model
      */
     public function resourceData($request)
     {
-        return ModelUtils::filterNullValues([
-            'id' => $request->id,
-            'nama' => $request->nama,
-        ]);
+        return ModelUtils::filterNullValues([]);
     }
 
 
@@ -76,7 +61,7 @@ class Pendidikans extends Model
 
     public function controller()
     {
-        return 'App\Http\Controllers\PendidikansController';
+        return 'App\Http\Controllers{{ classDirectory }}\{{ class }}Controller';
     }
 
     /**
@@ -86,7 +71,7 @@ class Pendidikans extends Model
      */
     public function service()
     {
-        return new PendidikansService($this);
+        return new {{ class }}Service($this);
     }
 
     /**
@@ -96,7 +81,7 @@ class Pendidikans extends Model
      */
     public function repository()
     {
-        return new PendidikansRepository($this);
+        return new {{ class }}Repository($this);
     }
 
     /**
@@ -107,7 +92,7 @@ class Pendidikans extends Model
 
     public function resource()
     {
-        return new PendidikansResource($this);
+        return new {{ class }}Resource($this);
     }
 
     /**

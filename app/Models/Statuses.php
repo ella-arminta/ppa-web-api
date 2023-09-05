@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use App\Models\ModelUtils;
-use App\Repositories\PendidikansRepository;
-use App\Services\PendidikansService;
-use App\Http\Resources\PendidikansResource;
+use App\Repositories\StatusesRepository;
+use App\Services\StatusesService;
+use App\Http\Resources\StatusesResource;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Pendidikans extends Model
+class Statuses extends Model
 {
     use HasFactory;
 
@@ -76,7 +76,7 @@ class Pendidikans extends Model
 
     public function controller()
     {
-        return 'App\Http\Controllers\PendidikansController';
+        return 'App\Http\Controllers\StatusesController';
     }
 
     /**
@@ -86,7 +86,7 @@ class Pendidikans extends Model
      */
     public function service()
     {
-        return new PendidikansService($this);
+        return new StatusesService($this);
     }
 
     /**
@@ -96,7 +96,7 @@ class Pendidikans extends Model
      */
     public function repository()
     {
-        return new PendidikansRepository($this);
+        return new StatusesRepository($this);
     }
 
     /**
@@ -107,7 +107,7 @@ class Pendidikans extends Model
 
     public function resource()
     {
-        return new PendidikansResource($this);
+        return new StatusesResource($this);
     }
 
     /**
