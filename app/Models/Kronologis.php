@@ -115,4 +115,8 @@ class Kronologis extends Model
         return $this->belongsTo(Laporan::class, 'laporan_id', 'id');
     }
 
+    public function admin() {
+        return $this->belongsTo('App\Models\User', 'admin_id', 'id');
+    }
+
 }

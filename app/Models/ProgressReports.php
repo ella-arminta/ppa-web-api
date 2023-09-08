@@ -112,4 +112,8 @@ class ProgressReports extends Model
         return $this->belongsTo('App\Models\Laporans', 'laporan_id', 'id');
     }
 
+    public function admin() {
+        return $this->belongsTo('App\Models\User', 'admin_id', 'id');
+    }
+
 }

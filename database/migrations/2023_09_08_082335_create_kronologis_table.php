@@ -14,6 +14,9 @@ return new class extends Migration
         //
         Schema::create('kronologis', function (Blueprint $table) {
             $table->id();
+            $table->foreignUuid('laporan_id');
+            $table->foreignUuid('admin_id');
+            $table->longText('isi');
             $table->timestamps();
             $table->softDeletes();
         });

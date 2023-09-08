@@ -14,6 +14,10 @@ return new class extends Migration
         //
         Schema::create('progress_reports', function (Blueprint $table) {
             $table->id();
+            $table->foreignUuid('laporan_id');
+            $table->foreignUuid('admin_id');
+            $table->longText('isi');
+            $table->boolean('is_menyerah')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

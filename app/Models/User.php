@@ -149,6 +149,14 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Laporans', 'user_id', 'id');
     }
 
+    public function progress_reports() {
+        return $this->hasMany('App\Models\ProgressReports', 'admin_id', 'id');
+    }
+
+    public function kronologis() {
+        return $this->hasMany('App\Models\Kronologis', 'admin_id', 'id');
+    }
+
     public function getRoleAttribute()
     {
         return new RoleResource($this->role()->first());
