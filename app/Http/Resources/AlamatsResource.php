@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Alamats;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,6 +15,9 @@ class AlamatsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        $model = new Alamats();
+
+        return $model->resourceData($this);
+        //return parent::toArray($request);
     }
 }

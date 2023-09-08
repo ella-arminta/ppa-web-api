@@ -22,6 +22,20 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'glenn@test.com',
         //     'password' => bcrypt('password'),
         // ]);
+        // $this->run();
+        $this->call([
+            KronologiSeeder::class,
+            AlamatSeeder::class,
+            KelurahanSeeder::class,
+            KecamatanSeeder::class,
+            PendidikanSeeder::class,
+            StatusSeeder::class,
+            UserSeeder::class,
+            RolesSeeder::class,
+            LaporanSeeder::class,
+            ProgressReportSeeder::class,
+            KategoriSeeder::class,
+        ]);
         User::create([
             'name' => 'Glenn Steven',
             'email' => 'glenn@test.com',
