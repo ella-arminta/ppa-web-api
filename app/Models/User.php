@@ -3,8 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\ModelUtils;
+use App\Repositories\UserRepository;
+use App\Services\UserService;
+use App\Http\Resources\UserResource;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -13,7 +21,7 @@ use App\Http\Resources\API\RoleResource;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasUuids;
 
     protected $table = 'users';
     /**
@@ -49,27 +57,85 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function service() {
-
+    public static function validationRules()
+    {
+        return [];
     }
 
-    public function repository() {
-
+    /**
+     * Messages that applied in this model
+     *
+     * @var array
+     */
+    public static function validationMessages()
+    {
+        return [];
     }
 
-    public function resource() {
-
+    /**
+     * Filter data that will be saved in this model
+     *
+     * @var array
+     */
+    public function resourceData($request)
+    {
+        return ModelUtils::filterNullValues([]);
     }
 
 
-    public static function resourceData($request) {
+    /**
+     * Controller associated with this model
+     *
+     * @var string
+     */
+
+    public function controller()
+    {
+        return 'App\Http\Controllers\UserController';
+    }
+
+    /**
+     * Service associated with this model
+     *
+     * @var object Service
+     */
+    public function service()
+    {
+        return new UserService($this);
+    }
+
+    /**
+     * Repository associated with this model
+     *
+     * @var object Repository
+     */
+    public function repository()
+    {
+        return new UserRepository($this);
+    }
+
+    /**
+     * Resource associated with this model
+     *
+     * @var object Resource
+     */
+
+    public function resource()
+    {
+        return new UserResource($this);
+    }
+
+    /**
+    * Relations associated with this model
+    *
+    * @var array
+    */
+
+    
+    public function relations() {
         return [
-            'id' => $request->id,
-            'nama' => $request->nama,
-            'no_telp' => $request->no_telp,
-            'email' => $request->email,
-            // 'role_id' => $request->role_id,
-            'role' => new RoleResource($request->role),
+            'role',
+            'laporans',
         ];
     }
 
@@ -78,9 +144,13 @@ class User extends Authenticatable
         return $this->belongsTo(Roles::class, 'role_id', 'id');
     }
 
-    public function relations() {
-        return [
-            'role'
-        ];
+    public function laporans()
+    {
+        return $this->hasMany('App\Models\Laporans', 'user_id', 'id');
+    }
+
+    public function getRoleAttribute()
+    {
+        return new RoleResource($this->role()->first());
     }
 }

@@ -1,18 +1,21 @@
 <?php
 
-namespace App\Models{{ classDirectory }};
+namespace App\Models;
 
+use App\Models\Laporans;
+use App\Models\Kelurahans;
 use App\Models\ModelUtils;
-use App\Repositories{{ classDirectory }}\{{ class }}Repository;
-use App\Services{{ classDirectory }}\{{ class }}Service;
-use App\Http\Resources{{ classDirectory }}\{{ class }}Resource;
+
+use App\Repositories\AlamatsRepository;
+use App\Services\AlamatsService;
+use App\Http\Resources\AlamatsResource;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class {{ class }} extends Model
+class Alamats extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -62,7 +65,7 @@ class {{ class }} extends Model
 
     public function controller()
     {
-        return 'App\Http\Controllers{{ classDirectory }}\{{ class }}Controller';
+        return 'App\Http\Controllers\AlamatsController';
     }
 
     /**
@@ -72,7 +75,7 @@ class {{ class }} extends Model
      */
     public function service()
     {
-        return new {{ class }}Service($this);
+        return new AlamatsService($this);
     }
 
     /**
@@ -82,7 +85,7 @@ class {{ class }} extends Model
      */
     public function repository()
     {
-        return new {{ class }}Repository($this);
+        return new AlamatsRepository($this);
     }
 
     /**
@@ -93,7 +96,7 @@ class {{ class }} extends Model
 
     public function resource()
     {
-        return new {{ class }}Resource($this);
+        return new AlamatsResource($this);
     }
 
     /**
@@ -103,7 +106,17 @@ class {{ class }} extends Model
     */
     public function relations()
     {
-        return [];
+        return [
+            'laporan',
+            'kelurahan',
+        ];
     }
 
+    public function laporans() {
+        return $this->hasMany(Laporans::class, 'alamat_id', 'id');
+    }
+
+    public function kelurahan() {
+        return $this->belongsTo(Kelurahans::class, 'kelurahan_id', 'id');
+    }
 }

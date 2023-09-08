@@ -1,18 +1,20 @@
 <?php
 
-namespace App\Models{{ classDirectory }};
+namespace App\Models;
 
 use App\Models\ModelUtils;
-use App\Repositories{{ classDirectory }}\{{ class }}Repository;
-use App\Services{{ classDirectory }}\{{ class }}Service;
-use App\Http\Resources{{ classDirectory }}\{{ class }}Resource;
+use App\Models\Laporan;
+
+use App\Repositories\KronologisRepository;
+use App\Services\KronologisService;
+use App\Http\Resources\KronologisResource;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class {{ class }} extends Model
+class Kronologis extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -62,7 +64,7 @@ class {{ class }} extends Model
 
     public function controller()
     {
-        return 'App\Http\Controllers{{ classDirectory }}\{{ class }}Controller';
+        return 'App\Http\Controllers\KronologisController';
     }
 
     /**
@@ -72,7 +74,7 @@ class {{ class }} extends Model
      */
     public function service()
     {
-        return new {{ class }}Service($this);
+        return new KronologisService($this);
     }
 
     /**
@@ -82,7 +84,7 @@ class {{ class }} extends Model
      */
     public function repository()
     {
-        return new {{ class }}Repository($this);
+        return new KronologisRepository($this);
     }
 
     /**
@@ -93,7 +95,7 @@ class {{ class }} extends Model
 
     public function resource()
     {
-        return new {{ class }}Resource($this);
+        return new KronologisResource($this);
     }
 
     /**
@@ -103,7 +105,14 @@ class {{ class }} extends Model
     */
     public function relations()
     {
-        return [];
+        return [
+            'laporan',
+        ];
+    }
+
+    public function laporan()
+    {
+        return $this->belongsTo(Laporan::class, 'laporan_id', 'id');
     }
 
 }

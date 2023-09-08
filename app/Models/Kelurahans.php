@@ -1,18 +1,21 @@
 <?php
 
-namespace App\Models{{ classDirectory }};
+namespace App\Models;
 
+use App\Models\Kecamatans;
+use App\Models\Alamats;
 use App\Models\ModelUtils;
-use App\Repositories{{ classDirectory }}\{{ class }}Repository;
-use App\Services{{ classDirectory }}\{{ class }}Service;
-use App\Http\Resources{{ classDirectory }}\{{ class }}Resource;
+
+use App\Repositories\KelurahansRepository;
+use App\Services\KelurahansService;
+use App\Http\Resources\KelurahansResource;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class {{ class }} extends Model
+class Kelurahans extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -62,7 +65,7 @@ class {{ class }} extends Model
 
     public function controller()
     {
-        return 'App\Http\Controllers{{ classDirectory }}\{{ class }}Controller';
+        return 'App\Http\Controllers\KelurahansController';
     }
 
     /**
@@ -72,7 +75,7 @@ class {{ class }} extends Model
      */
     public function service()
     {
-        return new {{ class }}Service($this);
+        return new KelurahansService($this);
     }
 
     /**
@@ -82,7 +85,7 @@ class {{ class }} extends Model
      */
     public function repository()
     {
-        return new {{ class }}Repository($this);
+        return new KelurahansRepository($this);
     }
 
     /**
@@ -93,7 +96,7 @@ class {{ class }} extends Model
 
     public function resource()
     {
-        return new {{ class }}Resource($this);
+        return new KelurahansResource($this);
     }
 
     /**
@@ -103,7 +106,18 @@ class {{ class }} extends Model
     */
     public function relations()
     {
-        return [];
+        return [
+            'kecamatan',
+            'alamats'
+        ];
+    }
+
+    public function kecamatan() {
+        return $this->belongsTo(Kecamatans::class, 'kecamatan_id', 'id');
+    }
+
+    public function alamats() {
+        return $this->hasMany(Alamats::class, 'kelurahan_id', 'id');
     }
 
 }

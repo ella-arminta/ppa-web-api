@@ -44,7 +44,7 @@ model:
 
 # Create new migration
 migration:
-	@read -p 'Migration name: ' migration; \
+	@read -p 'Migration name: ' migration;
 	@read -p 'Table target : ' table; \
 	${ARTISAN} make:migration $$migration --table=$$table
 
@@ -73,6 +73,6 @@ middleware:
 	@read -p 'Middleware name: ' middleware; \
 	${ARTISAN} make:middleware $$middleware
 
-service:
-	@read -p 'Service name: ' service; \
-	${ARTISAN} make:service $$service
+custom:
+	@read -p 'Custom name: ' custom; \
+	${ARTISAN} make:custom $$custom

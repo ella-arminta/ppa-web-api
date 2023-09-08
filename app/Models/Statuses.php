@@ -117,7 +117,13 @@ class Statuses extends Model
     */
     public function relations()
     {
-        return [];
+        return [
+            'laporans',
+        ];
+    }
+
+    public function laporans() {
+        return $this->hasMany('App\Models\Laporans', 'status_id', 'id');
     }
 
 }

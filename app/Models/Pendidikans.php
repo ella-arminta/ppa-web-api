@@ -117,7 +117,13 @@ class Pendidikans extends Model
     */
     public function relations()
     {
-        return [];
+        return [
+            'laporans',
+        ];
+    }
+
+    public function laporans() {
+        return $this->hasMany('App\Models\Laporans', 'pendidikan_id', 'id');        
     }
 
 }
