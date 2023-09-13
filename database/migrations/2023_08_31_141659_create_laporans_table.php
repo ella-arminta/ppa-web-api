@@ -18,11 +18,11 @@ return new class extends Migration
             $table->string('nama_korban');
             $table->string('nama_pelapor');
             $table->tinyInteger('usia');
-            $table->foreignIdFor('App\Models\Kategori', 'kategori_id');
+            $table->foreignIdFor('App\Models\Kategoris', 'kategori_id');
             $table->foreignIdFor('App\Models\Alamats', 'alamat_id');
             $table->char('jenis_kelamin', 1);
-            $table->foreignIdFor('App\Models\User', 'satgas_pelapor_id');
-            $table->foreignIdFor('App\Models\User', 'previous_satgas_id');
+            $table->foreignUuid('satgas_pelapor_id');
+            $table->foreignUuid('previous_satgas_id');
             $table->foreignIdFor('App\Models\Statuses', 'status_id');
             $table->string('token', 8);
             $table->foreignIdFor('App\Models\Pendidikans', 'pendidikan_id');

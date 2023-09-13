@@ -1,9 +1,13 @@
 ARTISAN = php artisan
 
 # Init file
-.PHONY: package start clear-cache cache controller api resource model migration seeder base util dump middleware
+.PHONY: package start clear-cache cache controller api resource model migration seeder base util dump middleware fresh seed
 
 first : migrate start
+
+migrate: fresh seed
+
+clear: clear-cache cache
 
 init:
 	composer install
@@ -11,7 +15,7 @@ init:
 	${ARTISAN} key:generate
 
 start:
-	${ARTISAN} serve --port=8000
+	${ARTISAN} serve
 
 clear-cache:
 	${ARTISAN} cache:clear
@@ -48,8 +52,11 @@ migration:
 	@read -p 'Table target : ' table; \
 	${ARTISAN} make:migration $$migration --table=$$table
 
-migrate:
-	${ARTISAN} migrate:fresh --seed
+fresh:
+	${ARTISAN} migrate:fresh
+
+seed:
+	${ARTISAN} db:seed
 
 # Create new seeder
 seeder:

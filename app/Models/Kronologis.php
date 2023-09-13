@@ -23,7 +23,11 @@ class Kronologis extends Model
      *
      * @var array
      */
-    protected $fillable; 
+    protected $fillable = [
+        'laporan_id',
+        'admin_id',
+        'isi',
+    ]; 
 
     /**
      * Rules that applied in this model

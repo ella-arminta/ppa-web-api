@@ -11,11 +11,12 @@ class BaseRepository {
     }
 
     public function getAll() {
-        return $this->model->all();
+        return $this->model->with($this->model->relations())->get();
     }
 
     public function getById($id) {
-        return $this->model->findOrFail($id);
+        return $this->model->with($this->model->relations())->find($id);
+        // return $this->model->findOrFail($id)->with($this->model->relations())->first();
     }
 
     public function create($data) {

@@ -24,7 +24,10 @@ class Kelurahans extends Model
      *
      * @var array
      */
-    protected $fillable; 
+    protected $fillable = [
+        'nama',
+        'kecamatan_id',
+    ];
 
     /**
      * Rules that applied in this model
@@ -33,7 +36,10 @@ class Kelurahans extends Model
      */
     public static function validationRules()
     {
-        return [];
+        return [
+            'nama' => 'required',
+            'kecamatan_id' => 'required'
+        ];
     }
 
     /**
@@ -43,7 +49,10 @@ class Kelurahans extends Model
      */
     public static function validationMessages()
     {
-        return [];
+        return [
+            'nama.required' => 'Nama Kelurahan tidak boleh kosong',
+            'kecamatan_id.required' => 'Kecamatan tidak boleh kosong'
+        ];
     }
 
     /**
@@ -53,7 +62,10 @@ class Kelurahans extends Model
      */
     public function resourceData($request)
     {
-        return ModelUtils::filterNullValues([]);
+        return ModelUtils::filterNullValues([
+            'id' => $request->id,
+            'nama' => $request->nama,
+        ]);
     }
 
 
@@ -100,10 +112,10 @@ class Kelurahans extends Model
     }
 
     /**
-    * Relations associated with this model
-    *
-    * @var array
-    */
+     * Relations associated with this model
+     *
+     * @var array
+     */
     public function relations()
     {
         return [
@@ -112,12 +124,13 @@ class Kelurahans extends Model
         ];
     }
 
-    public function kecamatan() {
+    public function kecamatan()
+    {
         return $this->belongsTo(Kecamatans::class, 'kecamatan_id', 'id');
     }
 
-    public function alamats() {
+    public function alamats()
+    {
         return $this->hasMany(Alamats::class, 'kelurahan_id', 'id');
     }
-
 }

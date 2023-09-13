@@ -22,7 +22,9 @@ class Kategoris extends Model
      *
      * @var array
      */
-    protected $fillable; 
+    protected $fillable = [
+        'nama'
+    ]; 
 
     /**
      * Rules that applied in this model

@@ -8,6 +8,7 @@ use App\Models\Kelurahans;
 use App\Repositories\KecamatansRepository;
 use App\Services\KecamatansService;
 use App\Http\Resources\KecamatansResource;
+use App\Http\Resources\KelurahansResource;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +24,9 @@ class Kecamatans extends Model
      *
      * @var array
      */
-    protected $fillable; 
+    protected $fillable = [
+        'nama'
+    ]; 
 
     /**
      * Rules that applied in this model
@@ -32,17 +35,21 @@ class Kecamatans extends Model
      */
     public static function validationRules()
     {
-        return [];
+        return [
+            'nama' => 'required'
+        ];
     }
 
     /**
      * Messages that applied in this model
-     *
+    *
      * @var array
      */
     public static function validationMessages()
     {
-        return [];
+        return [
+            'nama.required' => 'Nama Kecamatan tidak boleh kosong'
+        ];
     }
 
     /**
@@ -52,7 +59,13 @@ class Kecamatans extends Model
      */
     public function resourceData($request)
     {
-        return ModelUtils::filterNullValues([]);
+        return ModelUtils::filterNullValues([
+            'id' => $request->id,
+            'nama' => $request->nama,
+            // 'kelurahans' => $request->kelurahans ? new KelurahansResource($request->kelurahans) : null,
+            'kelurahans' => $request->kelurahans ? KelurahansResource::collection($request->kelurahans) : null,
+            // 'kelurahans' => $request->kelurahans,
+        ]);
     }
 
 

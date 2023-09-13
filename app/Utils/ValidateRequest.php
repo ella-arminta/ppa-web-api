@@ -13,8 +13,8 @@ trait ValidateRequest {
             throw new BadRequestException('Terdapat kesalahan pada request body (kosong)');
         }
 
-        $rules = $model->rules();
-        $messages = $model->messages();
+        $rules = $model->validationRules();
+        $messages = $model->validationMessages();
 
         $validator = Validator::make(
             $request, 

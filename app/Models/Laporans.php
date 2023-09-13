@@ -21,7 +21,21 @@ class Laporans extends Model
      *
      * @var array
      */
-    protected $fillable; 
+    protected $fillable = [
+        'judul',
+        'no_telp_pelapor',
+        'nama_korban',
+        'nama_pelapor',
+        'usia',
+        'kategori_id',
+        'alamat_id',
+        'jenis_kelamin',
+        'satgas_pelapor_id',
+        'previous_satgas_id',
+        'status_id',
+        'token',
+        'pendidikan_id',
+    ];
 
     /**
      * Rules that applied in this model
@@ -97,10 +111,10 @@ class Laporans extends Model
     }
 
     /**
-    * Relations associated with this model
-    *
-    * @var array
-    */
+     * Relations associated with this model
+     *
+     * @var array
+     */
     public function relations()
     {
         return [
@@ -114,35 +128,43 @@ class Laporans extends Model
         ];
     }
 
-    public function alamat() {
+    public function alamat()
+    {
         return $this->belongsTo('App\Models\Alamats', 'alamat_id', 'id');
     }
 
-    public function kronologis() {
+    public function kronologis()
+    {
         return $this->hasMany('App\Models\Kronologis', 'laporan_id', 'id');
     }
 
-    public function progress_reports() {
+    public function progress_reports()
+    {
         return $this->hasMany('App\Models\ProgressReports', 'laporan_id', 'id');
     }
 
-    public function kategori() {
+    public function kategori()
+    {
         return $this->belongsTo('App\Models\Kategoris', 'kategori_id', 'id');
     }
-    
-    public function satgas_pelapor() {
+
+    public function satgas_pelapor()
+    {
         return $this->belongsTo('App\Models\User', 'satgas_pelapor_id', 'id');
     }
 
-    public function previous_satgas() {
+    public function previous_satgas()
+    {
         return $this->belongsTo('App\Models\User', 'previous_satgas_id', 'id');
     }
 
-    public function status() {
+    public function status()
+    {
         return $this->belongsTo('App\Models\Statuses', 'status_id', 'id');
     }
-    
-    public function pendidikan() {
+
+    public function pendidikan()
+    {
         return $this->belongsTo('App\Models\Pendidikans', 'pendidikan_id', 'id');
     }
 }

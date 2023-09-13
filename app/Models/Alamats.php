@@ -24,7 +24,12 @@ class Alamats extends Model
      *
      * @var array
      */
-    protected $fillable; 
+    protected $fillable = [
+        'nama',
+        'rt',
+        'rw',
+        'kelurahan_id',
+    ];
 
     /**
      * Rules that applied in this model
@@ -100,10 +105,10 @@ class Alamats extends Model
     }
 
     /**
-    * Relations associated with this model
-    *
-    * @var array
-    */
+     * Relations associated with this model
+     *
+     * @var array
+     */
     public function relations()
     {
         return [
@@ -112,11 +117,13 @@ class Alamats extends Model
         ];
     }
 
-    public function laporans() {
+    public function laporans()
+    {
         return $this->hasMany(Laporans::class, 'alamat_id', 'id');
     }
 
-    public function kelurahan() {
+    public function kelurahan()
+    {
         return $this->belongsTo(Kelurahans::class, 'kelurahan_id', 'id');
     }
 }

@@ -21,7 +21,12 @@ class ProgressReports extends Model
      *
      * @var array
      */
-    protected $fillable; 
+    protected $fillable = [
+        'laporan_id',
+        'admin_id',
+        'isi',
+        'is_menyerah',
+    ];
 
     /**
      * Rules that applied in this model
@@ -97,10 +102,10 @@ class ProgressReports extends Model
     }
 
     /**
-    * Relations associated with this model
-    *
-    * @var array
-    */
+     * Relations associated with this model
+     *
+     * @var array
+     */
     public function relations()
     {
         return [
@@ -108,12 +113,13 @@ class ProgressReports extends Model
         ];
     }
 
-    public function laporan() {
+    public function laporan()
+    {
         return $this->belongsTo('App\Models\Laporans', 'laporan_id', 'id');
     }
 
-    public function admin() {
+    public function admin()
+    {
         return $this->belongsTo('App\Models\User', 'admin_id', 'id');
     }
-
 }
