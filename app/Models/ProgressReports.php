@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Http\Resources\API\LaporanResource;
 use App\Models\ModelUtils;
 use App\Repositories\ProgressReportsRepository;
 use App\Services\ProgressReportsService;
 use App\Http\Resources\ProgressReportsResource;
+use App\Http\Resources\UserResource;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -35,7 +37,12 @@ class ProgressReports extends Model
      */
     public static function validationRules()
     {
-        return [];
+        return [
+            'laporan_id' => 'required',
+            'admin_id' => 'required',
+            'isi' => 'required',
+            // 'is_menyerah' => 'required',
+        ];
     }
 
     /**
@@ -45,7 +52,12 @@ class ProgressReports extends Model
      */
     public static function validationMessages()
     {
-        return [];
+        return [
+            'laporan_id.required' => 'Laporan tidak boleh kosong',
+            'admin_id.required' => 'Admin tidak boleh kosong',
+            'isi.required' => 'Isi tidak boleh kosong',
+            // 'is_menyerah.required' => 'Is menyerah tidak boleh kosong',
+        ];
     }
 
     /**
@@ -55,7 +67,13 @@ class ProgressReports extends Model
      */
     public function resourceData($request)
     {
-        return ModelUtils::filterNullValues([]);
+        return ModelUtils::filterNullValues([
+            'id' => $request->id,
+            'isi' => $request->isi,
+            'isMenyerah' => $request->is_menyerah,
+            'laporan' => new LaporanResource($request->laporan),
+            'admin' => new UserResource($request->admin),
+        ]);
     }
 
 

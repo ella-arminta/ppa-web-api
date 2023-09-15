@@ -83,3 +83,10 @@ middleware:
 custom:
 	@read -p 'Custom name: ' custom; \
 	${ARTISAN} make:custom $$custom
+
+test:
+	@read -p 'Test name: ' test; \
+	${ARTISAN} make:test $$test --unit
+
+runTest:
+	${ARTISAN} test --testsuite=Unit

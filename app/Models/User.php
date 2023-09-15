@@ -18,6 +18,9 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 use App\Http\Resources\API\RoleResource;
+use App\Http\Resources\KronologisResource;
+use App\Http\Resources\LaporansResource;
+use App\Http\Resources\ProgressReportsResource;
 
 class User extends Authenticatable
 {
@@ -59,7 +62,13 @@ class User extends Authenticatable
 
     public static function validationRules()
     {
-        return [];
+        return [
+            'nama' => 'required',
+            'no_telp' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'role_id' => 'required',
+        ];
     }
 
     /**
@@ -69,7 +78,13 @@ class User extends Authenticatable
      */
     public static function validationMessages()
     {
-        return [];
+        return [
+            'nama.required' => 'Nama tidak boleh kosong',
+            'no_telp.required' => 'No Telp tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
+            'password.required' => 'Password tidak boleh kosong',
+            'role_id.required' => 'Role tidak boleh kosong',
+        ];
     }
 
     /**
@@ -79,7 +94,16 @@ class User extends Authenticatable
      */
     public function resourceData($request)
     {
-        return ModelUtils::filterNullValues([]);
+        return ModelUtils::filterNullValues([
+            'id' => $request->id,
+            'nama' => $request->nama,
+            // 'noTelp' => $request->no_telp,
+            'email' => $request->email,
+            'role' => new RoleResource($request->role),
+            'kronologis' => KronologisResource::collection($request->kronologis),
+            'laporans' => LaporansResource::collection($request->laporans),
+            'progressReports' => ProgressReportsResource::collection($request->progress_reports),
+        ]);
     }
 
 
@@ -157,8 +181,8 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Kronologis', 'admin_id', 'id');
     }
 
-    public function getRoleAttribute()
-    {
-        return new RoleResource($this->role()->first());
-    }
+    // public function getRoleAttribute()
+    // {
+    //     return new RoleResource($this->role()->first());
+    // }
 }

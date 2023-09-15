@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
+use App\Http\Resources\AlamatsResource;
+use App\Http\Resources\API\KategoriResource;
+use App\Http\Resources\KategorisResource;
+use App\Http\Resources\KronologisResource;
 use App\Models\ModelUtils;
 use App\Repositories\LaporansRepository;
 use App\Services\LaporansService;
 use App\Http\Resources\LaporansResource;
+use App\Http\Resources\ProgressReportsResource;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,6 +34,7 @@ class Laporans extends Model
         'usia',
         'kategori_id',
         'alamat_id',
+        'pendidikan_id',
         'jenis_kelamin',
         'satgas_pelapor_id',
         'previous_satgas_id',
@@ -44,7 +50,16 @@ class Laporans extends Model
      */
     public static function validationRules()
     {
-        return [];
+        return [
+            'judul' => 'required',
+            'no_telp_pelapor' => 'required',
+            'nama_korban' => 'required',
+            'nama_pelapor' => 'required',
+            'usia' => 'required',
+            'kategori_id' => 'required',
+            'alamat_id' => 'required',
+            'jenis_kelamin' => 'required',
+        ];
     }
 
     /**
@@ -54,7 +69,16 @@ class Laporans extends Model
      */
     public static function validationMessages()
     {
-        return [];
+        return [
+            'judul.required' => 'Judul tidak boleh kosong',
+            'no_telp_pelapor.required' => 'Nomor telepon pelapor tidak boleh kosong',
+            'nama_korban.required' => 'Nama korban tidak boleh kosong',
+            'nama_pelapor.required' => 'Nama pelapor tidak boleh kosong',
+            'usia.required' => 'Usia tidak boleh kosong',
+            'kategori_id.required' => 'Kategori tidak boleh kosong',
+            'alamat_id.required' => 'Alamat tidak boleh kosong',
+            'jenis_kelamin.required' => 'Jenis kelamin tidak boleh kosong',
+        ];
     }
 
     /**
@@ -64,7 +88,19 @@ class Laporans extends Model
      */
     public function resourceData($request)
     {
-        return ModelUtils::filterNullValues([]);
+        return ModelUtils::filterNullValues([
+            'id' => $request->id,
+            'judul' => $request->judul,
+            'noTelpPelapor' => $request->no_telp_pelapor,
+            'namaKorban' => $request->nama_korban,
+            'namaPelapor' => $request->nama_pelapor,
+            'usia' => $request->usia,
+            'kategori' => new KategorisResource($request->kategori),
+            'alamat' => new AlamatsResource($request->alamat),
+            'jenisKelamin' => $request->jenis_kelamin,
+            'kronologis' => KronologisResource::collection($request->kronologis),
+            'progress_reports' => ProgressReportsResource::collection($request->progress_reports),
+        ]);
     }
 
 

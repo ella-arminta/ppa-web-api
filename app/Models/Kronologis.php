@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Http\Resources\UserResource;
 use App\Models\ModelUtils;
 use App\Models\Laporan;
 
 use App\Repositories\KronologisRepository;
 use App\Services\KronologisService;
 use App\Http\Resources\KronologisResource;
+use App\Http\Resources\LaporansResource;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,7 +29,7 @@ class Kronologis extends Model
         'laporan_id',
         'admin_id',
         'isi',
-    ]; 
+    ];
 
     /**
      * Rules that applied in this model
@@ -36,7 +38,11 @@ class Kronologis extends Model
      */
     public static function validationRules()
     {
-        return [];
+        return [
+            'laporan_id' => 'required',
+            'admin_id' => 'required',
+            'isi' => 'required',
+        ];
     }
 
     /**
@@ -46,7 +52,11 @@ class Kronologis extends Model
      */
     public static function validationMessages()
     {
-        return [];
+        return [
+            'laporan_id.required' => 'Laporan tidak boleh kosong',
+            'admin_id.required' => 'Admin tidak boleh kosong',
+            'isi.required' => 'Isi tidak boleh kosong',
+        ];
     }
 
     /**
@@ -56,7 +66,12 @@ class Kronologis extends Model
      */
     public function resourceData($request)
     {
-        return ModelUtils::filterNullValues([]);
+        return ModelUtils::filterNullValues([
+            'id' => $request->id,
+            'isi' => $request->isi,
+            'laporan' => new LaporansResource($request->laporan),
+            'admin' => new UserResource($request->admin),
+        ]);
     }
 
 
@@ -103,10 +118,10 @@ class Kronologis extends Model
     }
 
     /**
-    * Relations associated with this model
-    *
-    * @var array
-    */
+     * Relations associated with this model
+     *
+     * @var array
+     */
     public function relations()
     {
         return [
@@ -119,8 +134,8 @@ class Kronologis extends Model
         return $this->belongsTo(Laporan::class, 'laporan_id', 'id');
     }
 
-    public function admin() {
+    public function admin()
+    {
         return $this->belongsTo('App\Models\User', 'admin_id', 'id');
     }
-
 }

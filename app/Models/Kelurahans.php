@@ -55,6 +55,13 @@ class Kelurahans extends Model
         ];
     }
 
+    public function test()
+    {
+        return [
+            'nama' => str()->random(5),
+        ];
+    }
+
     /**
      * Filter data that will be saved in this model
      *

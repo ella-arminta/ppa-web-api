@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Resources\LaporansResource;
 use App\Models\ModelUtils;
 use App\Repositories\StatusesRepository;
 use App\Services\StatusesService;
@@ -64,6 +65,7 @@ class Statuses extends Model
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'nama' => $request->nama,
+            'laporans' => LaporansResource::collection($request->laporans),
         ]);
     }
 

@@ -7,6 +7,7 @@ use App\Models\Laporans;
 use App\Repositories\KategorisRepository;
 use App\Services\KategorisService;
 use App\Http\Resources\KategorisResource;
+use App\Http\Resources\LaporansResource;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -33,7 +34,9 @@ class Kategoris extends Model
      */
     public static function validationRules()
     {
-        return [];
+        return [
+            'nama' => 'required',
+        ];
     }
 
     /**
@@ -43,7 +46,9 @@ class Kategoris extends Model
      */
     public static function validationMessages()
     {
-        return [];
+        return [
+            'nama.required' => 'Nama tidak boleh kosong',
+        ];
     }
 
     /**
@@ -53,7 +58,11 @@ class Kategoris extends Model
      */
     public function resourceData($request)
     {
-        return ModelUtils::filterNullValues([]);
+        return ModelUtils::filterNullValues([
+            'id' => $request->id,
+            'nama' => $request->nama,
+            'laporans' => LaporansResource::collection($request->laporans)
+        ]);
     }
 
 

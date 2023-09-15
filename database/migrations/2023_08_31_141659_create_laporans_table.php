@@ -21,13 +21,22 @@ return new class extends Migration
             $table->foreignIdFor('App\Models\Kategoris', 'kategori_id');
             $table->foreignIdFor('App\Models\Alamats', 'alamat_id');
             $table->char('jenis_kelamin', 1);
-            $table->foreignUuid('satgas_pelapor_id');
-            $table->foreignUuid('previous_satgas_id');
-            $table->foreignIdFor('App\Models\Statuses', 'status_id');
+            $table->foreignUuid('satgas_pelapor_id')
+            ->references('id')
+            ->on('users')
+            ->onDelete('cascade')
+            ->nullable();
+            $table->foreignUuid('previous_satgas_id')
+            ->references('id')
+            ->on('users')
+            ->onDelete('cascade')
+            ->nullable();
+            $table->foreignIdFor('App\Models\Statuses', 'status_id')->default(1);
             $table->string('token', 8);
             $table->foreignIdFor('App\Models\Pendidikans', 'pendidikan_id');
             $table->timestamps();
             $table->softDeletes();
+
         });
     }
 

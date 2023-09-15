@@ -52,6 +52,13 @@ class Kecamatans extends Model
         ];
     }
 
+    public function test()
+    {
+        return [
+            'nama' => 'Kecamatan ' . str()->random(10),
+        ];
+    }
+
     /**
      * Filter data that will be saved in this model
      *

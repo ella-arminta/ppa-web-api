@@ -6,9 +6,11 @@ use App\Models\Laporans;
 use App\Models\Kelurahans;
 use App\Models\ModelUtils;
 
+
 use App\Repositories\AlamatsRepository;
 use App\Services\AlamatsService;
 use App\Http\Resources\AlamatsResource;
+use App\Http\Resources\KelurahansResource;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,7 +40,12 @@ class Alamats extends Model
      */
     public static function validationRules()
     {
-        return [];
+        return [
+            'nama' => 'required',
+            'rt' => 'required',
+            'rw' => 'required',
+            'kelurahan_id' => 'required',
+        ];
     }
 
     /**
@@ -48,7 +55,12 @@ class Alamats extends Model
      */
     public static function validationMessages()
     {
-        return [];
+        return [
+            'nama.required' => 'Nama tidak boleh kosong',
+            'rt.required' => 'RT tidak boleh kosong',
+            'rw.required' => 'RW tidak boleh kosong',
+            'kelurahan_id.required' => 'Kelurahan tidak boleh kosong',
+        ];
     }
 
     /**
@@ -58,7 +70,13 @@ class Alamats extends Model
      */
     public function resourceData($request)
     {
-        return ModelUtils::filterNullValues([]);
+        return ModelUtils::filterNullValues([
+            'id' => $request->id,
+            'nama' => $request->nama,
+            'rt' => $request->rt,
+            'rw' => $request->rw,
+            'kelurahan' => new KelurahansResource($request->kelurahan),
+        ]);
     }
 
 

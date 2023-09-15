@@ -32,7 +32,9 @@ class Roles extends Model
      */
     public static function validationRules()
     {
-        return [];
+        return [
+            'nama' => 'required',
+        ];
     }
 
     /**
@@ -42,7 +44,9 @@ class Roles extends Model
      */
     public static function validationMessages()
     {
-        return [];
+        return [
+            'nama.required' => 'Nama tidak boleh kosong',
+        ];
     }
 
     /**
@@ -52,7 +56,10 @@ class Roles extends Model
      */
     public function resourceData($request)
     {
-        return ModelUtils::filterNullValues([]);
+        return ModelUtils::filterNullValues([
+            'id' => $request->id,
+            'nama' => $request->nama,
+        ]);
     }
 
 
