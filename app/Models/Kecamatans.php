@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use function PHPSTORM_META\type;
 
 class Kecamatans extends Model
 {
@@ -66,12 +67,11 @@ class Kecamatans extends Model
      */
     public function resourceData($request)
     {
+        $withKelurahan = request()->withKelurahan ?? 1;
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'nama' => $request->nama,
-            // 'kelurahans' => $request->kelurahans ? new KelurahansResource($request->kelurahans) : null,
-            'kelurahans' => $request->kelurahans ? KelurahansResource::collection($request->kelurahans) : null,
-            // 'kelurahans' => $request->kelurahans,
+            'kelurahans' => (int)$withKelurahan == 1 ? KelurahansResource::collection($request->kelurahans) : null,
         ]);
     }
 

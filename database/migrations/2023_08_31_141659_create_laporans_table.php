@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('no_telp_pelapor');
             $table->string('nama_korban');
             $table->string('nama_pelapor');
+            $table->boolean('validated')->default(false);
             $table->tinyInteger('usia');
             $table->foreignIdFor('App\Models\Kategoris', 'kategori_id');
             $table->foreignIdFor('App\Models\Alamats', 'alamat_id');
