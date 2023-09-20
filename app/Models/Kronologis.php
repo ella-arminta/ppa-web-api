@@ -39,9 +39,9 @@ class Kronologis extends Model
     public static function validationRules()
     {
         return [
-            'laporan_id' => 'required',
-            'admin_id' => 'required',
-            'isi' => 'required',
+            'laporan_id' => 'required|exists:laporans,id',
+            'admin_id' => 'required|exists:users,id',
+            'isi' => 'required|string|min:3',
         ];
     }
 
@@ -54,8 +54,12 @@ class Kronologis extends Model
     {
         return [
             'laporan_id.required' => 'Laporan tidak boleh kosong',
+            'laporan_id.exists' => 'Laporan tidak ditemukan',
             'admin_id.required' => 'Admin tidak boleh kosong',
+            'admin_id.exists' => 'Admin tidak ditemukan',
             'isi.required' => 'Isi tidak boleh kosong',
+            'isi.string' => 'Isi harus berupa tulisan latin',
+            'isi.min' => 'Isi minimal 3 karakter',
         ];
     }
 

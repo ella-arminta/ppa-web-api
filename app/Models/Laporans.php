@@ -52,13 +52,13 @@ class Laporans extends Model
     {
         return [
             'judul' => 'required',
-            'no_telp_pelapor' => 'required',
-            'nama_korban' => 'required',
-            'nama_pelapor' => 'required',
-            'usia' => 'required',
-            'kategori_id' => 'required',
-            'alamat_id' => 'required',
-            'jenis_kelamin' => 'required',
+            'no_telp_pelapor' => 'required}|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/g',
+            'nama_korban' => 'required|regex:/^[a-zA-Z ]*$/|min:3',
+            'nama_pelapor' => 'required|regex:/^[a-zA-Z ]*$/|min:3',
+            'usia' => 'required|numeric|min:1',
+            'kategori_id' => 'required|numeric|min:1|exists:kategoris,id',
+            'alamat_id' => 'required|numeric|min:1|exists:alamats,id',
+            'jenis_kelamin' => 'required|in:L,P',
         ];
     }
 
@@ -72,12 +72,26 @@ class Laporans extends Model
         return [
             'judul.required' => 'Judul tidak boleh kosong',
             'no_telp_pelapor.required' => 'Nomor telepon pelapor tidak boleh kosong',
+            'no_telp_pelapor.regex' => 'Nomor telepon pelapor tidak valid',
             'nama_korban.required' => 'Nama korban tidak boleh kosong',
+            'nama_korban.regex' => 'Nama korban tidak valid',
+            'nama_korban.min' => 'Nama korban minimal 3 karakter',
             'nama_pelapor.required' => 'Nama pelapor tidak boleh kosong',
+            'nama_pelapor.regex' => 'Nama pelapor tidak valid',
+            'nama_pelapor.min' => 'Nama pelapor minimal 3 karakter',
             'usia.required' => 'Usia tidak boleh kosong',
+            'usia.numeric' => 'Usia harus berupa angka',
+            'usia.min' => 'Usia minimal 1 tahun',
             'kategori_id.required' => 'Kategori tidak boleh kosong',
+            'kategori_id.numeric' => 'Kategori harus berupa angka',
+            'kategori_id.min' => 'Kategori tidak valid',
+            'kategori_id.exists' => 'Kategori tidak valid',
             'alamat_id.required' => 'Alamat tidak boleh kosong',
+            'alamat_id.numeric' => 'Alamat harus berupa angka',
+            'alamat_id.min' => 'Alamat tidak valid',
+            'alamat_id.exists' => 'Alamat tidak valid',
             'jenis_kelamin.required' => 'Jenis kelamin tidak boleh kosong',
+            'jenis_kelamin.in' => 'Jenis kelamin harus L atau P',
         ];
     }
 

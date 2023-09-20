@@ -37,12 +37,13 @@ class ProgressReports extends Model
      */
     public static function validationRules()
     {
-        return [
-            'laporan_id' => 'required',
-            'admin_id' => 'required',
-            'isi' => 'required',
-            // 'is_menyerah' => 'required',
+         return [
+            'laporan_id' => 'required|exists:laporans,id',
+            'admin_id' => 'required|exists:users,id',
+            'isi' => 'required|string|min:3',
+            'is_menyerah' => 'boolean',
         ];
+        
     }
 
     /**
@@ -52,11 +53,15 @@ class ProgressReports extends Model
      */
     public static function validationMessages()
     {
-        return [
+         return [
             'laporan_id.required' => 'Laporan tidak boleh kosong',
+            'laporan_id.exists' => 'Laporan tidak ditemukan',
             'admin_id.required' => 'Admin tidak boleh kosong',
+            'admin_id.exists' => 'Admin tidak ditemukan',
             'isi.required' => 'Isi tidak boleh kosong',
-            // 'is_menyerah.required' => 'Is menyerah tidak boleh kosong',
+            'isi.string' => 'Isi harus berupa tulisan latin',
+            'isi.min' => 'Isi minimal 3 karakter',
+            'is_menyerah.boolean' => 'Is menyerah harus ya atau tidaks',
         ];
     }
 
