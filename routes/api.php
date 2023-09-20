@@ -45,4 +45,5 @@ Route::get('/test', function() {
 Route::apiResources([
     'kecamatans' => 'App\Http\Controllers\KecamatansController',
     'kelurahans' => 'App\Http\Controllers\KelurahansController',
+    'laporans' => 'App\Http\Controllers\LaporansController',
 ]);
