@@ -49,6 +49,7 @@ trait ValidateRequest {
             throw new ValidationException($validator);
         }
 
+        // Custom ability di sini, bisa disesuaikan dengan kebutuhan
         $abilities = ['abilities:tulis_sendiri_buat_admin_biasa_ya_ella'];
 
         if (isset($request->superAdmin) && (int)$request->superAdmin == 1) {

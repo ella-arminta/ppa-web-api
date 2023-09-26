@@ -41,8 +41,8 @@ trait AuthenticationUtil
         }
 
         return [
-            'User berhasil logout!',
-            true
+            'message' => 'User berhasil logout!',
+            'loggedOut' => true
         ];
     }
 }

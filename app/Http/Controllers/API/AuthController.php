@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
 
 use App\Utils\HttpResponse;
 use App\Utils\AuthenticationUtil;
 use App\Utils\HttpResponseCode;
-
 use App\Utils\ValidateRequest;
 
 class AuthController extends Controller
@@ -22,7 +22,7 @@ class AuthController extends Controller
         $data = $this->createAuthToken(
             $request->email,
             $request->password,
-            $abilities // Custom ability di sini, bisa disesuaikan
+            $abilities
         );
 
         if(isset($data)) {
@@ -35,8 +35,8 @@ class AuthController extends Controller
     public function logout(Request $request) {
         $data = $this->invalidateUser($request);
 
-        if (isset($data[1]) && $data[1]) {
-            return $this->success($data[0], HttpResponseCode::HTTP_OK);
+        if (isset($data["loggedOut"]) && $data["loggedOut"]) {
+            return $this->success($data["message"], HttpResponseCode::HTTP_OK);
         }
 
         return $this->error($data, HttpResponseCode::HTTP_UNAUTHORIZED);
