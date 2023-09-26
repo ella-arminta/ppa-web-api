@@ -25,5 +25,28 @@ trait ValidateRequest {
         if ($validator->fails()) {
             throw new ValidationException($validator);
         }
-    } 
+    }
+
+    public static function validateLogin($request) {
+        $rules = [
+            'email' => 'required|email',
+            'password' => 'required',
+        ];
+
+        $messages = [
+            'email.required' => 'Email tidak boleh kosong',
+            'email.email' => 'Email tidak valid',
+            'password.required' => 'Password tidak boleh kosong',
+        ];
+
+        $validator = Validator::make(
+            $request, 
+            $rules, 
+            $messages
+        );
+
+        if ($validator->fails()) {
+            throw new ValidationException($validator);
+        }
+    }
 }

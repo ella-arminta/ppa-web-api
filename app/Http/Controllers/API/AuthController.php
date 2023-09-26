@@ -4,88 +4,47 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Utils\HttpResponse;
+use App\Utils\AuthenticationUtil;
+use App\Utils\HttpResponseCode;
+
+use App\Utils\ValidateRequest;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
-    {
-        $validate = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:5|confirmed',
-        ]);
-
-        if ($validate->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $validate->errors()
-            ], 400);
-        }
-
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
-
-        $success['token'] = $user->createToken('saya_tampan')->plainTextToken;
-        $success['name'] = $user->name;
-        $success['email'] = $user->email;
-        // $success['name'] = $user->name;
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Registrasi berhasil!',
-            'data' => $success,
-        ]);
-    }
+    use HttpResponse, ValidateRequest, AuthenticationUtil;
 
     public function login(Request $request)
     {
-        $validate = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        $this->validateLogin($request->all());
 
-        if ($validate->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $validate->errors()
-            ], 400);
+        $abilities = ['abilities:tulis_sendiri_buat_admin_biasa_ya_ella'];
+
+        if (isset($request->superAdmin) && (int)$request->superAdmin == 1) {
+            $abilities = ['abilities:tulis_sendiri_buat_super_admin_ya_ella'];
         }
 
-        // dd(Auth::attempt(['email' => $request->email, 'password' => $request->password]));
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $user = Auth::user();
-
-            $success['token'] = $user->createToken($user->name)->plainTextToken;
-            $success['name'] = $user->name;
-            $success['email'] = $user->email;
-            // $success['name'] = $user->name;
-
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Login berhasil!',
-                'data' => $success,
-            ]);
+        $data = $this->createAuthToken(
+            $request->email,
+            $request->password,
+            $abilities // Custom ability di sini, bisa disesuaikan
+        );
+        
+        if(isset($data)) {
+            return $this->success($data, HttpResponseCode::HTTP_OK);
         }
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Kredensial salah!',
-            'data' => null,
-        ]);
+        return $this->error($data, HttpResponseCode::HTTP_UNAUTHORIZED);
     }
 
     public function logout(Request $request) {
-        $request->user()->tokens()->delete();
-        // $user;
-        return response()->json([
-            'status' => 'success',
-            'message' => 'User berhasil logout!',
-            'data' => $request->user(),
-        ], 200);
+        $data = $this->invalidateUser($request);
+
+        if (isset($data[1]) && $data[1]) {
+            return $this->success($data[0], HttpResponseCode::HTTP_OK);
+        }
+
+        return $this->error($data, HttpResponseCode::HTTP_UNAUTHORIZED);
     }
 }

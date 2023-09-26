@@ -3,14 +3,16 @@
 namespace App\Models;
 
 use App\Http\Resources\AlamatsResource;
-use App\Http\Resources\API\KategoriResource;
 use App\Http\Resources\KategorisResource;
 use App\Http\Resources\KronologisResource;
-use App\Models\ModelUtils;
-use App\Repositories\LaporansRepository;
-use App\Services\LaporansService;
-use App\Http\Resources\LaporansResource;
 use App\Http\Resources\ProgressReportsResource;
+use App\Http\Resources\LaporansResource;
+
+use App\Models\ModelUtils;
+
+use App\Repositories\LaporansRepository;
+
+use App\Services\LaporansService;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
