@@ -5,17 +5,33 @@ use Illuminate\Support\Str;
 
 function createRoutes()
 {
-    $listControllers = getModels();
+    //get all of the model list in the models folder (app\Models)
+    $listModels = getModels();
     $routes = [];
-    foreach ($listControllers as $c) {
+
+    foreach ($listModels as $c) {
         $class = "App\Models\\" . $c;
         $model = new $class();
 
+        //get the model name and split it to kebab case (for example : ProgressReports -> progress-reports)
         $modelName = Str::kebab(class_basename($model));
 
         $modelNameLower = strtolower($modelName);
 
+        //change the string to plural context (for example : user -> users)
         $modelName = Str::plural($modelNameLower);
+
+        /* 
+        adding the routes name, for example : 
+        $routes['kecamatans'] = 'App\Http\Controllers\API\KecamatansController';
+        
+        in api.php, it will be used like this :
+        
+        Route::apiResources([
+            'kecamatans' => 'App\Http\Controllers\KecamatansController',
+            ...
+        ]);
+            */
 
         $routes[$modelName] = $model->controller();
     }

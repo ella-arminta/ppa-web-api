@@ -174,7 +174,8 @@ class Laporans extends Model
             'kategori',
             'status',
             'pendidikan',
-            'user',
+            'satgas_pelapor',
+            'previous_satgas',
         ];
     }
 
