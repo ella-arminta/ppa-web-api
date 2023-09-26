@@ -10,4 +10,9 @@ class ModelUtils
             return $value !== null;
         });
     }
+
+    public static function checkParam($param)
+    {
+        return isset($param) && (int)$param == 1;
+    }
 }

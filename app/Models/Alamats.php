@@ -70,12 +70,13 @@ class Alamats extends Model
      */
     public function resourceData($request)
     {
+        $withKelurahan = ModelUtils::checkParam(request('withKelurahan')); 
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'nama' => $request->nama,
             'rt' => $request->rt,
             'rw' => $request->rw,
-            // 'kelurahan' => new KelurahansResource($request->kelurahan),
+            'kelurahan' => $withKelurahan ? new KelurahansResource($request->kelurahan) : null,
         ]);
     }
 

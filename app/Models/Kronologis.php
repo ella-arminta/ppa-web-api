@@ -70,10 +70,11 @@ class Kronologis extends Model
      */
     public function resourceData($request)
     {
+        $withLaporan = ModelUtils::checkParam(request('withLaporan'));
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'isi' => $request->isi,
-            // 'laporan' => new LaporansResource($request->laporan),
+            'laporan' => $withLaporan ? new LaporansResource($request->laporan) : null,
             'admin' => new UserResource($request->admin),
         ]);
     }
@@ -141,5 +142,9 @@ class Kronologis extends Model
     public function admin()
     {
         return $this->belongsTo('App\Models\User', 'admin_id', 'id');
+        /* 
+        satgas_pelapor_id
+        previous_satgas_id
+        */
     }
 }

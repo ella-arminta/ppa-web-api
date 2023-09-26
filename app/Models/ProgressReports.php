@@ -37,13 +37,12 @@ class ProgressReports extends Model
      */
     public static function validationRules()
     {
-         return [
+        return [
             'laporan_id' => 'required|exists:laporans,id',
             'admin_id' => 'required|exists:users,id',
             'isi' => 'required|string|min:3',
             'is_menyerah' => 'boolean',
         ];
-        
     }
 
     /**
@@ -53,7 +52,7 @@ class ProgressReports extends Model
      */
     public static function validationMessages()
     {
-         return [
+        return [
             'laporan_id.required' => 'Laporan tidak boleh kosong',
             'laporan_id.exists' => 'Laporan tidak ditemukan',
             'admin_id.required' => 'Admin tidak boleh kosong',
@@ -72,11 +71,12 @@ class ProgressReports extends Model
      */
     public function resourceData($request)
     {
+        $withLaporan = ModelUtils::checkParam(request('withLaporan'));
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'isi' => $request->isi,
             'isMenyerah' => $request->is_menyerah,
-            // 'laporan' => new LaporanResource($request->laporan),
+            'laporan' => $withLaporan ? new LaporanResource($request->laporan) : null,
             'admin' => new UserResource($request->admin),
         ]);
     }

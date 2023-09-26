@@ -67,14 +67,14 @@ class Kecamatans extends Model
      */
     public function resourceData($request)
     {
-        $withKelurahan = request()->withKelurahan ?? 1;
+        $withKelurahans = ModelUtils::checkParam(request('withKelurahans'));
+        
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'nama' => $request->nama,
-            'kelurahans' => (int)$withKelurahan == 1 ? KelurahansResource::collection($request->kelurahans) : null,
+            'kelurahans' => $withKelurahans ? KelurahansResource::collection($request->kelurahans) : null,
         ]);
     }
-
 
     /**
      * Controller associated with this model

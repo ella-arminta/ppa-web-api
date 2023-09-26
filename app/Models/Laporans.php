@@ -111,9 +111,9 @@ class Laporans extends Model
             'namaKorban' => $request->nama_korban,
             'namaPelapor' => $request->nama_pelapor,
             'usia' => $request->usia,
+            'jenisKelamin' => $request->jenis_kelamin,
             'kategori' => new KategorisResource($request->kategori),
             'alamat' => new AlamatsResource($request->alamat),
-            'jenisKelamin' => $request->jenis_kelamin,
             'kronologis' => KronologisResource::collection($request->kronologis),
             'progress_reports' => ProgressReportsResource::collection($request->progress_reports),
         ]);
