@@ -75,7 +75,7 @@ class Alamats extends Model
             'nama' => $request->nama,
             'rt' => $request->rt,
             'rw' => $request->rw,
-            'kelurahan' => new KelurahansResource($request->kelurahan),
+            // 'kelurahan' => new KelurahansResource($request->kelurahan),
         ]);
     }
 

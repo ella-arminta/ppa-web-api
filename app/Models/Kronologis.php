@@ -73,7 +73,7 @@ class Kronologis extends Model
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'isi' => $request->isi,
-            'laporan' => new LaporansResource($request->laporan),
+            // 'laporan' => new LaporansResource($request->laporan),
             'admin' => new UserResource($request->admin),
         ]);
     }

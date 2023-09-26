@@ -9,6 +9,7 @@ use App\Models\ModelUtils;
 use App\Repositories\KelurahansRepository;
 use App\Services\KelurahansService;
 use App\Http\Resources\KelurahansResource;
+use App\Http\Resources\KecamatansResource;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -72,6 +73,7 @@ class Kelurahans extends Model
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'nama' => $request->nama,
+            // 'kecamatan' => new KecamatansResource($request->kecamatan),
         ]);
     }
 

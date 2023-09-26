@@ -76,7 +76,7 @@ class ProgressReports extends Model
             'id' => $request->id,
             'isi' => $request->isi,
             'isMenyerah' => $request->is_menyerah,
-            'laporan' => new LaporanResource($request->laporan),
+            // 'laporan' => new LaporanResource($request->laporan),
             'admin' => new UserResource($request->admin),
         ]);
     }

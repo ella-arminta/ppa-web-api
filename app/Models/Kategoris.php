@@ -61,7 +61,7 @@ class Kategoris extends Model
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'nama' => $request->nama,
-            'laporans' => LaporansResource::collection($request->laporans)
+            // 'laporans' => LaporansResource::collection($request->laporans)
         ]);
     }
 

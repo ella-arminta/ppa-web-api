@@ -90,3 +90,6 @@ test:
 
 runTest:
 	${ARTISAN} test --testsuite=Unit
+
+seeRoute:
+	${ARTISAN} route:list

@@ -21,6 +21,7 @@ class BaseService {
 
     public function getById($id) {
         $data = $this->repository->getById($id);
+
         return new $this->resource($data);
     }
 
