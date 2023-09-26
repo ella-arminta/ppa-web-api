@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Laporans extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasUuids;
 
     /**
      * The attributes that are mass assignable.
