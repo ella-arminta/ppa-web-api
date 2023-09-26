@@ -17,20 +17,14 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $this->validateLogin($request->all());
-
-        $abilities = ['abilities:tulis_sendiri_buat_admin_biasa_ya_ella'];
-
-        if (isset($request->superAdmin) && (int)$request->superAdmin == 1) {
-            $abilities = ['abilities:tulis_sendiri_buat_super_admin_ya_ella'];
-        }
+        $abilities = $this->validateLoginWithAbilities($request->all());
 
         $data = $this->createAuthToken(
             $request->email,
             $request->password,
             $abilities // Custom ability di sini, bisa disesuaikan
         );
-        
+
         if(isset($data)) {
             return $this->success($data, HttpResponseCode::HTTP_OK);
         }

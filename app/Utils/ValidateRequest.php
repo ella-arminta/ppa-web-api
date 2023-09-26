@@ -27,7 +27,7 @@ trait ValidateRequest {
         }
     }
 
-    public static function validateLogin($request) {
+    public static function validateLoginWithAbilities($request) {
         $rules = [
             'email' => 'required|email',
             'password' => 'required',
@@ -48,5 +48,13 @@ trait ValidateRequest {
         if ($validator->fails()) {
             throw new ValidationException($validator);
         }
+
+        $abilities = ['abilities:tulis_sendiri_buat_admin_biasa_ya_ella'];
+
+        if (isset($request->superAdmin) && (int)$request->superAdmin == 1) {
+            $abilities = ['abilities:tulis_sendiri_buat_super_admin_ya_ella'];
+        }
+        
+        return $abilities;
     }
 }
