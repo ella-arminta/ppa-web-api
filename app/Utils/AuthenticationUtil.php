@@ -8,21 +8,21 @@ use Illuminate\Http\Request;
 trait AuthenticationUtil
 {
     public static function createAuthToken(
-        $email,
+        $username,
         $password,
         $abilities = ['*']
     ) {
         if (Auth::attempt(
             [
-                'email' => $email,
+                'username' => $username,
                 'password' => $password
             ]
         )) {
             $user = Auth::user();
 
-            $success['token'] = $user->createToken($user->name, $abilities)->plainTextToken;
-            $success['name'] = $user->name;
-            $success['email'] = $user->email;
+            $success['token'] = $user->createToken($user->nama, $abilities)->plainTextToken;
+            $success['name'] = $user->nama;
+            $success['username'] = $user->username;
             // $success['name'] = $user->name;
 
             return $success;

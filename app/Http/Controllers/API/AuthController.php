@@ -20,12 +20,12 @@ class AuthController extends Controller
         $abilities = $this->validateLoginWithAbilities($request->all());
 
         $data = $this->createAuthToken(
-            $request->email,
+            $request->username,
             $request->password,
             $abilities
         );
 
-        if(isset($data)) {
+        if(isset($data["token"])) {
             return $this->success($data, HttpResponseCode::HTTP_OK);
         }
 
@@ -39,6 +39,6 @@ class AuthController extends Controller
             return $this->success($data["message"], HttpResponseCode::HTTP_OK);
         }
 
-        return $this->error($data, HttpResponseCode::HTTP_UNAUTHORIZED);
+        return $this->error($data, 401);
     }
 }

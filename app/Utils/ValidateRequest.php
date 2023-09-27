@@ -29,13 +29,12 @@ trait ValidateRequest {
 
     public static function validateLoginWithAbilities($request) {
         $rules = [
-            'email' => 'required|email',
+            'username' => 'required',
             'password' => 'required',
         ];
 
         $messages = [
-            'email.required' => 'Email tidak boleh kosong',
-            'email.email' => 'Email tidak valid',
+            'username.required' => 'Username tidak boleh kosong',
             'password.required' => 'Password tidak boleh kosong',
         ];
 

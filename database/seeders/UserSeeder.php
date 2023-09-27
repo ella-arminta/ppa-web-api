@@ -14,6 +14,12 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->count(3)->hasLaporans(2)->create();
+        // User::factory()->count(3)->hasLaporans(2)->create();
+        User::create([
+            'nama' => 'Test',
+            'username' => 'testing',
+            'password' => bcrypt('password'),
+            'no_telp' => '081234567890',
+        ]);
     }
 }

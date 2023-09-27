@@ -24,25 +24,25 @@ class DatabaseSeeder extends Seeder
         // ]);
         // $this->run();
         $this->call([
-            KronologiSeeder::class,
-            AlamatSeeder::class,
-            KelurahanSeeder::class,
-            KecamatanSeeder::class,
-            PendidikanSeeder::class,
-            StatusSeeder::class,
+            // KronologiSeeder::class,
+            // AlamatSeeder::class,
+            // KelurahanSeeder::class,
+            // KecamatanSeeder::class,
+            // PendidikanSeeder::class,
+            // StatusSeeder::class,
+            // RolesSeeder::class,
+            // LaporanSeeder::class,
+            // ProgressReportSeeder::class,
+            // KategoriSeeder::class,
             UserSeeder::class,
-            RolesSeeder::class,
-            LaporanSeeder::class,
-            ProgressReportSeeder::class,
-            KategoriSeeder::class,
         ]);
-        User::create([
-            'name' => 'Glenn Steven',
-            'email' => 'glenn@test.com',
-            'password' => bcrypt('password'),
-            'remember_token' => str()->random(10),
-            'email_verified_at' => now(),
-        ]);
+        // User::create([
+        //     'name' => 'Glenn Steven',
+        //     'email' => 'glenn@test.com',
+        //     'password' => bcrypt('password'),
+        //     'remember_token' => str()->random(10),
+        //     'email_verified_at' => now(),
+        // ]);
         // Roles::factory(3)->create();
         // User::factory(4)->create();
     }
