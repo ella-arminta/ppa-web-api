@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignUuid('admin_id');
             $table->longText('isi');
             $table->timestamps();
+            $table->date('tanggal');
             $table->softDeletes();
         });
     }
