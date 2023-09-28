@@ -17,7 +17,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-use App\Http\Resources\API\RoleResource;
+use App\Http\Resources\RolesResource;
 use App\Http\Resources\KronologisResource;
 use App\Http\Resources\LaporansResource;
 use App\Http\Resources\ProgressReportsResource;
@@ -62,12 +62,19 @@ class User extends Authenticatable
 
     public static function validationRules()
     {
+        if (request()->isMethod('put')) {
+            return [
+                'nama' => 'sometimes|required',
+                'no_telp' => 'sometimes|required',
+                'password' => 'sometimes|required',
+                'role_id' => 'sometimes|required',
+            ];
+        }
         return [
-            'nama' => 'required',
-            'no_telp' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'role_id' => 'required',
+            'nama' => 'sometimes|required',
+            'no_telp' => 'sometimes|required',
+            'password' => 'sometimes|required',
+            'role_id' => 'sometimes|required',
         ];
     }
 
@@ -97,9 +104,9 @@ class User extends Authenticatable
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'nama' => $request->nama,
-            // 'noTelp' => $request->no_telp,
+            'noTelp' => $request->no_telp,
             'email' => $request->email,
-            'role' => new RoleResource($request->role),
+            'role' => new RolesResource($request->role),
             'kronologis' => KronologisResource::collection($request->kronologis),
             'laporans' => LaporansResource::collection($request->laporans),
             'progressReports' => ProgressReportsResource::collection($request->progress_reports),
@@ -170,7 +177,11 @@ class User extends Authenticatable
 
     public function laporans()
     {
-        return $this->hasMany('App\Models\Laporans', 'user_id', 'id');
+        return $this->hasMany('App\Models\Laporans', 'satgas_pelapor_id', 'id');
+    }
+    public function previous_laporans()
+    {
+        return $this->hasMany('App\Models\Laporans', 'previous_satgas_id', 'id');
     }
 
     public function progress_reports() {
