@@ -22,5 +22,12 @@ class UserSeeder extends Seeder
             'no_telp' => '081234567890',
             'role_id' => 1,
         ]);
+        User::create([
+            'nama' => 'Test 2',
+            'username' => 'testing 2',
+            'password' => bcrypt('password'),
+            'no_telp' => '081234567891',
+            'role_id' => 2,
+        ]);
     }
 }
