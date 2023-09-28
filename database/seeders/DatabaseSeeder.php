@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             // KecamatanSeeder::class,
             // PendidikanSeeder::class,
             // StatusSeeder::class,
-            // RolesSeeder::class,
+            RolesSeeder::class,
             // LaporanSeeder::class,
             // ProgressReportSeeder::class,
             // KategoriSeeder::class,

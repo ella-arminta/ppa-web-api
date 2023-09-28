@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'username' => 'testing',
             'password' => bcrypt('password'),
             'no_telp' => '081234567890',
+            'role_id' => 1,
         ]);
     }
 }

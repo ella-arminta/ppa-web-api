@@ -10,7 +10,7 @@ trait AuthenticationUtil
     public static function createAuthToken(
         $username,
         $password,
-        $abilities = ['*']
+        $abilities = ['noaccess']
     ) {
         if (Auth::attempt(
             [
@@ -19,6 +19,12 @@ trait AuthenticationUtil
             ]
         )) {
             $user = Auth::user();
+            
+            if($user->role->nama == 'superadmin'){
+                $abilities = ['superadmin'];
+            }else if($user->role->nama == 'admin'){
+                $abilities = ['admin'];
+            }
 
             $success['token'] = $user->createToken($user->nama, $abilities)->plainTextToken;
             $success['name'] = $user->nama;
@@ -27,6 +33,7 @@ trait AuthenticationUtil
 
             return $success;
         }
+        
 
         return "Email atau password salah";
     }

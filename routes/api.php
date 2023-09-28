@@ -34,10 +34,19 @@ Route::get('/test', function() {
     ], 200);
 });
 
+Route::post('/testadmin', function() {
+    // dd('test');
+    return response()->json([
+        'message' => 'Hello World 2!'
+    ], 200);
+})->middleware(['auth:sanctum', 'ability:superadmin']);
+
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('/login', 'login')->name('login');
     Route::post('/logout', 'logout')->name('logout')->middleware('auth:sanctum');
 });
+
+// disini cek routing
 
 Route::apiResources(createRoutes());

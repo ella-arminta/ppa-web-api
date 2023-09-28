@@ -17,12 +17,11 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $abilities = $this->validateLoginWithAbilities($request->all());
+        $this->validateLoginWithAbilities($request->all());
 
         $data = $this->createAuthToken(
             $request->username,
-            $request->password,
-            $abilities
+            $request->password
         );
 
         if(isset($data["token"])) {
