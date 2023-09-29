@@ -54,7 +54,8 @@ function getModels()
     $out = [];
     $results = scandir($path);
 
-    $forbidden = ["Roles", "Statuses", "Pendidikans", "ModelUtils", "User"];
+    $forbidden = ["ModelUtils"];
+    // $forbidden = ["Roles", "Statuses", "Pendidikans", "ModelUtils", "User"];
 
     foreach ($results as $result) {
         if ($result === '.' or $result === '..' or in_array(substr($result, 0, -4), $forbidden)) continue;
