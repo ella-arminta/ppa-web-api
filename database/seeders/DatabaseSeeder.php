@@ -26,10 +26,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // KronologiSeeder::class,
             // AlamatSeeder::class,
-            // KelurahanSeeder::class,
-            // KecamatanSeeder::class,
+            KelurahanSeeder::class,
+            KecamatanSeeder::class,
             // PendidikanSeeder::class,
-            // StatusSeeder::class,
+            StatusSeeder::class,
             RolesSeeder::class,
             // LaporanSeeder::class,
             // ProgressReportSeeder::class,
