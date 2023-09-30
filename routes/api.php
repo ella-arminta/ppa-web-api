@@ -32,6 +32,12 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/logout', 'logout')->name('logout')->middleware('auth:sanctum');
 });
 
+Route::get('/testing', function () {
+    return response()->json([
+        'message' => 'Hello World!',
+    ]);
+});
+
 // disini cek routing
 
 // Route::group(['middleware' => ['auth:sanctum', 'ability:superadmin,admin']], function () {
