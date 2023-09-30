@@ -11,11 +11,12 @@ class BaseRepository {
     }
 
     public function getAll() {
-        return $this->model->all();
+        return $this->model->with($this->model->relations())->get();
     }
 
     public function getById($id) {
-        return $this->model->findOrFail($id);
+        return $this->model->with($this->model->relations())->findOrFail($id);
+        // return $this->model->findOrFail($id)->with($this->model->relations())->first();
     }
 
     public function create($data) {
@@ -23,14 +24,14 @@ class BaseRepository {
     }
     
     public function update($id, $data) {
-        $model = $this->model->find($id);
+        $model = $this->model->findOrFail($id);
         $model->update($data);
         return $model->fresh();
     }
 
     public function delete($id) {
-        $model = $this->model->find($id);
+        $model = $this->model->findOrFail($id);
         $model->delete();
-        return $model;
+        // return $model;
     }
 }

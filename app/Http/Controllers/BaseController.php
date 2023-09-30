@@ -13,7 +13,7 @@ class BaseController extends Controller
 {
     use HttpResponse, ValidateRequest;
 
-    protected $model;
+    public $model;
     protected $service;
 
 

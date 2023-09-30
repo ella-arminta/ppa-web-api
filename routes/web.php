@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\UserController;
-use App\Http\Controllers\BaseController as Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +18,16 @@ use App\Http\Controllers\BaseController as Controller;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+// Route::get('/hello', function () {
+//     return 'welcome';
+// });
+Route::get('/test', function() {
+    // dd('test');
+    return response()->json([
+        'message' => 'Hello World!'
+    ], 200);
 });
 
 // Route::get('/test', [Controller::class, 'test']);

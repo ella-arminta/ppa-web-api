@@ -22,13 +22,27 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'glenn@test.com',
         //     'password' => bcrypt('password'),
         // ]);
-        User::create([
-            'name' => 'Glenn Steven',
-            'email' => 'glenn@test.com',
-            'password' => bcrypt('password'),
-            'remember_token' => str()->random(10),
-            'email_verified_at' => now(),
+        // $this->run();
+        $this->call([
+            UserSeeder::class,
+            KronologiSeeder::class,
+            AlamatSeeder::class,
+            KelurahanSeeder::class,
+            KecamatanSeeder::class,
+            PendidikanSeeder::class,
+            StatusSeeder::class,
+            RolesSeeder::class,
+            ProgressReportSeeder::class,
+            KategoriSeeder::class,
+            LaporanSeeder::class,
         ]);
+        // User::create([
+        //     'name' => 'Glenn Steven',
+        //     'email' => 'glenn@test.com',
+        //     'password' => bcrypt('password'),
+        //     'remember_token' => str()->random(10),
+        //     'email_verified_at' => now(),
+        // ]);
         // Roles::factory(3)->create();
         // User::factory(4)->create();
     }

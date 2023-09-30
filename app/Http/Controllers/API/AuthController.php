@@ -3,89 +3,41 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+
+use App\Utils\HttpResponse;
+use App\Utils\AuthenticationUtil;
+use App\Utils\HttpResponseCode;
+use App\Utils\ValidateRequest;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
-    {
-        $validate = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:5|confirmed',
-        ]);
-
-        if ($validate->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $validate->errors()
-            ], 400);
-        }
-
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
-
-        $success['token'] = $user->createToken('saya_tampan')->plainTextToken;
-        $success['name'] = $user->name;
-        $success['email'] = $user->email;
-        // $success['name'] = $user->name;
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Registrasi berhasil!',
-            'data' => $success,
-        ]);
-    }
+    use HttpResponse, ValidateRequest, AuthenticationUtil;
 
     public function login(Request $request)
     {
-        $validate = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        $this->validateLoginWithAbilities($request->all());
 
-        if ($validate->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $validate->errors()
-            ], 400);
+        $data = $this->createAuthToken(
+            $request->username,
+            $request->password
+        );
+
+        if(isset($data["token"])) {
+            return $this->success($data, HttpResponseCode::HTTP_OK);
         }
 
-        // dd(Auth::attempt(['email' => $request->email, 'password' => $request->password]));
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $user = Auth::user();
-
-            $success['token'] = $user->createToken($user->name)->plainTextToken;
-            $success['name'] = $user->name;
-            $success['email'] = $user->email;
-            // $success['name'] = $user->name;
-
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Login berhasil!',
-                'data' => $success,
-            ]);
-        }
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Kredensial salah!',
-            'data' => null,
-        ]);
+        return $this->error($data, HttpResponseCode::HTTP_UNAUTHORIZED);
     }
 
     public function logout(Request $request) {
-        $request->user()->tokens()->delete();
-        // $user;
-        return response()->json([
-            'status' => 'success',
-            'message' => 'User berhasil logout!',
-            'data' => $request->user(),
-        ], 200);
+        $data = $this->invalidateUser($request);
+
+        if (isset($data["loggedOut"]) && $data["loggedOut"]) {
+            return $this->success($data["message"], HttpResponseCode::HTTP_OK);
+        }
+
+        return $this->error($data, 401);
     }
 }

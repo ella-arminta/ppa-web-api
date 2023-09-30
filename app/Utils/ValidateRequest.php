@@ -13,8 +13,8 @@ trait ValidateRequest {
             throw new BadRequestException('Terdapat kesalahan pada request body (kosong)');
         }
 
-        $rules = $model->rules();
-        $messages = $model->messages();
+        $rules = $model->validationRules();
+        $messages = $model->validationMessages();
 
         $validator = Validator::make(
             $request, 
@@ -25,5 +25,29 @@ trait ValidateRequest {
         if ($validator->fails()) {
             throw new ValidationException($validator);
         }
-    } 
+    }
+
+    public static function validateLoginWithAbilities($request) {
+        $rules = [
+            'username' => 'required',
+            'password' => 'required',
+        ];
+
+        $messages = [
+            'username.required' => 'Username tidak boleh kosong',
+            'password.required' => 'Password tidak boleh kosong',
+        ];
+
+        $validator = Validator::make(
+            $request, 
+            $rules, 
+            $messages
+        );
+
+        if ($validator->fails()) {
+            throw new ValidationException($validator);
+        }
+
+        // Custom ability di sini, bisa disesuaikan dengan kebutuhan
+    }
 }

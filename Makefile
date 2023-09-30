@@ -1,9 +1,13 @@
 ARTISAN = php artisan
 
 # Init file
-.PHONY: package start clear-cache cache controller api resource model migration seeder base util dump middleware
+.PHONY: package start clear-cache cache controller api resource model migration seeder base util dump middleware fresh seed
 
 first : migrate start
+
+migrate: fresh seed
+
+clear: clear-cache cache
 
 init:
 	composer install
@@ -11,7 +15,7 @@ init:
 	${ARTISAN} key:generate
 
 start:
-	${ARTISAN} serve --port=8000
+	${ARTISAN} serve
 
 clear-cache:
 	${ARTISAN} cache:clear
@@ -27,7 +31,7 @@ cache:
 # Create new controller
 controller:
 	@read -p 'Controller name: ' controller; \
-	${ARTISAN} make:controller $$controller
+	${ARTISAN} make:controller API/$$controller
 
 api:
 	@read -p 'API Controller name: ' controller; \
@@ -35,7 +39,7 @@ api:
 
 resource:
 	@read -p 'Resource name: ' resource; \
-	${ARTISAN} make:resource $$resource
+	${ARTISAN} make:resource API/$$resource
 
 # Create new model
 model:
@@ -44,12 +48,15 @@ model:
 
 # Create new migration
 migration:
-	@read -p 'Migration name: ' migration; \
+	@read -p 'Migration name: ' migration;
 	@read -p 'Table target : ' table; \
 	${ARTISAN} make:migration $$migration --table=$$table
 
-migrate:
-	${ARTISAN} migrate:fresh --seed
+fresh:
+	${ARTISAN} migrate:fresh
+
+seed:
+	${ARTISAN} db:seed
 
 # Create new seeder
 seeder:
@@ -72,3 +79,17 @@ dump:
 middleware:
 	@read -p 'Middleware name: ' middleware; \
 	${ARTISAN} make:middleware $$middleware
+
+custom:
+	@read -p 'Custom name: ' custom; \
+	${ARTISAN} make:custom $$custom
+
+test:
+	@read -p 'Test name: ' test; \
+	${ARTISAN} make:test $$test --unit
+
+runTest:
+	${ARTISAN} test --testsuite=Unit
+
+seeRoute:
+	${ARTISAN} route:list

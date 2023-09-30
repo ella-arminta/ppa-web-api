@@ -21,7 +21,8 @@ class BaseService {
 
     public function getById($id) {
         $data = $this->repository->getById($id);
-        return $this->resource::collection($data);
+
+        return new $this->resource($data);
     }
 
     public function create($data) {
