@@ -136,7 +136,7 @@ class Alamats extends Model
         ];
     }
 
-    public function laporans()
+    public function laporan()
     {
         return $this->hasMany(Laporans::class, 'alamat_id', 'id');
     }
