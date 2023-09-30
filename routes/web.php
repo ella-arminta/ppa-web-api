@@ -16,19 +16,20 @@ use App\Http\Controllers\API\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // Route::get('/hello', function () {
 //     return 'welcome';
 // });
-Route::get('/test', function() {
-    // dd('test');
-    return response()->json([
-        'message' => 'Hello World!'
-    ], 200);
-});
+
+// Route::get('/test', function() {
+//     // dd('test');
+//     return response()->json([
+//         'message' => 'Hello World!'
+//     ], 200);
+// });
 
 // Route::get('/test', [Controller::class, 'test']);
 
