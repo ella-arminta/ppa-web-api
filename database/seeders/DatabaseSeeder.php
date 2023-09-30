@@ -24,17 +24,17 @@ class DatabaseSeeder extends Seeder
         // ]);
         // $this->run();
         $this->call([
-            // KronologiSeeder::class,
-            // AlamatSeeder::class,
+            UserSeeder::class,
+            KronologiSeeder::class,
+            AlamatSeeder::class,
             KelurahanSeeder::class,
             KecamatanSeeder::class,
-            // PendidikanSeeder::class,
+            PendidikanSeeder::class,
             StatusSeeder::class,
             RolesSeeder::class,
-            // LaporanSeeder::class,
-            // ProgressReportSeeder::class,
-            // KategoriSeeder::class,
-            UserSeeder::class,
+            ProgressReportSeeder::class,
+            KategoriSeeder::class,
+            LaporanSeeder::class,
         ]);
         // User::create([
         //     'name' => 'Glenn Steven',
