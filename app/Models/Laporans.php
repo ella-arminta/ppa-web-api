@@ -7,7 +7,7 @@ use App\Http\Resources\KategorisResource;
 use App\Http\Resources\KronologisResource;
 use App\Http\Resources\ProgressReportsResource;
 use App\Http\Resources\LaporansResource;
-
+use App\Http\Resources\StatusesResource;
 use App\Models\ModelUtils;
 
 use App\Repositories\LaporansRepository;
@@ -112,10 +112,12 @@ class Laporans extends Model
             'namaPelapor' => $request->nama_pelapor,
             'usia' => $request->usia,
             'jenisKelamin' => $request->jenis_kelamin,
+            'status' => new StatusesResource($request->status),
             'kategori' => new KategorisResource($request->kategori),
             'alamat' => new AlamatsResource($request->alamat),
             'kronologis' => KronologisResource::collection($request->kronologis),
             'progress_reports' => ProgressReportsResource::collection($request->progress_reports),
+            'createdAt' => $request->created_at,
         ]);
     }
 
