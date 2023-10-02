@@ -7,6 +7,7 @@ use App\Http\Resources\KategorisResource;
 use App\Http\Resources\KronologisResource;
 use App\Http\Resources\ProgressReportsResource;
 use App\Http\Resources\LaporansResource;
+use App\Http\Resources\PendidikansResource;
 use App\Http\Resources\StatusesResource;
 use App\Models\ModelUtils;
 
@@ -116,8 +117,9 @@ class Laporans extends Model
             'status' => new StatusesResource($request->status),
             'kategori' => new KategorisResource($request->kategori),
             'alamat' => new AlamatsResource($request->alamat),
+            'pendidikan' => new PendidikansResource($request->pendidikan),
             'kronologis' => KronologisResource::collection($request->kronologis),
-            'progress_reports' => ProgressReportsResource::collection($request->progress_reports),
+            'progressReports' => ProgressReportsResource::collection($request->progress_reports),
             'createdAt' => Carbon::parse($request->created_at)->format('d-m-Y'),
         ]);
     }

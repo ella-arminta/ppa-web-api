@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProgressReports extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasUuids;
 
     /**
      * The attributes that are mass assignable.
@@ -72,12 +72,13 @@ class ProgressReports extends Model
     public function resourceData($request)
     {
         $withLaporan = ModelUtils::checkParam(request('withLaporan'));
+        $withUser = ModelUtils::checkParam(request('withUser'));
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'isi' => $request->isi,
             'isMenyerah' => $request->is_menyerah,
             'laporan' => $withLaporan ? new LaporanResource($request->laporan) : null,
-            'admin' => new UserResource($request->admin),
+            'admin' => $withUser ? new UserResource($request->admin)  : null,
         ]);
     }
 

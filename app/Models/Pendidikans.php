@@ -62,10 +62,11 @@ class Pendidikans extends Model
      */
     public function resourceData($request)
     {
+        $withLaporans = ModelUtils::checkParam(request('withLaporans'));
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'nama' => $request->nama,
-            'laporans' => LaporansResource::collection($request->laporans),
+            'laporans' => $withLaporans ? LaporansResource::collection($request->laporans) : null,
         ]);
     }
 

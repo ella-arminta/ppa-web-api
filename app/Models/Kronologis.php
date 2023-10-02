@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Kronologis extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasUuids;
 
     /**
      * The attributes that are mass assignable.
@@ -71,11 +71,12 @@ class Kronologis extends Model
     public function resourceData($request)
     {
         $withLaporan = ModelUtils::checkParam(request('withLaporan'));
+        $withUser = ModelUtils::checkParam(request('withUser'));
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'isi' => $request->isi,
             'laporan' => $withLaporan ? new LaporansResource($request->laporan) : null,
-            'admin' => new UserResource($request->admin),
+            'admin' => $withUser ? new UserResource($request->admin)  : null,
         ]);
     }
 
