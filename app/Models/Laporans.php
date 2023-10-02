@@ -13,6 +13,7 @@ use App\Models\ModelUtils;
 use App\Repositories\LaporansRepository;
 
 use App\Services\LaporansService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -117,7 +118,7 @@ class Laporans extends Model
             'alamat' => new AlamatsResource($request->alamat),
             'kronologis' => KronologisResource::collection($request->kronologis),
             'progress_reports' => ProgressReportsResource::collection($request->progress_reports),
-            'createdAt' => $request->created_at,
+            'createdAt' => Carbon::parse($request->created_at)->format('d-m-Y'),
         ]);
     }
 
