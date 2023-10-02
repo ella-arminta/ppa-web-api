@@ -13,7 +13,7 @@ return new class extends Migration
     {
         //
         Schema::create('kronologis', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->id('id');
             $table->foreignUuid('laporan_id');
             $table->foreignUuid('admin_id');
             $table->longText('isi');

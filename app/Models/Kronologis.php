@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Http\Resources\UserResource;
 use App\Models\ModelUtils;
-use App\Models\Laporan;
+use App\Models\Laporans;
 
 use App\Repositories\KronologisRepository;
 use App\Services\KronologisService;
@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Kronologis extends Model
 {
-    use HasFactory, SoftDeletes, HasUuids;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -137,7 +137,7 @@ class Kronologis extends Model
 
     public function laporan()
     {
-        return $this->belongsTo(Laporan::class, 'laporan_id', 'id');
+        return $this->belongsTo(Laporans::class, 'laporan_id', 'id');
     }
 
     public function admin()
