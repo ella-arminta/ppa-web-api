@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Statuses;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-
+use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 class StatusSeeder extends Seeder
 {
@@ -14,31 +15,26 @@ class StatusSeeder extends Seeder
      */
     public function run(): void
     {
-        $statuses = [
-            [
-                'nama' => 'Menunggu validation'
-            ],
-            [
-                'nama' => 'Sedang ditangani'
-            ],
-            [
-                'nama' => 'Kasus ditolak'
-            ],
-            [
-                'nama' => 'Kasus selesai'
-            ],
-            [
-                'nama' => 'Kasus dikembalikan'
-            ],
-            [
-                'nama' => 'Kasus diteruskan ke DP3 A'
-            ],
-            [
-                'nama' => 'Kasus sudah pernah tercatat'
-            ],
-            // Tambahkan data kecamatan lainnya di sini sesuai dengan data yang Anda miliki
-        ];
-
-        DB::table('statuses')->insert($statuses);
+        Statuses::create([
+            'nama' => 'Menunggu validation'
+        ]);
+        Statuses::create([
+            'nama' => 'Sedang ditangani'
+        ]);
+        Statuses::create([
+            'nama' => 'Kasus ditolak'
+        ]);
+        Statuses::create([
+            'nama' => 'Kasus selesai'
+        ]);
+        Statuses::create([
+            'nama' => 'Kasus dikembalikan'
+        ]);
+        Statuses::create([
+            'nama' => 'Kasus diteruskan ke DP3 A'
+        ]);
+        Statuses::create([
+            'nama' => 'Kasus sudah pernah tercatat'
+        ]);
     }
 }

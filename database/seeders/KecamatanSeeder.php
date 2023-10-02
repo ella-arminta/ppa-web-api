@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Kecamatans;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -13,16 +14,12 @@ class KecamatanSeeder extends Seeder
      */
     public function run(): void
     {
-        $kecamatans = [
-            [
-                'nama' => 'Kecamatan 1'
-            ],
-            [
-                'nama' => 'Kecamatan 2'
-            ],
-            // Tambahkan data kecamatan lainnya di sini sesuai dengan data yang Anda miliki
-        ];
+        Kecamatans::create([
+            'nama' => 'Kecamatan 1',
+        ]);
+        Kecamatans::create([
+            'nama' => 'Kecamatan 2',
+        ]);
 
-        DB::table('kecamatans')->insert($kecamatans);
     }
 }
