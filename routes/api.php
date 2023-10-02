@@ -57,5 +57,8 @@ Route::get('/testing', function () {
 // Route::group(['middleware' => ['auth:sanctum', 'ability:superadmin,admin']], function () {
 //     Route::apiResources(createRouteNoAdmin(), ['only' => ['show', 'update']]);
 // });
+Route::middleware(['cors'])->group(function () {
+    // Your API routes here
+    Route::apiResources(createRoutes());
+});
 
-Route::apiResources(createRoutes());
