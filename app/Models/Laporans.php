@@ -56,7 +56,7 @@ class Laporans extends Model
     {
         return [
             'judul' => 'required',
-            'no_telp_pelapor' => 'required|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/g',
+            'no_telp_pelapor' => 'required|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/',
             'nama_korban' => 'required|regex:/^[a-zA-Z ]*$/|min:3',
             'nama_pelapor' => 'required|regex:/^[a-zA-Z ]*$/|min:3',
             'usia' => 'required|numeric|min:1',
