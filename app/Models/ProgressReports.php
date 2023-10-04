@@ -76,6 +76,7 @@ class ProgressReports extends Model
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'isi' => $request->isi,
+            'tanggal' => date('d-m-Y', strtotime($request->created_at)),
             'isMenyerah' => $request->is_menyerah,
             'laporan' => $withLaporan ? new LaporanResource($request->laporan) : null,
             'admin' => $withUser ? new UserResource($request->admin)  : null,
