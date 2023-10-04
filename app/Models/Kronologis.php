@@ -43,6 +43,7 @@ class Kronologis extends Model
             'laporan_id' => 'required|exists:laporans,id',
             'admin_id' => 'required|exists:users,id',
             'isi' => 'required|string|min:3',
+            'tanggal' => 'nullable|date'
         ];
     }
 
@@ -76,6 +77,7 @@ class Kronologis extends Model
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'isi' => $request->isi,
+            'tanggal' => $request->tanggal,
             'laporan' => $withLaporan ? new LaporansResource($request->laporan) : null,
             'admin' => $withUser ? new UserResource($request->admin)  : null,
         ]);
