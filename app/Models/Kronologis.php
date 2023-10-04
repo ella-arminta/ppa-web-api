@@ -29,6 +29,7 @@ class Kronologis extends Model
         'laporan_id',
         'admin_id',
         'isi',
+        'tanggal'
     ];
 
     /**
