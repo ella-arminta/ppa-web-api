@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Http\Resources\UserResource;
 use App\Models\ModelUtils;
-use App\Models\Laporan;
+use App\Models\Laporans;
 
 use App\Repositories\KronologisRepository;
 use App\Services\KronologisService;
@@ -29,6 +29,7 @@ class Kronologis extends Model
         'laporan_id',
         'admin_id',
         'isi',
+        'tanggal'
     ];
 
     /**
@@ -42,6 +43,7 @@ class Kronologis extends Model
             'laporan_id' => 'required|exists:laporans,id',
             'admin_id' => 'required|exists:users,id',
             'isi' => 'required|string|min:3',
+            'tanggal' => 'nullable|date'
         ];
     }
 
@@ -75,6 +77,7 @@ class Kronologis extends Model
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'isi' => $request->isi,
+            'tanggal' => $request->tanggal,
             'laporan' => $withLaporan ? new LaporansResource($request->laporan) : null,
             'admin' => $withUser ? new UserResource($request->admin)  : null,
         ]);
@@ -137,7 +140,7 @@ class Kronologis extends Model
 
     public function laporan()
     {
-        return $this->belongsTo(Laporan::class, 'laporan_id', 'id');
+        return $this->belongsTo(Laporans::class, 'laporan_id', 'id');
     }
 
     public function admin()
