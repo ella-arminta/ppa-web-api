@@ -33,10 +33,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::controller(AuthController::class)->group(function () {
-    Route::post('/login', 'login')->name('login');
-    Route::post('/logout', 'logout')->name('logout')->middleware('auth:sanctum');
-});
 
 Route::get('/testing', function () {
     return response()->json([
@@ -46,16 +42,24 @@ Route::get('/testing', function () {
 
 // disini cek routing
 
-Route::group(['middleware' => ['auth:sanctum', 'ability:superadmin,admin']], function () {
-    Route::apiResources(createRoutes());
+Route::middleware('cors')->group(function () {
+    Route::controller(AuthController::class)->group(function () {
+        Route::post('/login', 'login')->name('login');
+        Route::post('/logout', 'logout')->name('logout')->middleware('auth:sanctum');
+    });
+    
+    Route::group(['middleware' => ['auth:sanctum', 'ability:superadmin,admin']], function () {
+        Route::apiResources(createRoutes());
+    });
+    
+    Route::group(['middleware' => ['auth:sanctum', 'ability:superadmin']], function () {
+        Route::apiResources(createRouteNoAdmin());
+    });
+    
+    Route::group(['middleware' => ['auth:sanctum', 'ability:superadmin,admin']], function () {
+        Route::apiResources(createRouteNoAdmin(), ['only' => ['show', 'update']]);
+    });
 });
 
-Route::group(['middleware' => ['auth:sanctum', 'ability:superadmin']], function () {
-    Route::apiResources(createRouteNoAdmin());
-});
-
-Route::group(['middleware' => ['auth:sanctum', 'ability:superadmin,admin']], function () {
-    Route::apiResources(createRouteNoAdmin(), ['only' => ['show', 'update']]);
-});
 
 // Route::apiResources(createRoutes());
