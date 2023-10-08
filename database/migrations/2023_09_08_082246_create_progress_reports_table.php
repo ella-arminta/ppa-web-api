@@ -13,7 +13,7 @@ return new class extends Migration
     {
         //
         Schema::create('progress_reports', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->id();
             $table->foreignUuid('laporan_id');
             $table->foreignUuid('admin_id');
             $table->longText('isi');
