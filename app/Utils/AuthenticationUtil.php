@@ -29,6 +29,7 @@ trait AuthenticationUtil
             $success['token'] = $user->createToken($user->nama, $abilities)->plainTextToken;
             $success['name'] = $user->nama;
             $success['username'] = $user->username;
+            $success['id'] = $user->id;
             // $success['name'] = $user->name;
 
             return $success;

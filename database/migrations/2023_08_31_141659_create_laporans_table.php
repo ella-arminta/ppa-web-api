@@ -19,25 +19,27 @@ return new class extends Migration
             $table->string('nama_pelapor');
             $table->boolean('validated')->default(false);
             $table->tinyInteger('usia');
+            $table->string('alamat');
+            $table->string('rw');
+            $table->string('rt');
             $table->foreignIdFor('App\Models\Kategoris', 'kategori_id');
-            $table->foreignIdFor('App\Models\Alamats', 'alamat_id');
+            // $table->foreignIdFor('App\Models\Alamats', 'alamat_id');
             $table->char('jenis_kelamin', 1);
             $table->foreignUuid('satgas_pelapor_id')
-            ->references('id')
-            ->on('users')
-            ->onDelete('cascade')
-            ->nullable();
+                ->references('id')
+                ->on('users')
+                ->nullable()
+                ->default(null);
             $table->foreignUuid('previous_satgas_id')
-            ->references('id')
-            ->on('users')
-            ->onDelete('cascade')
-            ->nullable();
+                ->references('id')
+                ->on('users')
+                ->nullable()
+                ->default(null);
             $table->foreignIdFor('App\Models\Statuses', 'status_id')->default(1);
             $table->string('token', 8);
             $table->foreignIdFor('App\Models\Pendidikans', 'pendidikan_id');
             $table->timestamps();
             $table->softDeletes();
-
         });
     }
 

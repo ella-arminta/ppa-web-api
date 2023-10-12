@@ -37,14 +37,16 @@ class Laporans extends Model
         'nama_pelapor',
         'usia',
         'kategori_id',
-        'alamat_id',
+        'alamat',
+        'rt',
+        'rw',
         'pendidikan_id',
         'jenis_kelamin',
         'satgas_pelapor_id',
         'previous_satgas_id',
         'status_id',
         'token',
-        'pendidikan_id',
+        // 'pendidikan_id',
     ];
 
     /**
@@ -61,8 +63,13 @@ class Laporans extends Model
             'nama_pelapor' => 'required|regex:/^[a-zA-Z ]*$/|min:3',
             'usia' => 'required|numeric|min:1',
             'kategori_id' => 'required|numeric|min:1|exists:kategoris,id',
-            'alamat_id' => 'required|numeric|min:1|exists:alamats,id',
+            'alamat' => 'required',
+            'rt' => 'required|min:1|max:3',
+            'rw' => 'required|min:1|max:3',
             'jenis_kelamin' => 'required|in:L,P',
+            'kronologis' => 'array|nullable',
+            'kronologis.*.tanggal' => 'required|date',
+            'kronologis.*.isi' => 'required',
         ];
     }
 
@@ -90,12 +97,13 @@ class Laporans extends Model
             'kategori_id.numeric' => 'Kategori harus berupa angka',
             'kategori_id.min' => 'Kategori tidak valid',
             'kategori_id.exists' => 'Kategori tidak valid',
-            'alamat_id.required' => 'Alamat tidak boleh kosong',
-            'alamat_id.numeric' => 'Alamat harus berupa angka',
-            'alamat_id.min' => 'Alamat tidak valid',
-            'alamat_id.exists' => 'Alamat tidak valid',
+            'alamat.required' => 'Alamat tidak boleh kosong',
             'jenis_kelamin.required' => 'Jenis kelamin tidak boleh kosong',
             'jenis_kelamin.in' => 'Jenis kelamin harus L atau P',
+            'kronologis.array' => 'Kronologis harus berupa array',
+            'kronologis.*.tanggal.required' => 'Tanggal tidak boleh kosong',
+            'kronologis.*.tanggal.date' => 'Tanggal tidak valid',
+            'kronologis.*.isi.required' => 'Isi tidak boleh kosong',
         ];
     }
 
@@ -107,16 +115,19 @@ class Laporans extends Model
     public function resourceData($request)
     {
         return ModelUtils::filterNullValues([
-            'id' => $request->id,
+            // 'id' => $request->id,
             'judul' => $request->judul,
             'noTelpPelapor' => $request->no_telp_pelapor,
             'namaKorban' => $request->nama_korban,
             'namaPelapor' => $request->nama_pelapor,
             'usia' => $request->usia,
             'jenisKelamin' => $request->jenis_kelamin,
+            'alamat' => $request->alamat,
+            'rt' => $request->rt,
+            'rw' => $request->rw,
+            'token' => $request->token,
             'status' => new StatusesResource($request->status),
             'kategori' => new KategorisResource($request->kategori),
-            'alamat' => new AlamatsResource($request->alamat),
             'pendidikan' => new PendidikansResource($request->pendidikan),
             'kronologis' => KronologisResource::collection($request->kronologis),
             'progressReports' => ProgressReportsResource::collection($request->progress_reports),

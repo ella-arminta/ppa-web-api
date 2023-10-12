@@ -25,16 +25,16 @@ class DatabaseSeeder extends Seeder
         // $this->run();
         $this->call([
             UserSeeder::class,
-            KronologiSeeder::class,
-            AlamatSeeder::class,
             KelurahanSeeder::class,
             KecamatanSeeder::class,
             PendidikanSeeder::class,
             StatusSeeder::class,
             RolesSeeder::class,
-            ProgressReportSeeder::class,
             KategoriSeeder::class,
-            LaporanSeeder::class,
+            // KronologiSeeder::class,
+            // AlamatSeeder::class,
+            // ProgressReportSeeder::class,
+            // LaporanSeeder::class,
         ]);
         // User::create([
         //     'name' => 'Glenn Steven',
