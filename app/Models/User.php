@@ -103,6 +103,7 @@ class User extends Authenticatable
     {
         return ModelUtils::filterNullValues([
             'id' => $request->id,
+            'username' => $request->username,
             'nama' => $request->nama,
             'noTelp' => $request->no_telp,
             'email' => $request->email,

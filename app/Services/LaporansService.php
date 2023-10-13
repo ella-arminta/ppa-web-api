@@ -6,6 +6,8 @@ use App\Models\Laporans;
 use App\Models\Kronologis;
 use App\Services\BaseService;
 
+use App\Models\User;
+
 class LaporansService extends BaseService
 {
     public function __construct(Laporans $model)
@@ -15,8 +17,16 @@ class LaporansService extends BaseService
 
     public function create($data)
     {
+        $admin = User::where('role_id', 2)->first()->id;
+        
         $kronologis = $data['kronologis'] ?? null;
         unset($data['kronologis']);
+
+        $data['status_id'] = 1;
+        $data['token'] = strtoupper(str()->random(8));
+
+        $data['satgas_pelapor_id'] = $admin;
+        $data['previous_satgas_id'] = $admin;
 
         $data = $this->repository->create($data);        
         $data = $data->fresh();
