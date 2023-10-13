@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
             'nama' => 'Admin 2',
             'username' => 'admin2',
             'password' => bcrypt('password'),
-            'no_telp' => '081234567890',
+            'no_telp' => '0812345678912',
             'role_id' => 1,
         ]);
         User::create([
