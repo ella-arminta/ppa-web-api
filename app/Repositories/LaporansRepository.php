@@ -17,4 +17,20 @@ class LaporansRepository extends BaseRepository
         OR
         Override existing repository here...
     */
+
+    public function update($id, $data) {
+        $foreign = ['status', 'kategori', 'pendidikan'];
+
+        foreach ($foreign as $f) {
+            if (isset($data[$f])) {
+                $data[$f."_id"] = $data[$f]['id'];
+                unset($data[$f]);
+            }
+        }
+
+        $model = $this->model->findOrFail($id);
+
+        $model->update($data);
+        return $model->fresh();
+    }
 }
