@@ -20,11 +20,21 @@ class StatusesRepository extends BaseRepository
 
     public function getCountKasus() {
         $data = $this->model->groupBy('id')->orderBy('id', 'ASC')->get(['id', 'nama']);
+        $allKasus = 0;
 
         foreach($data as $d) {
             $d->totalCase = $d->laporans()->count();
+            $allKasus += $d->totalCase;
         }
 
-        return $data->toArray();
+        $data = $data->toArray();
+
+        $data[] = [
+            'id' => 0,
+            'nama' => 'Total Kasus',
+            'totalCase' => $allKasus
+        ];
+
+        return $data;
     }
 }
