@@ -15,7 +15,7 @@ class LaporanSeeder extends Seeder
      */
     public function run(): void
     {
-        $satgasPelaporUser1 = User::where('username', 'testing')->first();
+        $satgasPelaporUser1 = User::first();
 
         Laporans::create([
             'judul' => 'Laporan KDRT',
