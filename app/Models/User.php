@@ -108,9 +108,9 @@ class User extends Authenticatable
             'noTelp' => $request->no_telp,
             'email' => $request->email,
             'role' => new RolesResource($request->role),
-            'kronologis' => KronologisResource::collection($request->kronologis),
-            'laporans' => LaporansResource::collection($request->laporans),
-            'progressReports' => ProgressReportsResource::collection($request->progress_reports),
+            // 'kronologis' => KronologisResource::collection($request->kronologis),
+            // 'laporans' => LaporansResource::collection($request->laporans),
+            // 'progressReports' => ProgressReportsResource::collection($request->progress_reports),
         ]);
     }
 

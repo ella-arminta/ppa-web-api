@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use App\Http\Resources\AlamatsResource;
 use App\Http\Resources\KategorisResource;
 use App\Http\Resources\KronologisResource;
 use App\Http\Resources\ProgressReportsResource;
 use App\Http\Resources\LaporansResource;
 use App\Http\Resources\PendidikansResource;
 use App\Http\Resources\StatusesResource;
+use App\Http\Resources\UserResource;
+
 use App\Models\ModelUtils;
 
 use App\Repositories\LaporansRepository;
@@ -127,6 +128,8 @@ class Laporans extends Model
             'rt' => $request->rt,
             'rw' => $request->rw,
             'token' => $request->token,
+            'satgasPelapor' => $request->satgas_pelapor ? new UserResource($request->satgas_pelapor) : null,
+            'previousSatgas' => $request->previous_satgas ? new UserResource($request->previous_satgas) : null,
             'status' => new StatusesResource($request->status),
             'kategori' => new KategorisResource($request->kategori),
             'pendidikan' => new PendidikansResource($request->pendidikan),

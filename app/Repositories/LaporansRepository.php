@@ -19,10 +19,13 @@ class LaporansRepository extends BaseRepository
     */
 
     public function update($id, $data) {
-        $foreign = ['status', 'kategori', 'pendidikan'];
+        $foreign = ['status', 'kategori', 'pendidikan', 'satgas Pelapor', 'previous Satgas'];
 
         foreach ($foreign as $f) {
-            if (isset($data[$f])) {
+            $d = str_replace(' ', '', $f);
+            if (isset($data[$d])) {
+                $f = strtolower($f);
+                $f = str_replace(' ', '_', $f);
                 $data[$f."_id"] = $data[$f]['id'];
                 unset($data[$f]);
             }

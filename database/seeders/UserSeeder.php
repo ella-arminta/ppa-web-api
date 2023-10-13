@@ -16,14 +16,14 @@ class UserSeeder extends Seeder
     {
         // User::factory()->count(3)->hasLaporans(2)->create();
         User::create([
-            'nama' => 'Test',
+            'nama' => 'Glenn Ganteng',
             'username' => 'testing',
             'password' => bcrypt('password'),
             'no_telp' => '081234567890',
             'role_id' => 1,
         ]);
         User::create([
-            'nama' => 'Test 2',
+            'nama' => 'Super Admin Pak',
             'username' => 'testing2',
             'password' => bcrypt('password'),
             'no_telp' => '081234567891',
