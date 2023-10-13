@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\LaporansController;
 
 require_once __DIR__ . '/utils.php';
 
@@ -49,6 +49,7 @@ Route::middleware(['cors'])->group(function () {
     });
     
     Route::group(['middleware' => ['auth:sanctum', 'ability:superadmin,admin']], function () {
+        Route::get('/laporans/count', 'App\Http\Controllers\LaporansController@getCountKasus')->name('laporans.count');
         Route::apiResources(createRoutes());
     });
     
