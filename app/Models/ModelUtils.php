@@ -15,4 +15,18 @@ class ModelUtils
     {
         return isset($param) && (int)$param == 1;
     }
+
+    public static function rulesPatch($rules)
+    {
+        if (request()->isMethod('patch')) {
+            foreach($rules as $key => $value) {
+                if (str_contains($value, 'required')) {
+                    $rules[$key] = str_replace('required', 'sometimes', $value);
+                } else {
+                    $rules[$key] = $value."|sometimes";
+                }
+            }
+        }
+        return $rules;
+    }
 }

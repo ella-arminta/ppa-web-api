@@ -49,7 +49,7 @@ Route::middleware(['cors'])->group(function () {
     });
     
     Route::group(['middleware' => ['auth:sanctum', 'ability:superadmin,admin']], function () {
-        Route::get('/laporans/count', 'App\Http\Controllers\LaporansController@getCountKasus')->name('laporans.count');
+        Route::get('/statuses/count', 'App\Http\Controllers\StatusesController@getCountKasus');
         Route::apiResources(createRoutes());
     });
     

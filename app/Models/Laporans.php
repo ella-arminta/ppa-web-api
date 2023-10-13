@@ -56,7 +56,7 @@ class Laporans extends Model
      */
     public static function validationRules()
     {
-        return [
+        $rules = [
             'judul' => 'required',
             'no_telp_pelapor' => 'required|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/',
             'nama_korban' => 'required|regex:/^[a-zA-Z ]*$/|min:3',
@@ -71,6 +71,7 @@ class Laporans extends Model
             'kronologis.*.tanggal' => 'required|date',
             'kronologis.*.isi' => 'required',
         ];
+        return ModelUtils::rulesPatch($rules);
     }
 
     /**
@@ -115,7 +116,7 @@ class Laporans extends Model
     public function resourceData($request)
     {
         return ModelUtils::filterNullValues([
-            // 'id' => $request->id,
+            'id' => $request->id,
             'judul' => $request->judul,
             'noTelpPelapor' => $request->no_telp_pelapor,
             'namaKorban' => $request->nama_korban,

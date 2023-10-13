@@ -37,12 +37,13 @@ class ProgressReports extends Model
      */
     public static function validationRules()
     {
-        return [
+        $rules = [
             'laporan_id' => 'required|exists:laporans,id',
             'admin_id' => 'required|exists:users,id',
             'isi' => 'required|string|min:3',
             'is_menyerah' => 'boolean',
         ];
+        return ModelUtils::rulesPatch($rules);
     }
 
     /**

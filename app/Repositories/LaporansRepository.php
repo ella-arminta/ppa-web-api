@@ -17,14 +17,4 @@ class LaporansRepository extends BaseRepository
         OR
         Override existing repository here...
     */
-
-    public function getCountKasus() {
-        $data = $this->model->join('statuses', 'statuses.id', '=', 'laporans.status_id')
-        ->groupBy('statuses.id', 'laporans.status_id')
-        ->selectRaw('status_id as "id", statuses.nama as "status", count(*) as "totalCase"')
-        ->get()
-        ->toArray();
-
-        return $data;
-    }
 }

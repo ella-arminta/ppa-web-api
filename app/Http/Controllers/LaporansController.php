@@ -19,9 +19,4 @@ class LaporansController extends BaseController
         OR
         Override existing controller here...
     */
-
-    public function getCountKasus() {
-        $data = $this->service->getCountKasus();
-        return $this->success($data, HttpResponseCode::HTTP_OK);
-    }
 }

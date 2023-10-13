@@ -38,10 +38,11 @@ class Kelurahans extends Model
      */
     public static function validationRules()
     {
-        return [
+        $rules = [
             'nama' => 'required',
             'kecamatan_id' => 'required'
         ];
+        return ModelUtils::rulesPatch($rules);
     }
 
     /**

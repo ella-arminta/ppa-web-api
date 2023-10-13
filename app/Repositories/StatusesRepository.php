@@ -17,4 +17,14 @@ class StatusesRepository extends BaseRepository
         OR
         Override existing repository here...
     */
+
+    public function getCountKasus() {
+        $data = $this->model->groupBy('id')->orderBy('id', 'ASC')->get(['id', 'nama']);
+
+        foreach($data as $d) {
+            $d->totalCase = $d->laporans()->count();
+        }
+
+        return $data->toArray();
+    }
 }

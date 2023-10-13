@@ -17,4 +17,10 @@ class StatusesService extends BaseService
         OR
         Override existing service here...
     */
+
+    public function getCountKasus() {
+        $data = $this->repository->getCountKasus();
+    
+        return $data;
+    }
 }

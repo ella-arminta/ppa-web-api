@@ -11,7 +11,7 @@ class BaseRepository {
     }
 
     public function getAll() {
-        return $this->model->with($this->model->relations())->get();
+        return $this->model->with($this->model->relations())->orderBy("id", "ASC")->get();
     }
 
     public function getById($id) {
