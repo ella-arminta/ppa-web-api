@@ -26,8 +26,8 @@ class LaporansRepository extends BaseRepository
             if (isset($data[$d])) {
                 $f = strtolower($f);
                 $f = str_replace(' ', '_', $f);
-                $data[$f."_id"] = $data[$f]['id'];
-                unset($data[$f]);
+                $data[$f."_id"] = $data[$d]['id'];
+                unset($data[$d]);
             }
         }
 
