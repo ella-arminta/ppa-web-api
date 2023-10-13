@@ -78,6 +78,7 @@ class ProgressReports extends Model
             'id' => $request->id,
             'isi' => $request->isi,
             'isMenyerah' => $request->is_menyerah,
+            'tanggal' => $request->created_at,
             'laporan' => $withLaporan ? new LaporanResource($request->laporan) : null,
             'admin' => $withUser ? new UserResource($request->admin)  : null,
         ]);
