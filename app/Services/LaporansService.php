@@ -19,8 +19,14 @@ class LaporansService extends BaseService
     {
         $kronologis = $data['kronologis'] ?? null;
         unset($data['kronologis']);
-        
-        $data['status_id'] = 1;
+
+        if (env('APP_ENV') == 'local') {
+            $data['status_id'] = 1;
+        } else if (env('APP_ENV') == 'production') {
+            $data['status_id'] = 4;
+        } else {
+            $data['status_id'] = 1;
+        }
         // $data['status_id'] = 4;
         $data['token'] = strtoupper(str()->random(8));
         
