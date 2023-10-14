@@ -20,7 +20,8 @@ class LaporansService extends BaseService
         $kronologis = $data['kronologis'] ?? null;
         unset($data['kronologis']);
 
-        $data['status_id'] = 1;
+        // $data['status_id'] = 1;
+        $data['status_id'] = 4;
         $data['token'] = strtoupper(str()->random(8));
         
         if (!auth()->user()) {
