@@ -14,13 +14,25 @@ class KategoriSeeder extends Seeder
     public function run(): void
     {
         Kategoris::create([
+            'nama' => 'Kesehatan',
+        ]);
+        Kategoris::create([
+            'nama' => 'Pendidikan',
+        ]);
+        Kategoris::create([
+            'nama' => 'Penelantaran',
+        ]);
+        Kategoris::create([
             'nama' => 'KDRT',
         ]);
         Kategoris::create([
-            'nama' => 'Pelecehan',
+            'nama' => 'Tawuran',
         ]);
         Kategoris::create([
-            'nama' => 'Penganiayaan',
+            'nama' => 'Narkoba',
+        ]);
+        Kategoris::create([
+            'nama' => 'Anak Berkebutuhan Khusus (ABK)',
         ]);
     }
 }

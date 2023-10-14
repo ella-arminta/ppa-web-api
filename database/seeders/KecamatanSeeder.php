@@ -15,11 +15,11 @@ class KecamatanSeeder extends Seeder
     {
         $kecamatans = [
             [
-                'nama' => 'Kecamatan 1'
+                'nama' => 'Kecamatan Simokerto'
             ],
-            [
-                'nama' => 'Kecamatan 2'
-            ],
+            // [
+            //     'nama' => 'Kecamatan 2'
+            // ],
             // Tambahkan data kecamatan lainnya di sini sesuai dengan data yang Anda miliki
         ];
 

@@ -23,5 +23,11 @@ class PendidikanSeeder extends Seeder
         Pendidikans::create([
             'nama' => 'SMA',
         ]);
+        Pendidikans::create([
+            'nama' => 'Tidak sekolah',
+        ]);
+        Pendidikans::create([
+            'nama' => 'Lainnya atau tidak tahu',
+        ]);
     }
 }
