@@ -37,6 +37,13 @@ class UserSeeder extends Seeder
             'role_id' => 1,
         ]);
         User::create([
+            'nama' => 'User Lain',
+            'username' => 'user1',
+            'password' => bcrypt('password'),
+            'no_telp' => '081234567234',
+            'role_id' => 1,
+        ]);
+        User::create([
             'nama' => 'Kelurahan Tambakrejo',
             'username' => 'tambakrejo',
             'password' => bcrypt('password'),
