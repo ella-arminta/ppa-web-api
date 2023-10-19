@@ -52,6 +52,12 @@ Route::middleware(['cors'])->group(function () {
         Route::get('/statuses/count', 'App\Http\Controllers\StatusesController@getCountKasus');
         Route::apiResources(createRoutes());
     });
+
+    Route::group(['prefix' => 'public'], function() {
+        Route::apiResource('laporans', 'App\Http\Controllers\LaporansController', ["only" => ["store"]]);
+
+        Route::get('/laporans/{token:token}', 'App\Http\Controllers\LaporansController@getByToken');
+    });
     
     // Route::group(['middleware' => ['auth:sanctum', 'ability:superadmin']], function () {
     //     Route::apiResources(createRouteNoAdmin());

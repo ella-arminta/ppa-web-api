@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        DB::statement('ALTER TABLE statuses MODIFY created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP');
+        // DB::statement('ALTER TABLE statuses MODIFY created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP');
     }
 
     /**

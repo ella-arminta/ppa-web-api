@@ -21,7 +21,7 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        DB::statement('ALTER TABLE kelurahans MODIFY created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP');
+        // DB::statement('ALTER TABLE kelurahans MODIFY created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP');
     }
 
     /**

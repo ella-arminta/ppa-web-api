@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Resources\LaporansResource;
 use App\Models\Laporans;
 use App\Models\Kronologis;
 use App\Services\BaseService;
@@ -58,6 +59,10 @@ class LaporansService extends BaseService
             $k['admin_id'] = $satgas_pelapor_id;
             $repository->create($k);
         }
+    }
+
+    public function getByToken($token) {
+        return new LaporansResource($token);
     }
 
     /*
