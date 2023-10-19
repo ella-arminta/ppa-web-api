@@ -39,6 +39,16 @@ function createRoutes()
     return $routes;
 }
 
+function createPublicRoutes() {
+    $routes = [];
+
+    $routes['pendidikans'] = 'App\Http\Controllers\LaporansController';
+    $routes['kategoris'] = 'App\Http\Controllers\KategorisController';
+    $routes['kelurahans'] = 'App\Http\Controllers\KelurahansController';
+
+    return $routes;
+}
+
 function createRouteNoAdmin() {
     $routes = [];
 

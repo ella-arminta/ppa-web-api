@@ -56,6 +56,8 @@ Route::middleware(['cors'])->group(function () {
     Route::group(['prefix' => 'public'], function() {
         Route::apiResource('laporans', 'App\Http\Controllers\LaporansController', ["only" => ["store"]]);
 
+        Route::apiResources(createPublicRoutes(), ["only" => ["index", "show"]]);
+
         Route::get('/laporans/{token:token}', 'App\Http\Controllers\LaporansController@getByToken');
     });
     
