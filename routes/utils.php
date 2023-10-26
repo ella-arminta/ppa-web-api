@@ -45,6 +45,7 @@ function createPublicRoutes() {
     $routes['pendidikans'] = 'App\Http\Controllers\PendidikansController';
     $routes['kategoris'] = 'App\Http\Controllers\KategorisController';
     $routes['kelurahans'] = 'App\Http\Controllers\KelurahansController';
+    $routes['kecamatans'] = 'App\Http\Controllers\KecamatansController';
 
     return $routes;
 }

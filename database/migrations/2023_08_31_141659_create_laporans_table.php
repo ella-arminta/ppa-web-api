@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('rw');
             $table->string('rt');
             $table->foreignIdFor('App\Models\Kategoris', 'kategori_id');
+            $table->foreignIdFor('App\Models\Kelurahans', 'kelurahan_id')->default(1)->nullable();
             // $table->foreignIdFor('App\Models\Alamats', 'alamat_id');
             $table->char('jenis_kelamin', 1);
             $table->foreignUuid('satgas_pelapor_id')

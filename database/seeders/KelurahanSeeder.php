@@ -18,7 +18,8 @@ class KelurahanSeeder extends Seeder
             [
                 'nama' => 'Tambakrejo', 
                 'kecamatan_id' => 1
-            ], // Sesuaikan id kecamatan
+            ], 
+        // Sesuaikan id kecamatan
             // [
             //     'nama' => 'Kelurahan 2', 
             //     'kecamatan_id' => 1

@@ -3,12 +3,8 @@
 namespace App\Models;
 
 use App\Http\Resources\KategorisResource;
-use App\Http\Resources\KronologisResource;
-use App\Http\Resources\ProgressReportsResource;
 use App\Http\Resources\LaporansResource;
-use App\Http\Resources\PendidikansResource;
 use App\Http\Resources\StatusesResource;
-use App\Http\Resources\UserResource;
 
 use App\Models\ModelUtils;
 
@@ -121,27 +117,18 @@ class Laporans extends Model
      */
     public function resourceData($request)
     {
-        return ModelUtils::filterNullValues([
+        $data = [
             'id' => $request->id,
-            'judul' => $request->judul,
-            'no_telp_pelapor' => $request->no_telp_pelapor,
-            'nama_korban' => $request->nama_korban,
-            'nama_pelapor' => $request->nama_pelapor,
-            'usia' => $request->usia,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'alamat' => $request->alamat,
-            'rt' => $request->rt,
-            'rw' => $request->rw,
             'token' => $request->token,
-            'satgas_pelapor' => $request->satgas_pelapor ? new UserResource($request->satgas_pelapor) : null,
-            'previous_satgas' => $request->previous_satgas ? new UserResource($request->previous_satgas) : null,
             'status' => new StatusesResource($request->status),
             'kategori' => new KategorisResource($request->kategori),
-            'pendidikan' => new PendidikansResource($request->pendidikan),
-            'kronologis' => KronologisResource::collection($request->kronologis),
-            'progress_reports' => ProgressReportsResource::collection($request->progress_reports),
             'created_at' => Carbon::parse($request->created_at)->format('d-m-Y'),
-        ]);
+        ];
+        if (is_null(request('token'))) {
+            $data = ModelUtils::addAttributeWithoutToken($request);
+        }
+
+        return ModelUtils::filterNullValues($data);
     }
 
 
@@ -203,12 +190,20 @@ class Laporans extends Model
             'pendidikan',
             'satgas_pelapor',
             'previous_satgas',
+            'kelurahan',
+            'kelurahan.kecamatan'
         ];
     }
 
     public function scopeKlien($query, $value=null) {
-        return $query->whereRaw('LOWER(nama_korban) LIKE ?', ["%".strtolower($value)."%"])
+        $result = $query->whereRaw('LOWER(nama_korban) LIKE ?', ["%".strtolower($value)."%"])
         ->orWhereRaw('LOWER(nama_pelapor) LIKE ?', ["%".strtolower($value)."%"]);
+
+        return $result;
+    }
+
+    public function scopeStatus($query, $value) {
+        return $query->where('status_id', $value);
     }
 
     public function alamat()
@@ -250,4 +245,9 @@ class Laporans extends Model
     {
         return $this->belongsTo('App\Models\Pendidikans', 'pendidikan_id', 'id');
     }
+
+    public function kelurahan()
+    {
+        return $this->belongsTo('App\Models\Kelurahans', 'kelurahan_id', 'id');
+    }   
 }

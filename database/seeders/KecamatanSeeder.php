@@ -15,7 +15,7 @@ class KecamatanSeeder extends Seeder
     {
         $kecamatans = [
             [
-                'nama' => 'Kecamatan Simokerto'
+                'nama' => 'Simokerto'
             ],
             // [
             //     'nama' => 'Kecamatan 2'
