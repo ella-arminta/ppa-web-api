@@ -36,4 +36,8 @@ class LaporansRepository extends BaseRepository
         $model->update($data);
         return $model->fresh();
     }
+
+    public function getWithPaginate() {
+        return $this->model->with($this->model->relations())->paginate(10);
+    }
 }

@@ -16,11 +16,17 @@ class LaporansService extends BaseService
         parent::__construct($model);
     }
 
+    
+    /*
+    Add new services
+    OR
+    Override existing service here...
+    */
     public function create($data)
     {
         $kronologis = $data['kronologis'] ?? null;
         unset($data['kronologis']);
-
+    
         if (env('APP_ENV') == 'local') {
             $data['status_id'] = 1;
         } else if (env('APP_ENV') == 'production') {
@@ -36,38 +42,38 @@ class LaporansService extends BaseService
             $data['satgas_pelapor_id'] = $admin;
             $data['previous_satgas_id'] = $admin;
         }
-
+    
         $data = $this->repository->create($data);        
         $data = $data->fresh();
-
+    
         if (isset($kronologis)) {
             $this->saveKronologis($kronologis, $data->id, $data->satgas_pelapor_id);
         }
         
         $data = new $this->resource($data->fresh());
-
+    
         return $data;
     }
-
+    
     private function saveKronologis($kronologis, $laporan_id, $satgas_pelapor_id)
     {
         $k = new Kronologis();
         $repository = $k->repository();
-
+    
         foreach ($kronologis as $k) {
             $k['laporan_id'] = $laporan_id;
             $k['admin_id'] = $satgas_pelapor_id;
             $repository->create($k);
         }
     }
-
+    
     public function getByToken($token) {
         return new LaporansResource($token);
     }
 
-    /*
-    Add new services
-    OR
-    Override existing service here...
-    */
+    public function getAll() {
+        $data = $this->repository->getWithPaginate();
+        
+        return $this->resource::collection($data);
+    }
 }
