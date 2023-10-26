@@ -18,7 +18,8 @@ class LaporansRepository extends BaseRepository
         Override existing repository here...
     */
 
-    public function update($id, $data) {
+    public function update($id, $data)
+    {
         $foreign = ['status', 'kategori', 'pendidikan', 'satgas Pelapor', 'previous Satgas'];
 
         foreach ($foreign as $f) {
@@ -26,7 +27,7 @@ class LaporansRepository extends BaseRepository
             if (isset($data[$d])) {
                 $f = strtolower($f);
                 $f = str_replace(' ', '_', $f);
-                $data[$f."_id"] = $data[$d]['id'];
+                $data[$f . "_id"] = $data[$d]['id'];
                 unset($data[$d]);
             }
         }
@@ -37,19 +38,20 @@ class LaporansRepository extends BaseRepository
         return $model->fresh();
     }
 
-    public function getWithPaginate($params = null) 
+    public function getWithPaginate($params = null)
     {
         $data = $this->model->with($this->model->relations())->orderBy('created_at', 'DESC');
 
-        if (!is_null(request("status"))) $data = $data->status((int)request("status"));
-        
+        if (!is_null(request("status")) && (int)request('status') != 0) $data = $data->status((int)request("status"));
+
         return $data->klien($params)->paginate(10);
     }
 
-    public function getAll() {
+    public function getAll()
+    {
         $data = $this->model->with($this->model->relations())->orderBy("id", "ASC")->klien(request("search"));
 
-        if (!is_null(request("status"))) $data = $data->status((int)request("status"));
+        if (!is_null(request("status")) && (int)request('status') != 0) $data = $data->status((int)request("status"));
 
         return $data->get();
     }
