@@ -207,7 +207,8 @@ class Laporans extends Model
     }
 
     public function scopeKlien($query, $value=null) {
-        return $query->where('nama_korban', 'ilike', "%$value%")->orWhere('nama_pelapor', "ilike", "%$value%");
+        return $query->whereRaw('LOWER(nama_korban) LIKE ?', ["%".strtolower($value)."%"])
+        ->orWhereRaw('LOWER(nama_pelapor) LIKE ?', ["%".strtolower($value)."%"]);
     }
 
     public function alamat()
