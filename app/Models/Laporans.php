@@ -119,6 +119,7 @@ class Laporans extends Model
     {
         $data = [
             'id' => $request->id,
+            'nama_pelapor' => $request->nama_pelapor,
             'token' => $request->token,
             'status' => new StatusesResource($request->status),
             'kategori' => new KategorisResource($request->kategori),
