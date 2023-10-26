@@ -105,7 +105,7 @@ class User extends Authenticatable
             'id' => $request->id,
             'username' => $request->username,
             'nama' => $request->nama,
-            'noTelp' => $request->no_telp,
+            'no_telp' => $request->no_telp,
             'email' => $request->email,
             'role' => new RolesResource($request->role),
             // 'kronologis' => KronologisResource::collection($request->kronologis),

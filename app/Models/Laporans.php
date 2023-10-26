@@ -50,6 +50,11 @@ class Laporans extends Model
         // 'pendidikan_id',
     ];
 
+    // protected $hidden = [
+    //     'updated_at',
+    //     'deleted_at',
+    // ];
+
     /**
      * Rules that applied in this model
      *
@@ -119,23 +124,23 @@ class Laporans extends Model
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'judul' => $request->judul,
-            'noTelpPelapor' => $request->no_telp_pelapor,
-            'namaKorban' => $request->nama_korban,
-            'namaPelapor' => $request->nama_pelapor,
+            'no_telp_pelapor' => $request->no_telp_pelapor,
+            'nama_korban' => $request->nama_korban,
+            'nama_pelapor' => $request->nama_pelapor,
             'usia' => $request->usia,
-            'jenisKelamin' => $request->jenis_kelamin,
+            'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
             'rt' => $request->rt,
             'rw' => $request->rw,
             'token' => $request->token,
-            'satgasPelapor' => $request->satgas_pelapor ? new UserResource($request->satgas_pelapor) : null,
-            'previousSatgas' => $request->previous_satgas ? new UserResource($request->previous_satgas) : null,
+            'satgas_pelapor' => $request->satgas_pelapor ? new UserResource($request->satgas_pelapor) : null,
+            'previous_satgas' => $request->previous_satgas ? new UserResource($request->previous_satgas) : null,
             'status' => new StatusesResource($request->status),
             'kategori' => new KategorisResource($request->kategori),
             'pendidikan' => new PendidikansResource($request->pendidikan),
             'kronologis' => KronologisResource::collection($request->kronologis),
-            'progressReports' => ProgressReportsResource::collection($request->progress_reports),
-            'createdAt' => Carbon::parse($request->created_at)->format('d-m-Y'),
+            'progress_reports' => ProgressReportsResource::collection($request->progress_reports),
+            'created_at' => Carbon::parse($request->created_at)->format('d-m-Y'),
         ]);
     }
 
@@ -199,6 +204,10 @@ class Laporans extends Model
             'satgas_pelapor',
             'previous_satgas',
         ];
+    }
+
+    public function scopeKlien($query, $value=null) {
+        return $query->where('nama_korban', 'ilike', "%$value%")->orWhere('nama_pelapor', "ilike", "%$value%");
     }
 
     public function alamat()

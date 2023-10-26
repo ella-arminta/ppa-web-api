@@ -37,7 +37,19 @@ class LaporansRepository extends BaseRepository
         return $model->fresh();
     }
 
-    public function getWithPaginate() {
-        return $this->model->with($this->model->relations())->paginate(10);
+    public function getWithPaginate($params = null) 
+    {
+        $data = $this->model->with($this->model->relations())->orderBy('created_at', 'DESC');
+        if ($params) {
+            return $data->klien($params)->paginate(20);
+        }
+        
+        return $data->klien($params)->paginate(20);
+    }
+
+    public function getAll() {
+        $data = $this->model->with($this->model->relations())->orderBy("id", "ASC")->klien(request("search"))->get();
+
+        return $data;
     }
 }

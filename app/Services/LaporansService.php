@@ -72,8 +72,8 @@ class LaporansService extends BaseService
     }
 
     public function getAll() {
-        $data = $this->repository->getWithPaginate();
-        
+        $data = request('page') ? $this->repository->getWithPaginate(request('search')) : $this->repository->getAll();
+
         return $this->resource::collection($data);
     }
 }

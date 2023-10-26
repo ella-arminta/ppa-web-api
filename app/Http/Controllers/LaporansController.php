@@ -25,4 +25,11 @@ class LaporansController extends BaseController
 
         return $this->success($data, HttpResponseCode::HTTP_OK);
     }
+
+    public function index()
+    {
+        $data = $this->service->getAll();
+
+        return $this->success($data->resource, HttpResponseCode::HTTP_OK);
+    }
 }
