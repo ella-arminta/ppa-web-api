@@ -27,29 +27,13 @@ class Laporans extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'judul',
-        'no_telp_pelapor',
-        'nama_korban',
-        'nama_pelapor',
-        'usia',
-        'kategori_id',
-        'alamat',
-        'rt',
-        'rw',
-        'pendidikan_id',
-        'jenis_kelamin',
-        'satgas_pelapor_id',
-        'previous_satgas_id',
-        'status_id',
-        'token',
-        // 'pendidikan_id',
-    ];
 
-    // protected $hidden = [
-    //     'updated_at',
-    //     'deleted_at',
-    // ];
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
 
     /**
      * Rules that applied in this model
@@ -61,17 +45,24 @@ class Laporans extends Model
         $rules = [
             'judul' => 'required',
             'no_telp_pelapor' => 'required|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,9}$/',
-            'nama_korban' => 'required|regex:/^[a-zA-Z ]*$/|min:3',
+            'no_telp_klien' => 'required|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,9}$/',
+            'tanggal_pengaduan' => 'nullable|date',
+            'jam_pengaduan' => 'nullable|date_format:H:i',
+            'uraian_singkat_masalah' => 'required',
+            'nama_klien' => 'required|regex:/^[a-zA-Z ]*$/|min:3',
             'nama_pelapor' => 'required|regex:/^[a-zA-Z ]*$/|min:3',
             'usia' => 'required|numeric|min:1',
             'kategori_id' => 'required|numeric|min:1|exists:kategoris,id',
-            'alamat' => 'required',
+            'alamat_pelapor' => 'required',
+            'alamat_klien' => 'required',
             'rt' => 'required|min:1|max:3',
             'rw' => 'required|min:1|max:3',
+            'nik_pelapor' => 'nullable',
+            'nik_klien' => 'nullable',
             'jenis_kelamin' => 'required|in:L,P',
-            'kronologis' => 'array|nullable',
-            'kronologis.*.tanggal' => 'required|date',
-            'kronologis.*.isi' => 'required',
+            'kronologis' => 'nullable',
+            'sumber_pengaduan_id' => 'required|numeric|min:1|exists:sumber_pengaduan,id',
+            'pendidikan_id' => 'required|numeric|min:1|exists:pendidikans,id',
         ];
         return ModelUtils::rulesPatch($rules);
     }
@@ -87,9 +78,9 @@ class Laporans extends Model
             'judul.required' => 'Judul tidak boleh kosong',
             'no_telp_pelapor.required' => 'Nomor telepon pelapor tidak boleh kosong',
             'no_telp_pelapor.regex' => 'Nomor telepon pelapor tidak valid',
-            'nama_korban.required' => 'Nama korban tidak boleh kosong',
-            'nama_korban.regex' => 'Nama korban tidak valid',
-            'nama_korban.min' => 'Nama korban minimal 3 karakter',
+            'nama_klien.required' => 'Nama klien tidak boleh kosong',
+            'nama_klien.regex' => 'Nama klien tidak valid',
+            'nama_klien.min' => 'Nama klien minimal 3 karakter',
             'nama_pelapor.required' => 'Nama pelapor tidak boleh kosong',
             'nama_pelapor.regex' => 'Nama pelapor tidak valid',
             'nama_pelapor.min' => 'Nama pelapor minimal 3 karakter',
@@ -103,10 +94,36 @@ class Laporans extends Model
             'alamat.required' => 'Alamat tidak boleh kosong',
             'jenis_kelamin.required' => 'Jenis kelamin tidak boleh kosong',
             'jenis_kelamin.in' => 'Jenis kelamin harus L atau P',
-            'kronologis.array' => 'Kronologis harus berupa array',
-            'kronologis.*.tanggal.required' => 'Tanggal tidak boleh kosong',
-            'kronologis.*.tanggal.date' => 'Tanggal tidak valid',
-            'kronologis.*.isi.required' => 'Isi tidak boleh kosong',
+            'rt.required' => 'RT tidak boleh kosong',
+            'rt.min' => 'RT tidak valid',
+            'rt.max' => 'RT tidak valid',
+            'rw.required' => 'RW tidak boleh kosong',
+            'rw.min' => 'RW tidak valid',
+            'rw.max' => 'RW tidak valid',
+            'kronologis.required' => 'Kronologis tidak boleh kosong',
+            'tanggal_pengaduan.date' => 'Tanggal pengaduan tidak valid',
+            'jam_pengaduan.date_format' => 'Jam pengaduan tidak valid',
+            'uraian_singkat_masalah.required' => 'Uraian singkat masalah tidak boleh kosong',
+            'nik_pelapor.required' => 'NIK pelapor tidak boleh kosong',
+            'nik_klien.required' => 'NIK klien tidak boleh kosong',
+            'nik_pelapor.regex' => 'NIK pelapor tidak valid',
+            'nik_klien.regex' => 'NIK klien tidak valid',
+            'nik_pelapor.min' => 'NIK pelapor minimal 16 karakter',
+            'nik_klien.min' => 'NIK klien minimal 16 karakter',
+            'nik_pelapor.max' => 'NIK pelapor maksimal 16 karakter',
+            'nik_klien.max' => 'NIK klien maksimal 16 karakter',
+            'no_telp_klien.required' => 'Nomor telepon klien tidak boleh kosong',
+            'no_telp_klien.regex' => 'Nomor telepon klien tidak valid',
+            'alamat_pelapor.required' => 'Alamat pelapor tidak boleh kosong',
+            'alamat_klien.required' => 'Alamat klien tidak boleh kosong',
+            'pendidikan_id.required' => 'Pendidikan tidak boleh kosong',
+            'pendidikan_id.numeric' => 'Pendidikan harus berupa angka',
+            'pendidikan_id.min' => 'Pendidikan tidak valid',
+            'pendidikan_id.exists' => 'Pendidikan tidak valid',
+            'sumber_pengaduan_id.required' => 'Sumber pengaduan tidak boleh kosong',
+            'sumber_pengaduan_id.numeric' => 'Sumber pengaduan harus berupa angka',
+            'sumber_pengaduan_id.min' => 'Sumber pengaduan tidak valid',
+            'sumber_pengaduan_id.exists' => 'Sumber pengaduan tidak valid',
         ];
     }
 
@@ -120,6 +137,7 @@ class Laporans extends Model
         $data = [
             'id' => $request->id,
             'nama_pelapor' => $request->nama_pelapor,
+            'inisial_klien' => $request->inisial_klien,
             'token' => $request->token,
             'status' => new StatusesResource($request->status),
             'kategori' => new KategorisResource($request->kategori),
@@ -192,12 +210,13 @@ class Laporans extends Model
             'satgas_pelapor',
             'previous_satgas',
             'kelurahan',
+            'sumber_pengaduan',
             'kelurahan.kecamatan'
         ];
     }
 
     public function scopeKlien($query, $value=null) {
-        $result = $query->whereRaw('LOWER(nama_korban) LIKE ?', ["%".strtolower($value)."%"])
+        $result = $query->whereRaw('LOWER(nama_klien) LIKE ?', ["%".strtolower($value)."%"])
         ->orWhereRaw('LOWER(nama_pelapor) LIKE ?', ["%".strtolower($value)."%"]);
 
         return $result;
@@ -250,5 +269,10 @@ class Laporans extends Model
     public function kelurahan()
     {
         return $this->belongsTo('App\Models\Kelurahans', 'kelurahan_id', 'id');
-    }   
+    }
+
+    public function sumber_pengaduan()
+    {
+        return $this->belongsTo('App\Models\SumberPengaduan', 'sumber_pengaduan_id', 'id');
+    }
 }

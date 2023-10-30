@@ -2,13 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\ModelUtils;
-use App\Models\Kelurahans;
-
-use App\Repositories\KecamatansRepository;
-use App\Services\KecamatansService;
 use App\Http\Resources\KecamatansResource;
-use App\Http\Resources\KelurahansResource;
+use App\Models\ModelUtils;
+use App\Repositories\WilayahRepository;
+use App\Services\WilayahService;
 use App\Http\Resources\WilayahResource;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class Kecamatans extends Model
+class Wilayah extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -43,20 +40,13 @@ class Kecamatans extends Model
 
     /**
      * Messages that applied in this model
-    *
+     *
      * @var array
      */
     public static function validationMessages()
     {
         return [
-            'nama.required' => 'Nama Kecamatan tidak boleh kosong'
-        ];
-    }
-
-    public function test()
-    {
-        return [
-            'nama' => 'Kecamatan ' . str()->random(10),
+            'nama.required' => 'Nama Wilayah tidak boleh kosong'
         ];
     }
 
@@ -67,16 +57,15 @@ class Kecamatans extends Model
      */
     public function resourceData($request)
     {
-        $withKelurahans = ModelUtils::checkParam(request('withKelurahans'));
-        $withWilayah = ModelUtils::checkParam(request('withWilayah'));
+        $withKecamatans = ModelUtils::checkParam(request('withKecamatans'));
         
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'nama' => $request->nama,
-            'kelurahans' => $withKelurahans ? KelurahansResource::collection($request->kelurahans) : null,
-            'wilayah' => $withWilayah ? new WilayahResource($request->wilayah) : null,
+            'kecamatans' => $withKecamatans ? KecamatansResource::collection($request->kecamatans) : null,
         ]);
     }
+
 
     /**
      * Controller associated with this model
@@ -86,7 +75,7 @@ class Kecamatans extends Model
 
     public function controller()
     {
-        return 'App\Http\Controllers\KecamatansController';
+        return 'App\Http\Controllers\WilayahController';
     }
 
     /**
@@ -96,7 +85,7 @@ class Kecamatans extends Model
      */
     public function service()
     {
-        return new KecamatansService($this);
+        return new WilayahService($this);
     }
 
     /**
@@ -106,7 +95,7 @@ class Kecamatans extends Model
      */
     public function repository()
     {
-        return new KecamatansRepository($this);
+        return new WilayahRepository($this);
     }
 
     /**
@@ -117,7 +106,7 @@ class Kecamatans extends Model
 
     public function resource()
     {
-        return new KecamatansResource($this);
+        return new WilayahResource($this);
     }
 
     /**
@@ -127,11 +116,13 @@ class Kecamatans extends Model
     */
     public function relations()
     {
-        return ['kelurahans'];
+        return [
+            'kecamatans',
+        ];
     }
 
-    public function kelurahans() {
-        return $this->hasMany(Kelurahans::class, 'kecamatan_id', 'id');
+    public function kecamatans() {
+        return $this->hasMany(Kecamatan::class, 'wilayah_id', 'id');
     }
 
 }

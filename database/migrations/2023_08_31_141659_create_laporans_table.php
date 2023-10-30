@@ -13,18 +13,26 @@ return new class extends Migration
     {
         Schema::create('laporans', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('judul');
+            $table->date('tanggal_pengaduan')->nullable();
+            $table->time('jam_pengaduan')->nullable();
+            $table->string('uraian_singkat_masalah');
             $table->string('no_telp_pelapor');
-            $table->string('nama_korban');
+            $table->string('no_telp_klien');
+            $table->string('nama_klien');
             $table->string('nama_pelapor');
+            $table->string('inisial_klien')->nullable();
+            $table->string('nik_pelapor')->nullable();
+            $table->string('nik_klien')->nullable();
             $table->boolean('validated')->default(false);
             $table->tinyInteger('usia');
-            $table->string('alamat');
+            $table->string('alamat_pelapor');
+            $table->string('alamat_klien');
             $table->string('rw');
             $table->string('rt');
             $table->foreignIdFor('App\Models\Kategoris', 'kategori_id');
-            $table->foreignIdFor('App\Models\Kelurahans', 'kelurahan_id')->default(1)->nullable();
-            // $table->foreignIdFor('App\Models\Alamats', 'alamat_id');
+            $table->foreignIdFor('App\Models\Kelurahans', 'kelurahan_id')
+            ->default(1)
+            ->nullable();
             $table->char('jenis_kelamin', 1);
             $table->foreignUuid('satgas_pelapor_id')
                 ->references('id')
@@ -39,6 +47,11 @@ return new class extends Migration
             $table->foreignIdFor('App\Models\Statuses', 'status_id')->default(1);
             $table->string('token', 8);
             $table->foreignIdFor('App\Models\Pendidikans', 'pendidikan_id');
+            $table->foreignIdFor('App\Models\SumberPengaduan', 'sumber_pengaduan_id');
+            $table->string('dokumentasi_pengaduan')->nullable();
+            $table->longText('situasi_keluarga')->nullable();
+            $table->longText('kronologi_kejadian')->nullable();
+            $table->longText('harapan_klien_dan_keluarga')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
