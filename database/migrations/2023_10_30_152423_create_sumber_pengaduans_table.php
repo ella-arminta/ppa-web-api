@@ -14,6 +14,7 @@ return new class extends Migration
         //
         Schema::create('sumber_pengaduans', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
             $table->timestamps();
             $table->softDeletes();
         });
