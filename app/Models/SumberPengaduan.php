@@ -16,6 +16,7 @@ class SumberPengaduan extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'sumber_pengaduans';
     /**
      * The attributes that are mass assignable.
      *
