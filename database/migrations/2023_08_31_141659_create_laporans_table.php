@@ -16,18 +16,18 @@ return new class extends Migration
             $table->dateTime('tanggal_jam_pengaduan')->nullable();
             $table->string('uraian_singkat_masalah');
             $table->string('no_telp_pelapor');
-            $table->string('no_telp_klien');
-            $table->string('nama_klien');
+            $table->string('no_telp_klien')->nullable();
+            $table->string('nama_klien')->nullable();
             $table->string('nama_pelapor');
             $table->string('inisial_klien')->nullable();
             $table->string('nik_pelapor')->nullable();
             $table->string('nik_klien')->nullable();
             $table->boolean('validated')->default(false);
-            $table->tinyInteger('usia');
+            $table->tinyInteger('usia')->nullable();
             $table->string('alamat_pelapor');
-            $table->string('alamat_klien');
-            $table->string('rw');
-            $table->string('rt');
+            $table->string('alamat_klien')->nullable();
+            $table->string('rw')->nullable();
+            $table->string('rt')->nullable();
             $table->foreignIdFor('App\Models\Kategoris', 'kategori_id');
             $table->foreignIdFor('App\Models\Kelurahans', 'kelurahan_id')
             ->default(1)
