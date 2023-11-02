@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('laporans', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->date('tanggal_pengaduan')->nullable();
-            $table->time('jam_pengaduan')->nullable();
+            $table->dateTime('tanggal_jam_pengaduan')->nullable();
             $table->string('uraian_singkat_masalah');
             $table->string('no_telp_pelapor');
             $table->string('no_telp_klien');

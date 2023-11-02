@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Laporans;
@@ -19,11 +20,14 @@ class LaporanSeeder extends Seeder
 
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan KDRT',
+            'tanggal_jam_pengaduan' => now(),
             'no_telp_pelapor' => '1234567890',
             'no_telp_klien' => '1234567890',
             'nama_klien' => 'John Doe',
             'nama_pelapor' => 'Jane Smith',
-            'validated' => false, 
+            'validated' => false,
+            'nik_pelapor' => Str::random(16), 
+            'nik_klien' => Str::random(16), 
             'usia' => 30,
             'kategori_id' => 1, 
             'alamat_pelapor' => "adasdada",
@@ -43,11 +47,14 @@ class LaporanSeeder extends Seeder
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Pelecehan',
+            'tanggal_jam_pengaduan' => now(),
             'no_telp_pelapor' => '1234567890',
             'no_telp_klien' => '1234567890',
             'nama_klien' => 'Haha ',
             'nama_pelapor' => 'Hihi',
-            'validated' => false, 
+            'validated' => false,
+            'nik_pelapor' => Str::random(16), 
+            'nik_klien' => Str::random(16), 
             'usia' => 20,
             'kategori_id' => 1, 
             'alamat_pelapor' => "adasdada",
@@ -67,11 +74,14 @@ class LaporanSeeder extends Seeder
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
+            'tanggal_jam_pengaduan' => now(),
             'no_telp_pelapor' => '1234567890',
             'no_telp_klien' => '1234567890',
             'nama_klien' => 'Nyahaha ',
             'nama_pelapor' => 'Nyammy',
-            'validated' => false, 
+            'validated' => false,
+            'nik_pelapor' => Str::random(16), 
+            'nik_klien' => Str::random(16), 
             'usia' => 15,
             'kategori_id' => 2, 
             'alamat_pelapor' => "adasdada",
@@ -91,11 +101,14 @@ class LaporanSeeder extends Seeder
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
+            'tanggal_jam_pengaduan' => now(),
             'no_telp_pelapor' => '1234567890',
             'no_telp_klien' => '1234567890',
             'nama_klien' => 'Nyahaha ',
             'nama_pelapor' => 'Nyammy',
-            'validated' => false, 
+            'validated' => false,
+            'nik_pelapor' => Str::random(16), 
+            'nik_klien' => Str::random(16), 
             'usia' => 15,
             'kategori_id' => 2, 
             'alamat_pelapor' => "adasdada",
@@ -115,11 +128,14 @@ class LaporanSeeder extends Seeder
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
+            'tanggal_jam_pengaduan' => now(),
             'no_telp_pelapor' => '1234567890',
             'no_telp_klien' => '1234567890',
             'nama_klien' => 'Nyahaha ',
             'nama_pelapor' => 'Nyammy',
-            'validated' => false, 
+            'validated' => false,
+            'nik_pelapor' => Str::random(16), 
+            'nik_klien' => Str::random(16), 
             'usia' => 15,
             'kategori_id' => 2, 
             'alamat_pelapor' => "adasdada",
@@ -139,11 +155,14 @@ class LaporanSeeder extends Seeder
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
+            'tanggal_jam_pengaduan' => now(),
             'no_telp_pelapor' => '1234567890',
             'no_telp_klien' => '1234567890',
             'nama_klien' => 'Nyahaha ',
             'nama_pelapor' => 'Nyammy',
-            'validated' => false, 
+            'validated' => false,
+            'nik_pelapor' => Str::random(16), 
+            'nik_klien' => Str::random(16), 
             'usia' => 15,
             'kategori_id' => 2, 
             'alamat_pelapor' => "adasdada",
@@ -163,11 +182,14 @@ class LaporanSeeder extends Seeder
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan KDRT',
+            'tanggal_jam_pengaduan' => now(),
             'no_telp_pelapor' => '1234567890',
             'no_telp_klien' => '1234567890',
             'nama_klien' => 'John Doe',
             'nama_pelapor' => 'Jane Smith',
-            'validated' => false, 
+            'validated' => false,
+            'nik_pelapor' => Str::random(16), 
+            'nik_klien' => Str::random(16), 
             'usia' => 30,
             'kategori_id' => 1, 
             'alamat_pelapor' => "adasdada",
@@ -187,11 +209,14 @@ class LaporanSeeder extends Seeder
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Pelecehan',
+            'tanggal_jam_pengaduan' => now(),
             'no_telp_pelapor' => '1234567890',
             'no_telp_klien' => '1234567890',
             'nama_klien' => 'Haha ',
             'nama_pelapor' => 'Hihi',
-            'validated' => false, 
+            'validated' => false,
+            'nik_pelapor' => Str::random(16), 
+            'nik_klien' => Str::random(16), 
             'usia' => 20,
             'kategori_id' => 1, 
             'alamat_pelapor' => "adasdada",
@@ -211,11 +236,14 @@ class LaporanSeeder extends Seeder
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
+            'tanggal_jam_pengaduan' => now(),
             'no_telp_pelapor' => '1234567890',
             'no_telp_klien' => '1234567890',
             'nama_klien' => 'Nyahaha ',
             'nama_pelapor' => 'Nyammy',
-            'validated' => false, 
+            'validated' => false,
+            'nik_pelapor' => Str::random(16), 
+            'nik_klien' => Str::random(16), 
             'usia' => 15,
             'kategori_id' => 2, 
             'alamat_pelapor' => "adasdada",
@@ -235,11 +263,14 @@ class LaporanSeeder extends Seeder
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
+            'tanggal_jam_pengaduan' => now(),
             'no_telp_pelapor' => '1234567890',
             'no_telp_klien' => '1234567890',
             'nama_klien' => 'Nyahaha ',
             'nama_pelapor' => 'Nyammy',
-            'validated' => false, 
+            'validated' => false,
+            'nik_pelapor' => Str::random(16), 
+            'nik_klien' => Str::random(16), 
             'usia' => 15,
             'kategori_id' => 2, 
             'alamat_pelapor' => "adasdada",
@@ -259,11 +290,14 @@ class LaporanSeeder extends Seeder
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
+            'tanggal_jam_pengaduan' => now(),
             'no_telp_pelapor' => '1234567890',
             'no_telp_klien' => '1234567890',
             'nama_klien' => 'Nyahaha ',
             'nama_pelapor' => 'Nyammy',
-            'validated' => false, 
+            'validated' => false,
+            'nik_pelapor' => Str::random(16), 
+            'nik_klien' => Str::random(16), 
             'usia' => 15,
             'kategori_id' => 2, 
             'alamat_pelapor' => "adasdada",
@@ -283,11 +317,14 @@ class LaporanSeeder extends Seeder
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
+            'tanggal_jam_pengaduan' => now(),
             'no_telp_pelapor' => '1234567890',
             'no_telp_klien' => '1234567890',
             'nama_klien' => 'Nyahaha ',
             'nama_pelapor' => 'Nyammy',
-            'validated' => false, 
+            'validated' => false,
+            'nik_pelapor' => Str::random(16), 
+            'nik_klien' => Str::random(16), 
             'usia' => 15,
             'kategori_id' => 2, 
             'alamat_pelapor' => "adasdada",
@@ -307,11 +344,14 @@ class LaporanSeeder extends Seeder
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan KDRT',
+            'tanggal_jam_pengaduan' => now(),
             'no_telp_pelapor' => '1234567890',
             'no_telp_klien' => '1234567890',
             'nama_klien' => 'John Doe',
             'nama_pelapor' => 'Jane Smith',
-            'validated' => false, 
+            'validated' => false,
+            'nik_pelapor' => Str::random(16), 
+            'nik_klien' => Str::random(16), 
             'usia' => 30,
             'kategori_id' => 1, 
             'alamat_pelapor' => "adasdada",
@@ -331,11 +371,14 @@ class LaporanSeeder extends Seeder
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Pelecehan',
+            'tanggal_jam_pengaduan' => now(),
             'no_telp_pelapor' => '1234567890',
             'no_telp_klien' => '1234567890',
             'nama_klien' => 'Haha ',
             'nama_pelapor' => 'Hihi',
-            'validated' => false, 
+            'validated' => false,
+            'nik_pelapor' => Str::random(16), 
+            'nik_klien' => Str::random(16), 
             'usia' => 20,
             'kategori_id' => 1, 
             'alamat_pelapor' => "adasdada",
@@ -355,11 +398,14 @@ class LaporanSeeder extends Seeder
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
+            'tanggal_jam_pengaduan' => now(),
             'no_telp_pelapor' => '1234567890',
             'no_telp_klien' => '1234567890',
             'nama_klien' => 'Nyahaha ',
             'nama_pelapor' => 'Nyammy',
-            'validated' => false, 
+            'validated' => false,
+            'nik_pelapor' => Str::random(16), 
+            'nik_klien' => Str::random(16), 
             'usia' => 15,
             'kategori_id' => 2, 
             'alamat_pelapor' => "adasdada",
@@ -379,11 +425,14 @@ class LaporanSeeder extends Seeder
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
+            'tanggal_jam_pengaduan' => now(),
             'no_telp_pelapor' => '1234567890',
             'no_telp_klien' => '1234567890',
             'nama_klien' => 'Nyahaha ',
             'nama_pelapor' => 'Nyammy',
-            'validated' => false, 
+            'validated' => false,
+            'nik_pelapor' => Str::random(16), 
+            'nik_klien' => Str::random(16), 
             'usia' => 15,
             'kategori_id' => 2, 
             'alamat_pelapor' => "adasdada",
@@ -403,11 +452,14 @@ class LaporanSeeder extends Seeder
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
+            'tanggal_jam_pengaduan' => now(),
             'no_telp_pelapor' => '1234567890',
             'no_telp_klien' => '1234567890',
             'nama_klien' => 'Nyahaha ',
             'nama_pelapor' => 'Nyammy',
-            'validated' => false, 
+            'validated' => false,
+            'nik_pelapor' => Str::random(16), 
+            'nik_klien' => Str::random(16), 
             'usia' => 15,
             'kategori_id' => 2, 
             'alamat_pelapor' => "adasdada",
@@ -427,11 +479,14 @@ class LaporanSeeder extends Seeder
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
+            'tanggal_jam_pengaduan' => now(),
             'no_telp_pelapor' => '1234567890',
             'no_telp_klien' => '1234567890',
             'nama_klien' => 'Nyahaha ',
             'nama_pelapor' => 'Nyammy',
-            'validated' => false, 
+            'validated' => false,
+            'nik_pelapor' => Str::random(16), 
+            'nik_klien' => Str::random(16), 
             'usia' => 15,
             'kategori_id' => 2, 
             'alamat_pelapor' => "adasdada",

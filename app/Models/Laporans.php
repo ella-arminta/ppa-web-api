@@ -201,7 +201,6 @@ class Laporans extends Model
     public function relations()
     {
         return [
-            'kronologis',
             'alamat',
             'progress_reports',
             'kategori',
@@ -229,16 +228,6 @@ class Laporans extends Model
     public function alamat()
     {
         return $this->belongsTo('App\Models\Alamats', 'alamat_id', 'id');
-    }
-
-    public function kronologis()
-    {
-        return $this->hasMany('App\Models\Kronologis', 'laporan_id', 'id');
-    }
-
-    public function progress_reports()
-    {
-        return $this->hasMany('App\Models\ProgressReports', 'laporan_id', 'id');
     }
 
     public function kategori()

@@ -15,10 +15,10 @@ class SumberPengaduan extends Seeder
     {
         $statuses = [
             [
-                'nama' => 'Masyarakat'
+                'nama' => 'Warga'
             ],
             [
-                'nama' => 'Satgas'
+                'nama' => 'Kelurahan'
             ],
             // Tambahkan data kecamatan lainnya di sini sesuai dengan data yang Anda miliki
         ];
