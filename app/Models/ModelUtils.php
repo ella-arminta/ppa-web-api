@@ -46,7 +46,7 @@ class ModelUtils
 
         return [
             'id' => $request->id,
-            'tanggal_pengaduan' => $request->tanggal_pengaduan,
+            'tanggal_jam_pengaduan' => $request->tanggal_jam_pengaduan,
             'jam_pengaduan' => $request->jam_pengaduan,
             'uraian_singkat_masalah' => $request->uraian_singkat_masalah,
             'no_telp_pelapor' => $request->no_telp_pelapor,
