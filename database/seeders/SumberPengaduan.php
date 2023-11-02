@@ -23,6 +23,6 @@ class SumberPengaduan extends Seeder
             // Tambahkan data kecamatan lainnya di sini sesuai dengan data yang Anda miliki
         ];
 
-        DB::table('statuses')->insert($statuses);
+        DB::table('sumber_pengaduans')->insert($statuses);
     }
 }
