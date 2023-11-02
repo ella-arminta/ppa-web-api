@@ -61,7 +61,7 @@ class Laporans extends Model
             'nik_klien' => 'nullable',
             'jenis_kelamin' => 'nullable|in:L,P',
             'kronologis' => 'nullable',
-            'sumber_pengaduan_id' => 'nullable|numeric|min:1|exists:sumber_pengaduan,id',
+            'sumber_pengaduan_id' => 'nullable|numeric|min:1|exists:sumber_pengaduans,id',
             'pendidikan_id' => 'nullable|numeric|min:1|exists:pendidikans,id',
         ];
         return ModelUtils::rulesPatch($rules);
