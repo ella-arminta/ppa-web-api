@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('nik_klien')->nullable();
             $table->boolean('validated')->default(false);
             $table->tinyInteger('usia')->nullable();
-            $table->string('alamat_pelapor');
+            $table->string('alamat_pelapor')->nullable();
             $table->string('alamat_klien')->nullable();
             $table->string('rw')->nullable();
             $table->string('rt')->nullable();
