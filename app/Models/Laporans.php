@@ -202,7 +202,6 @@ class Laporans extends Model
     {
         return [
             'alamat',
-            'progress_reports',
             'kategori',
             'status',
             'pendidikan',
