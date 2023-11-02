@@ -142,9 +142,23 @@ class Laporans extends Model
             'kategori' => new KategorisResource($request->kategori),
             'created_at' => Carbon::parse($request->created_at)->format('d-m-Y'),
         ];
-        if (is_null(request('token'))) {
+        if (is_null(request('token')) && request()->isMethod('get')) {
             $data = ModelUtils::addAttributeWithoutToken($request);
         }
+
+        return ModelUtils::filterNullValues($data);
+    }
+    
+    public function resourceDataPublic($request) {
+        $data = [
+            'id' => $request->id,
+            'nama_pelapor' => $request->nama_pelapor,
+            'inisial_klien' => $request->inisial_klien,
+            'token' => $request->token,
+            'status' => new StatusesResource($request->status),
+            'kategori' => new KategorisResource($request->kategori),
+            'created_at' => Carbon::parse($request->created_at)->format('d-m-Y'),
+        ];
 
         return ModelUtils::filterNullValues($data);
     }

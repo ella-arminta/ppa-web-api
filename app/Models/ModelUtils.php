@@ -62,6 +62,7 @@ class ModelUtils
             'alamat_klien' => $request->alamat_klien,
             'rw' => $request->rw,
             'rt' => $request->rt,
+            'token' => $request->token,
             'jenis_kelamin' => $request->jenis_kelamin,
             'dokumentasi_pengaduan' => $request->dokumentasi_pengaduan,
             'situasi_keluarga' => $request->situasi_keluarga,
