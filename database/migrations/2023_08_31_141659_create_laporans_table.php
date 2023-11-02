@@ -32,7 +32,7 @@ return new class extends Migration
             $table->foreignIdFor('App\Models\Kelurahans', 'kelurahan_id')
             ->default(1)
             ->nullable();
-            $table->char('jenis_kelamin', 1);
+            $table->char('jenis_kelamin', 1)->nullable();
             $table->foreignUuid('satgas_pelapor_id')
                 ->references('id')
                 ->on('users')
