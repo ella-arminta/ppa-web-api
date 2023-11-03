@@ -20,10 +20,11 @@ class LaporansRepository extends BaseRepository
 
     public function update($id, $data)
     {
-        $foreign = ['status', 'kategori', 'pendidikan', 'satgas Pelapor', 'previous Satgas'];
+        $foreign = ['status', 'kategori', 'pendidikan', 'satgas pelapor', 'previous satgas'];
 
+        
         foreach ($foreign as $f) {
-            $d = str_replace(' ', '', $f);
+            $d = str_replace(' ', '_', $f);
             if (isset($data[$d])) {
                 $f = strtolower($f);
                 $f = str_replace(' ', '_', $f);
@@ -31,7 +32,7 @@ class LaporansRepository extends BaseRepository
                 unset($data[$d]);
             }
         }
-
+        
         $model = $this->model->findOrFail($id);
 
         $model->update($data);
