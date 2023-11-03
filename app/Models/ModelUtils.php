@@ -78,6 +78,8 @@ class ModelUtils
             'kelurahan' => $request->kelurahan ? new KelurahansResource($request->kelurahan) : null,
 
             'sumber_pengaduan' => $request->sumber_pengaduan ? new SumberPengaduanResource($request->sumber_pengaduan) : null,
+
+            'dokumentasi_pengaduan' => $request->dokumentasi_pengaduan ? json_decode($request->dokumentasi_pengaduan) : null,
         ];
     }
 }

@@ -46,7 +46,9 @@ class LaporansService extends BaseService
             $data['previous_satgas_id'] = auth()->user()->id;
         }
 
-        // $data['dokumentasi_pengaduan'] = $this->uploadFile($data['dokumentasi_pengaduan'], 'dokumentasi_pengaduan');
+        if (isset($data['dokumentasi_pengaduan'])) {
+            $data['dokumentasi_pengaduan'] = $this->uploadFile($data['dokumentasi_pengaduan'], 'dokumentasi_pengaduan');
+        }
     
         $data = $this->repository->create($data);
     
@@ -74,10 +76,16 @@ class LaporansService extends BaseService
     private function uploadFile($file, $folder)
     {
         $file = $file ?? null;
+        $file_value = [];
         if ($file) {
-            $file_name = time() . '_' . $file->getClientOriginalName();
-            $file->storePubliclyAs('storage/' . $folder, $file_name);
-            return $file_name;
+            foreach ($file as $f) {
+                $extension = $f->getClientOriginalExtension();
+                $file_name = str()->uuid() . '.' . $extension;
+                $path = $f->storePubliclyAs('public/' . $folder, $file_name);
+                $path = str_replace('public', 'storage', $path);
+                $file_value[] = env('APP_DESTINATION').$path;
+            }
+            return json_encode($file_value);
         }
         return null;
     }

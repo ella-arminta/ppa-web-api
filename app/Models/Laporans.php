@@ -63,6 +63,8 @@ class Laporans extends Model
             'kronologis' => 'nullable',
             'sumber_pengaduan_id' => 'nullable|numeric|min:1|exists:sumber_pengaduans,id',
             'pendidikan_id' => 'nullable|numeric|min:1|exists:pendidikans,id',
+            'dokumentasi_pengaduan' => 'nullable|array',
+            'dokumentasi_pengaduan.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
         return ModelUtils::rulesPatch($rules);
     }
@@ -123,6 +125,11 @@ class Laporans extends Model
             'sumber_pengaduan_id.numeric' => 'Sumber pengaduan harus berupa angka',
             'sumber_pengaduan_id.min' => 'Sumber pengaduan tidak valid',
             'sumber_pengaduan_id.exists' => 'Sumber pengaduan tidak valid',
+            'dokumentasi_pengaduan.required' => 'Dokumentasi pengaduan tidak boleh kosong',
+            'dokumentasi_pengaduan.array' => 'Dokumentasi pengaduan harus berupa array',
+            'dokumentasi_pengaduan.*.image' => 'Dokumentasi pengaduan harus berupa gambar',
+            'dokumentasi_pengaduan.*.mimes' => 'Dokumentasi pengaduan harus berupa gambar',
+            'dokumentasi_pengaduan.*.max' => 'Dokumentasi pengaduan maksimal 2MB',
         ];
     }
 
