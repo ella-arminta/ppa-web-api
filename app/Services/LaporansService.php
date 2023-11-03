@@ -16,7 +16,7 @@ class LaporansService extends BaseService
         parent::__construct($model);
     }
 
-    
+
     /*
     Add new services
     OR
@@ -26,7 +26,7 @@ class LaporansService extends BaseService
     {
         $kronologis = $data['kronologis'] ?? null;
         unset($data['kronologis']);
-    
+
         // if (env('APP_ENV') == 'local') {
         //     $data['status_id'] = 1;
         // } else if (env('APP_ENV') == 'production') {
@@ -36,34 +36,30 @@ class LaporansService extends BaseService
         // }
         $data['status_id'] = 1;
         $data['token'] = strtoupper(str()->random(8));
-        
-        if (!auth()->user()) {
-            $admin = User::where('role_id', 2)->first()->id;
-            $data['satgas_pelapor_id'] = $admin;
-            $data['previous_satgas_id'] = $admin;
-        } else {
-            $data['satgas_pelapor_id'] = auth()->user()->id;
-            $data['previous_satgas_id'] = auth()->user()->id;
-        }
+
+        $admin = User::where('role_id', 2)->first()->id;
+        $data['satgas_pelapor_id'] = $admin;
+        $data['previous_satgas_id'] = $admin;
 
         if (isset($data['dokumentasi_pengaduan'])) {
             $data['dokumentasi_pengaduan'] = $this->uploadFile($data['dokumentasi_pengaduan'], 'dokumentasi_pengaduan');
         }
-    
+
         $data = $this->repository->create($data);
-    
+
         if (isset($kronologis)) {
             $this->saveKronologis($kronologis, $data->id, $data->satgas_pelapor_id);
         }
-        
+
         $data = new $this->resource($data->fresh());
-    
+
         return $data;
     }
-    
-    public function update($id, $data) {
+
+    public function update($id, $data)
+    {
         $foreign = ['status', 'kategori', 'pendidikan', 'satgas pelapor', 'previous satgas'];
-        
+
         foreach ($foreign as $f) {
             $d = str_replace(' ', '_', $f);
             if (isset($data[$d])) {
@@ -78,12 +74,14 @@ class LaporansService extends BaseService
         $data = new $this->resource($data);
         return $data;
     }
-    
-    public function getByToken($token) {
+
+    public function getByToken($token)
+    {
         return new LaporansResource($token);
     }
 
-    public function getAll() {
+    public function getAll()
+    {
         $data = request('page') ? $this->repository->getWithPaginate(request('search')) : $this->repository->getAll();
 
         return $this->resource::collection($data);
@@ -93,7 +91,7 @@ class LaporansService extends BaseService
     {
         $k = new Kronologis();
         $repository = $k->repository();
-    
+
         foreach ($kronologis as $k) {
             $k['laporan_id'] = $laporan_id;
             $k['admin_id'] = $satgas_pelapor_id;
@@ -111,7 +109,7 @@ class LaporansService extends BaseService
                 $file_name = str()->uuid() . '.' . $extension;
                 $path = $f->storePubliclyAs('public/' . $folder, $file_name);
                 $path = str_replace('public', 'storage', $path);
-                $file_value[] = env('APP_DESTINATION').$path;
+                $file_value[] = env('APP_DESTINATION') . $path;
             }
             return json_encode($file_value);
         }
