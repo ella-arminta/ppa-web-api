@@ -21,9 +21,9 @@ class StatusSeeder extends Seeder
             [
                 'nama' => 'Sedang ditangani'
             ],
-            [
-                'nama' => 'Kasus ditolak'
-            ],
+            // [
+            //     'nama' => 'Kasus ditolak'
+            // ],
             [
                 'nama' => 'Kasus selesai'
             ],
@@ -31,11 +31,11 @@ class StatusSeeder extends Seeder
                 'nama' => 'Kasus dikembalikan'
             ],
             [
-                'nama' => 'Kasus diteruskan ke DP3 A'
+                'nama' => 'Kasus diteruskan ke DP3A'
             ],
-            [
-                'nama' => 'Kasus sudah pernah tercatat'
-            ],
+            // [
+            //     'nama' => 'Kasus sudah pernah tercatat'
+            // ],
             // Tambahkan data kecamatan lainnya di sini sesuai dengan data yang Anda miliki
         ];
 
