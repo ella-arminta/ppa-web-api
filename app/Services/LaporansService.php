@@ -42,6 +42,8 @@ class LaporansService extends BaseService
             $data['satgas_pelapor_id'] = $admin;
             $data['previous_satgas_id'] = $admin;
         }
+
+        // $data['dokumentasi_pengaduan'] = $this->uploadFile($data['dokumentasi_pengaduan'], 'dokumentasi_pengaduan');
     
         $data = $this->repository->create($data);
     
@@ -64,6 +66,17 @@ class LaporansService extends BaseService
             $k['admin_id'] = $satgas_pelapor_id;
             $repository->create($k);
         }
+    }
+
+    private function uploadFile($file, $folder)
+    {
+        $file = $file ?? null;
+        if ($file) {
+            $file_name = time() . '_' . $file->getClientOriginalName();
+            $file->storePubliclyAs('storage/' . $folder, $file_name);
+            return $file_name;
+        }
+        return null;
     }
     
     public function getByToken($token) {

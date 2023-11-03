@@ -237,6 +237,13 @@ class Laporans extends Model
         return $query->where('status_id', $value);
     }
 
+    public function scopeRole($query) {
+        if (auth()->user()->role_id == 1) {
+            return $query->where('satgas_pelapor_id', auth()->user()->id);
+        }
+        return $query->where('kelurahan_id', auth()->user()->kelurahan_id);
+    }
+
     public function alamat()
     {
         return $this->belongsTo('App\Models\Alamats', 'alamat_id', 'id');

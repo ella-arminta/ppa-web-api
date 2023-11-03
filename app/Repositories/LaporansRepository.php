@@ -44,12 +44,12 @@ class LaporansRepository extends BaseRepository
 
         if (!is_null(request("status")) && (int)request('status') != 0) $data = $data->status((int)request("status"));
 
-        return $data->klien($params)->paginate(10);
+        return $data->klien($params)->role()->paginate(10);
     }
 
     public function getAll()
     {
-        $data = $this->model->with($this->model->relations())->orderBy("id", "ASC")->klien(request("search"));
+        $data = $this->model->with($this->model->relations())->orderBy("id", "ASC")->klien(request("search"))->role();
 
         if (!is_null(request("status")) && (int)request('status') != 0) $data = $data->status((int)request("status"));
 
