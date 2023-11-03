@@ -41,6 +41,9 @@ class LaporansService extends BaseService
             $admin = User::where('role_id', 2)->first()->id;
             $data['satgas_pelapor_id'] = $admin;
             $data['previous_satgas_id'] = $admin;
+        } else {
+            $data['satgas_pelapor_id'] = auth()->user()->id;
+            $data['previous_satgas_id'] = auth()->user()->id;
         }
 
         // $data['dokumentasi_pengaduan'] = $this->uploadFile($data['dokumentasi_pengaduan'], 'dokumentasi_pengaduan');

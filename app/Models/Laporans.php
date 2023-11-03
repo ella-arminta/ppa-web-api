@@ -142,7 +142,7 @@ class Laporans extends Model
             'kategori' => new KategorisResource($request->kategori),
             'created_at' => Carbon::parse($request->created_at)->format('d-m-Y'),
         ];
-        if (is_null(request('token')) && request()->isMethod('get')) {
+        if (is_null(request('token')) && !str_contains(url()->current(), 'public') ) {
             $data = ModelUtils::addAttributeWithoutToken($request);
         }
 
