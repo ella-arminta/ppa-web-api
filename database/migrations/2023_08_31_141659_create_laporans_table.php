@@ -47,7 +47,7 @@ return new class extends Migration
             $table->string('token', 8);
             $table->foreignIdFor('App\Models\Pendidikans', 'pendidikan_id')->nullable();
             $table->foreignIdFor('App\Models\SumberPengaduan', 'sumber_pengaduan_id');
-            $table->string('dokumentasi_pengaduan')->nullable();
+            $table->longText('dokumentasi_pengaduan')->nullable();
             $table->longText('situasi_keluarga')->nullable();
             $table->longText('kronologi_kejadian')->nullable();
             $table->longText('harapan_klien_dan_keluarga')->nullable();
