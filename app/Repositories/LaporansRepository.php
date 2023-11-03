@@ -18,27 +18,6 @@ class LaporansRepository extends BaseRepository
         Override existing repository here...
     */
 
-    public function update($id, $data)
-    {
-        $foreign = ['status', 'kategori', 'pendidikan', 'satgas pelapor', 'previous satgas'];
-
-        
-        foreach ($foreign as $f) {
-            $d = str_replace(' ', '_', $f);
-            if (isset($data[$d])) {
-                $f = strtolower($f);
-                $f = str_replace(' ', '_', $f);
-                $data[$f . "_id"] = $data[$d]['id'];
-                unset($data[$d]);
-            }
-        }
-        
-        $model = $this->model->findOrFail($id);
-
-        $model->update($data);
-        return $model->fresh();
-    }
-
     public function getWithPaginate($params = null)
     {
         $data = $this->model->with($this->model->relations())->orderBy('created_at', 'DESC');

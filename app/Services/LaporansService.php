@@ -61,6 +61,34 @@ class LaporansService extends BaseService
         return $data;
     }
     
+    public function update($id, $data) {
+        $foreign = ['status', 'kategori', 'pendidikan', 'satgas pelapor', 'previous satgas'];
+        
+        foreach ($foreign as $f) {
+            $d = str_replace(' ', '_', $f);
+            if (isset($data[$d])) {
+                $f = strtolower($f);
+                $f = str_replace(' ', '_', $f);
+                $data[$f . "_id"] = $data[$d]['id'];
+                unset($data[$d]);
+            }
+        }
+
+        $data = $this->repository->update($id, $data);
+        $data = new $this->resource($data);
+        return $data;
+    }
+    
+    public function getByToken($token) {
+        return new LaporansResource($token);
+    }
+
+    public function getAll() {
+        $data = request('page') ? $this->repository->getWithPaginate(request('search')) : $this->repository->getAll();
+
+        return $this->resource::collection($data);
+    }
+
     private function saveKronologis($kronologis, $laporan_id, $satgas_pelapor_id)
     {
         $k = new Kronologis();
@@ -88,15 +116,5 @@ class LaporansService extends BaseService
             return json_encode($file_value);
         }
         return null;
-    }
-    
-    public function getByToken($token) {
-        return new LaporansResource($token);
-    }
-
-    public function getAll() {
-        $data = request('page') ? $this->repository->getWithPaginate(request('search')) : $this->repository->getAll();
-
-        return $this->resource::collection($data);
     }
 }
