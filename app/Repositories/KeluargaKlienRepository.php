@@ -18,6 +18,13 @@ class KeluargaKlienRepository extends BaseRepository
         OR
         Override existing repository here...
     */
+    public function getAll()
+    {
+        $data = $this->getAllWith();
+
+        return $data;
+    }
+
     public function setKeluargaKlienDone($status,$laporan_id){
         $detailKlien = DetailKlien::where('laporan_id', $laporan_id)->first();
         $detailKlien->is_done_keluarga = $status;
@@ -25,5 +32,12 @@ class KeluargaKlienRepository extends BaseRepository
 
         $detailKlien = DetailKlien::where('laporan_id', $laporan_id)->first();
         return $detailKlien;
+    }
+
+    private function getAllWith(){
+        if (request('laporan_id')){
+            return $this->model->with($this->model->relations())->orderBy("id", "ASC")->where('laporan_id',request('laporan_id'))->get();
+        }
+        return $this->model->with($this->model->relations())->orderBy("id", "ASC")->get();
     }
 }

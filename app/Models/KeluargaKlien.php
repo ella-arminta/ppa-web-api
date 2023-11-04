@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Resources\API\LaporanResource;
+use App\Http\Resources\DetailKlienResource;
 use App\Models\ModelUtils;
 use App\Repositories\KeluargaKlienRepository;
 use App\Services\KeluargaKlienService;

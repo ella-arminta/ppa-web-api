@@ -23,6 +23,13 @@ class KeluargaKlienController extends BaseController
         Override existing controller here...
     */
 
+    public function index()
+    {
+        $data = $this->service->getAll();
+
+        return $this->success($data->resource, HttpResponseCode::HTTP_OK);
+    }
+    
     public function setKeluargaKlienDone(Request $request) {
 
         $valid = Validator::make(
