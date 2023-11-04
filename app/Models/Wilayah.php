@@ -68,7 +68,7 @@ class Wilayah extends Model
             'id' => $request->id,
             'nama' => $request->nama,
             'kecamatans' => $withKecamatans ? KecamatansResource::collection($request->kecamatans) : null,
-            'kota' => $withKota ? KotaResource::collection($request->kota) : null,
+            'kota' => $withKota ? new KotaResource($request->kota) : null,
         ]);
     }
 
@@ -134,7 +134,7 @@ class Wilayah extends Model
 
     public function kota()
     {
-        return $this->belongsTo(Kota::class, 'kota_id', 'id');
+        return $this->belongsTo('App\Models\Kota', 'kota_id', 'id');
     }
 
 }

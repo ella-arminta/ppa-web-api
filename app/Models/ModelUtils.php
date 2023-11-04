@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Resources\DetailKlienResource;
 use App\Http\Resources\KronologisResource;
 use App\Http\Resources\ProgressReportsResource;
 use App\Http\Resources\PendidikansResource;
@@ -80,6 +81,7 @@ class ModelUtils
             'sumber_pengaduan' => $request->sumber_pengaduan ? new SumberPengaduanResource($request->sumber_pengaduan) : null,
 
             'dokumentasi_pengaduan' => $request->dokumentasi_pengaduan ? json_decode($request->dokumentasi_pengaduan) : null,
+            'detail_klien' => $request->detail_klien ? new DetailKlienResource($request->detail_klien) : null 
         ];
     }
 }

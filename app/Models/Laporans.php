@@ -229,7 +229,8 @@ class Laporans extends Model
             'previous_satgas',
             'kelurahan',
             'sumber_pengaduan',
-            'kelurahan.kecamatan'
+            'kelurahan.kecamatan',
+            'detail_klien'
         ];
     }
 
@@ -289,5 +290,10 @@ class Laporans extends Model
     public function sumber_pengaduan()
     {
         return $this->belongsTo('App\Models\SumberPengaduan', 'sumber_pengaduan_id', 'id');
+    }
+
+    public function detail_klien()
+    {
+        return $this->hasOne('App\Models\DetailKlien', 'laporan_id', 'id');
     }
 }

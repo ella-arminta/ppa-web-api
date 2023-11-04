@@ -6,6 +6,7 @@ use App\Models\ModelUtils;
 use App\Repositories\KotaRepository;
 use App\Services\KotaService;
 use App\Http\Resources\KotaResource;
+use App\Http\Resources\WilayahResource;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -58,9 +59,11 @@ class Kota extends Model
      */
     public function resourceData($request)
     {
+        $withWilayahs = ModelUtils::checkParam(request('withWilayahs'));
         return [
             'id' => $request->id,
             'nama' => $request->nama,
+            'wilayahs' => $withWilayahs ? WilayahResource::collection($request->wilayahs) : null,
         ];
     }
 
@@ -115,10 +118,11 @@ class Kota extends Model
     public function relations()
     {
         return [
-            'wilayah'
+            'wilayahs'
         ];
     }
-    public function wilayah() {
+
+    public function wilayahs() {
         return $this->hasMany(Wilayah::class, 'kota_id', 'id');
     }
 
