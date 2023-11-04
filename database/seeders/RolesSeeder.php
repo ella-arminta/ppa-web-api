@@ -15,10 +15,10 @@ class RolesSeeder extends Seeder
     public function run(): void
     {
         Roles::create([
-            'nama' => 'satgas',
+            'nama' => 'Satuan Tugas (Satgas)',
         ]);
         Roles::create([
-            'nama' => 'kelurahan',
+            'nama' => 'Kelurahan',
         ]);
     }
 }
