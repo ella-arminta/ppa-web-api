@@ -62,13 +62,12 @@ class Wilayah extends Model
     public function resourceData($request)
     {
         $withKecamatans = ModelUtils::checkParam(request('withKecamatans'));
-        $withKota = ModelUtils::checkParam(request('withKota'));
         
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'nama' => $request->nama,
             'kecamatans' => $withKecamatans ? KecamatansResource::collection($request->kecamatans) : null,
-            'kota' => $withKota ? new KotaResource($request->kota) : null,
+            'kota' => $request->kota ? new KotaResource($request->kota) : null,
         ]);
     }
 

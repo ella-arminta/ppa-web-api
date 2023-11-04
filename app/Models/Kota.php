@@ -60,11 +60,11 @@ class Kota extends Model
     public function resourceData($request)
     {
         $withWilayahs = ModelUtils::checkParam(request('withWilayahs'));
-        return [
+        return ModelUtils::filterNullValues([
             'id' => $request->id,
             'nama' => $request->nama,
             'wilayahs' => $withWilayahs ? WilayahResource::collection($request->wilayahs) : null,
-        ];
+        ]);
     }
 
 

@@ -1,0 +1,3 @@
+[04-Nov-2023 10:01:24 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 974848 bytes) in C:\xampp\htdocs\bem\manpro\api-kedaireka\vendor\laravel\framework\src\Illuminate\Http\JsonResponse.php on line 84
+[04-Nov-2023 10:02:31 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 974848 bytes) in C:\xampp\htdocs\bem\manpro\api-kedaireka\vendor\laravel\framework\src\Illuminate\Http\JsonResponse.php on line 84
+[04-Nov-2023 10:05:15 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 974848 bytes) in C:\xampp\htdocs\bem\manpro\api-kedaireka\vendor\laravel\framework\src\Illuminate\Http\JsonResponse.php on line 84
