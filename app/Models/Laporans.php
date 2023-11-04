@@ -230,7 +230,8 @@ class Laporans extends Model
             'kelurahan',
             'sumber_pengaduan',
             'kelurahan.kecamatan',
-            'detail_klien'
+            'detail_klien',
+            'keluarga_klien'
         ];
     }
 
@@ -295,5 +296,9 @@ class Laporans extends Model
     public function detail_klien()
     {
         return $this->hasOne('App\Models\DetailKlien', 'laporan_id', 'id');
+    }
+
+    public function keluarga_klien(){
+        return $this->hasMany('App\Models\KeluargaKlien', 'laporan_id', 'id');
     }
 }

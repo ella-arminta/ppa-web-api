@@ -20,14 +20,14 @@ class LaporansRepository extends BaseRepository
 
     public function getWithPaginate($params = null)
     {
-        $data = $this->checkSatus($params);
+        $data = $this->checkStatus($params);
 
         return $data->paginate(10);
     }
 
     public function getAll()
     {
-        $data = $this->checkSatus();
+        $data = $this->checkStatus();
 
         return $data->get();
     }
@@ -52,7 +52,7 @@ class LaporansRepository extends BaseRepository
         return $this->model->where('token', $token)->withTrashed()->first();
     }
 
-    private function checkSatus($params = null)
+    private function checkStatus($params = null)
     {
         if (!is_null(request("status")) && (int)request('status') == 6) {
             return $this->model->onlyTrashed()

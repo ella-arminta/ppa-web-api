@@ -30,6 +30,7 @@ class DetailKlien extends Model
         'kota_id',
         'kecamatan_id',
         'no_kk',
+        'no_wa',
         'is_done',
         'alamat_kk',
         'kecamatan_kk_id',
@@ -46,7 +47,8 @@ class DetailKlien extends Model
         'pendidikan_kelas',
         'pendidikan_instansi',
         'pendidikan_jurusan',
-        'pendidikan_thn_lulus'
+        'pendidikan_thn_lulus',
+        'is_done_keluarga'
     ]; 
 
     /**
@@ -79,6 +81,8 @@ class DetailKlien extends Model
             'pendidikan_instansi' => 'nullable|string',
             'pendidikan_jurusan' => 'nullable|string',
             'pendidikan_thn_lulus' => 'nullable|string|max:4',
+            'no_wa' => 'nullable|string|max:12',
+            'is_done_keluarga' => 'boolean'
         ];
         return ModelUtils::rulesPatch($rules);
     }
@@ -92,7 +96,9 @@ class DetailKlien extends Model
     {
         return [
             'agama.in' => 'Agama hanya boleh : Islam, Kristen, Katholik, Buddha, Khonghucu, Hindu, Yang lain.',
-            'status_perkawinan.in' => 'Status Perkawinan hanya boleh : Belum Menikah, Menikah, Cerai Hidup, Cerai Mati'
+            'status_perkawinan.in' => 'Status Perkawinan hanya boleh : Belum Menikah, Menikah, Cerai Hidup, Cerai Mati',
+            'no_wa.string' => 'Nomor telepon atau nomor wa hanya boleh string',
+            'no_wa.max' => 'Nomor telepon atau nomor wa maksimal memiliki panjang 12 character'
         ];
     }
 
@@ -103,11 +109,9 @@ class DetailKlien extends Model
      */
     public function resourceData($request)
     {
-        // return [
-        //     'kecamatan_kk' => $request->kecamatan_kk ? new KecamatansResource($request->kecamatan_kk) : null
-        //     // 'kelurahan_kk' => $request->kelurahan_kk_id ? new KelurahansResource($request->kelurahan_kk_id) : null,
-        //     // 'kota_lahir' => $request->kota_lahir_id ? new KelurahansResource($request->kota_lahir_id) : null,
-        // ];
+        $tanggal_lahir = \Carbon\Carbon::createFromFormat('Y-m-d', $request->tanggal_lahir);
+        $usia = $tanggal_lahir->diffInYears(\Carbon\Carbon::now());
+
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'laporan_id' => $request->laporan_id,
@@ -115,6 +119,7 @@ class DetailKlien extends Model
             'kota' => $request->kota ? new KotaResource($request->kota) : null,
             'kecamatan' => $request->kecamatan ? new KecamatansResource($request->kecamatan) : null,
             'no_kk' => $request->no_kk,
+            'no_wa' => $request->no_wa,
             'is_done' => $request->is_done,
             'alamat_kk' => $request->alamat_kk,
             'kecamatan_kk' => $request->kecamatan_kk ? new KecamatansResource($request->kecamatan_kk) : null,
@@ -122,6 +127,7 @@ class DetailKlien extends Model
             'kota_lahir' => $request->kota_lahir ? new KelurahansResource($request->kota_lahir) : null,
             'tanggal_lahir' => $request->tanggal_lahir,
             'agama' => $request->agama,
+            'usia' => $usia, 
             'kategori_klien' => $request->kategori_klien,
             'jenis_klien' => $request->jenis_klien,
             'pekerjaan' => $request->pekerjaan,
@@ -192,6 +198,7 @@ class DetailKlien extends Model
             'kecamatan',
             'kelurahan_kk',
             'kota_lahir',
+            'keluarga_klien'
         ];
     }
 
