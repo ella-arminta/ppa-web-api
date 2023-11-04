@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\LaporanController;
+use App\Http\Controllers\DetailKlienController;
 use App\Http\Controllers\LaporansController;
 
 require_once __DIR__ . '/utils.php';
@@ -51,14 +53,16 @@ Route::middleware(['cors'])->group(function () {
     Route::group(['middleware' => ['auth:sanctum', 'ability:superadmin,admin']], function () {
         Route::get('/statuses/count', 'App\Http\Controllers\StatusesController@getCountKasus');
         Route::apiResources(createRoutes());
+        Route::get('/detail-kliens/laporans/{laporan_id}',[DetailKlienController::class,'getByLaporanId']);
     });
-
+    
     Route::group(['prefix' => 'public'], function() {
         Route::apiResource('laporans', 'App\Http\Controllers\LaporansController', ["only" => ["store"]]);
 
         Route::apiResources(createPublicRoutes(), ["only" => ["index", "show"]]);
 
         Route::get('/laporans/{token:token}', 'App\Http\Controllers\LaporansController@getByToken');
+        
     });
     
     // Route::group(['middleware' => ['auth:sanctum', 'ability:superadmin']], function () {

@@ -17,4 +17,9 @@ class DetailKlienService extends BaseService
         OR
         Override existing service here...
     */
+
+    public function getByLaporanId($id){
+        $res = $this->repository->getByLaporanId($id);
+        return $res;
+    }
 }

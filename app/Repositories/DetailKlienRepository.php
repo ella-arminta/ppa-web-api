@@ -17,4 +17,8 @@ class DetailKlienRepository extends BaseRepository
         OR
         Override existing repository here...
     */
+
+    public function getByLaporanId($id){
+        return $this->model->with($this->model->relations())->where('laporan_id',$id)->first();
+    }
 }
