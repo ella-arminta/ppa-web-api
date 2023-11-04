@@ -68,6 +68,16 @@ class LaporansRepository extends BaseRepository
                 ->role()
                 ->status((int)request("status"));
         }
+
+        if(!is_null(request('kelurahan_id'))){
+            return $this->model
+            ->with($this->model->relations())
+            ->orderBy("updated_at", "DESC")
+            // ->klien($params)
+            // ->role()
+            ->kelurahan(request('kelurahan_id'));
+        }
+
         return $this->model
             ->with($this->model->relations())
             ->orderBy("updated_at", "DESC")

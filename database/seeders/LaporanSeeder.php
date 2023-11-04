@@ -285,6 +285,7 @@ class LaporanSeeder extends Seeder
             'status_id' => 1,
             'token' => 'abc123',
             'pendidikan_id' => 2, 
+            'kelurahan_id' => 2,
             'created_at' => now(),
             'updated_at' => now(),
             'deleted_at' => null,

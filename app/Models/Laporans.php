@@ -253,6 +253,10 @@ class Laporans extends Model
         return $query->where('kelurahan_id', auth()->user()->kelurahan_id);
     }
 
+    public function scopeKelurahan($query,$value){
+        return $query->where('kelurahan_id',$value);
+    }
+
     public function alamat()
     {
         return $this->belongsTo('App\Models\Alamats', 'alamat_id', 'id');
