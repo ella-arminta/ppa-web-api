@@ -20,19 +20,57 @@ class LaporansRepository extends BaseRepository
 
     public function getWithPaginate($params = null)
     {
-        $data = $this->model->with($this->model->relations())->orderBy('created_at', 'DESC');
+        $data = $this->checkSatus($params);
 
-        if (!is_null(request("status")) && (int)request('status') != 0) $data = $data->status((int)request("status"));
-
-        return $data->klien($params)->role()->paginate(10);
+        return $data->paginate(10);
     }
 
     public function getAll()
     {
-        $data = $this->model->with($this->model->relations())->orderBy("id", "ASC")->klien(request("search"))->role();
-
-        if (!is_null(request("status")) && (int)request('status') != 0) $data = $data->status((int)request("status"));
+        $data = $this->checkSatus();
 
         return $data->get();
+    }
+
+    public function getById($id) {
+        return $this->model
+        ->with($this->model->relations())
+        ->withTrashed()
+        ->findOrFail($id);
+    }
+
+    public function delete($id)
+    {
+        $model = $this->model->findOrFail($id);
+        $model->status_id = 6;
+        $model->save();
+        $model->delete();
+        // return $model;
+    }
+
+    public function getByToken($token) {
+        return $this->model->where('token', $token)->withTrashed()->first();
+    }
+
+    private function checkSatus($params = null)
+    {
+        if (!is_null(request("status")) && (int)request('status') == 6) {
+            return $this->model->onlyTrashed()
+                ->with($this->model->relations())
+                ->orderBy("updated_at", "DESC")
+                ->klien($params)->role();
+        }
+
+        if (!is_null(request("status")) && (int)request('status') != 0) {
+            return $this->model->with($this->model->relations())
+                ->orderBy("updated_at", "DESC")
+                ->klien($params)
+                ->role()
+                ->status((int)request("status"));
+        }
+        return $this->model
+            ->with($this->model->relations())
+            ->orderBy("updated_at", "DESC")
+            ->klien($params)->role();
     }
 }

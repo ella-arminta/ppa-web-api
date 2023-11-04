@@ -21,9 +21,7 @@ class StatusSeeder extends Seeder
             [
                 'nama' => 'Sedang ditangani'
             ],
-            // [
-            //     'nama' => 'Kasus ditolak'
-            // ],
+            
             [
                 'nama' => 'Kasus selesai'
             ],
@@ -32,6 +30,10 @@ class StatusSeeder extends Seeder
             ],
             [
                 'nama' => 'Kasus diteruskan ke DP3A'
+            ],
+
+            [
+                'nama' => 'Kasus ditolak'
             ],
             // [
             //     'nama' => 'Kasus sudah pernah tercatat'

@@ -20,9 +20,9 @@ trait AuthenticationUtil
         )) {
             $user = Auth::user();
             
-            if($user->role->nama == 'superadmin'){
+            if($user->role->nama == 'kelurahan'){
                 $abilities = ['superadmin'];
-            }else if($user->role->nama == 'admin'){
+            }else if($user->role->nama == 'satgas'){
                 $abilities = ['admin'];
             }
 

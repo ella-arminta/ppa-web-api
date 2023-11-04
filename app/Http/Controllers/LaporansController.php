@@ -20,7 +20,7 @@ class LaporansController extends BaseController
         Override existing controller here...
     */
 
-    public function getByToken(Laporans $token) {
+    public function getByToken($token) {
         $data = $this->service->getByToken($token);
 
         return $this->success($data, HttpResponseCode::HTTP_OK);

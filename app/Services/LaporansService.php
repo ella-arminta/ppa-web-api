@@ -70,6 +70,7 @@ class LaporansService extends BaseService
 
     public function getByToken($token)
     {
+        $token = $this->repository->getByToken($token);
         return new LaporansResource($token);
     }
 
