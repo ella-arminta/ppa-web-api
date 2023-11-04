@@ -2,19 +2,17 @@
 
 namespace App\Models;
 
-use App\Http\Resources\KecamatansResource;
 use App\Models\ModelUtils;
-use App\Repositories\WilayahRepository;
-use App\Services\WilayahService;
-use App\Http\Resources\WilayahResource;
-use App\Http\Resources\KotaResource;
+use App\Repositories\DetailKlienRepository;
+use App\Services\DetailKlienService;
+use App\Http\Resources\DetailKlienResource;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class Wilayah extends Model
+class DetailKlien extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -24,8 +22,12 @@ class Wilayah extends Model
      * @var array
      */
     protected $fillable = [
-        'nama',
-        'kota_id'
+        'laporan_id',
+        'warga_surabaya',
+        'kota_id',
+        'kecamatan_id',
+        'no_kk',
+        'is_done',
     ]; 
 
     /**
@@ -35,10 +37,17 @@ class Wilayah extends Model
      */
     public static function validationRules()
     {
-        return [
-            'nama' => 'required',
-            'kota_id' => 'required'
+        $rules = [
+            'laporan_id' => 'required|exists:laporans,id',
+            'warga_surabaya' => 'required|boolean',
+            'kota_id' => 'nullable|exists:kota,id',
+            'kecamatan_id' => 'nullable|exists:kecamatans,id',
+            'no_kk' => 'nullable|string',
+            'is_done' => 'boolean',
+
+
         ];
+        return ModelUtils::rulesPatch($rules);
     }
 
     /**
@@ -48,10 +57,7 @@ class Wilayah extends Model
      */
     public static function validationMessages()
     {
-        return [
-            'nama.required' => 'Nama Wilayah tidak boleh kosong',
-            'kota_id.required' => 'Nama Kota tidak boleh kosong'
-        ];
+        return [];
     }
 
     /**
@@ -61,15 +67,7 @@ class Wilayah extends Model
      */
     public function resourceData($request)
     {
-        $withKecamatans = ModelUtils::checkParam(request('withKecamatans'));
-        $withKota = ModelUtils::checkParam(request('withKota'));
-        
-        return ModelUtils::filterNullValues([
-            'id' => $request->id,
-            'nama' => $request->nama,
-            'kecamatans' => $withKecamatans ? KecamatansResource::collection($request->kecamatans) : null,
-            'kota' => $withKota ? KotaResource::collection($request->kota) : null,
-        ]);
+        return ModelUtils::filterNullValues([]);
     }
 
 
@@ -81,7 +79,7 @@ class Wilayah extends Model
 
     public function controller()
     {
-        return 'App\Http\Controllers\WilayahController';
+        return 'App\Http\Controllers\DetailKlienController';
     }
 
     /**
@@ -91,7 +89,7 @@ class Wilayah extends Model
      */
     public function service()
     {
-        return new WilayahService($this);
+        return new DetailKlienService($this);
     }
 
     /**
@@ -101,7 +99,7 @@ class Wilayah extends Model
      */
     public function repository()
     {
-        return new WilayahRepository($this);
+        return new DetailKlienRepository($this);
     }
 
     /**
@@ -112,7 +110,7 @@ class Wilayah extends Model
 
     public function resource()
     {
-        return new WilayahResource($this);
+        return new DetailKlienResource($this);
     }
 
     /**
@@ -122,19 +120,7 @@ class Wilayah extends Model
     */
     public function relations()
     {
-        return [
-            'kecamatans',
-            'kota'
-        ];
-    }
-
-    public function kecamatans() {
-        return $this->hasMany(Kecamatans::class, 'wilayah_id', 'id');
-    }
-
-    public function kota()
-    {
-        return $this->belongsTo(Kota::class, 'kota_id', 'id');
+        return [];
     }
 
 }
