@@ -51,7 +51,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('password'),
             'no_telp' => '081234567234',
             'role_id' => 1,
-            'kelurahan_id' => 1
+            'kelurahan_id' => 2
         ]);
     }
 }
