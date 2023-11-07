@@ -14,7 +14,7 @@ class KategoriSeeder extends Seeder
     public function run(): void
     {
         Kategoris::create([
-            'nama' => 'Sosial',
+            'nama' => 'Permasalahan Sosial',
         ]);
         Kategoris::create([
             'nama' => 'Kekerasan',
