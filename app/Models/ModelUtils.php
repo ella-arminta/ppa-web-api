@@ -71,6 +71,8 @@ class ModelUtils
             'kronologis' => $request->kronologis,
             'situasi_keluarga' => $request->situasi_keluarga,
             'harapan_klien_dan_keluarga' => $request->harapan_klien_dan_keluarga,
+            'status_detail_klien' => $request->status_detail_klien,
+            'status_keluarga' => $request->status_keluarga,
 
             'kategori' => new KategorisResource($request->kategori),
             'status' => new StatusesResource($request->status),

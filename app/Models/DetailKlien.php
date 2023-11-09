@@ -31,7 +31,6 @@ class DetailKlien extends Model
         'kecamatan_id',
         'no_kk',
         'no_wa',
-        'is_done',
         'alamat_kk',
         'kecamatan_kk_id',
         'kelurahan_kk_id',
@@ -47,8 +46,7 @@ class DetailKlien extends Model
         'pendidikan_kelas',
         'pendidikan_instansi',
         'pendidikan_jurusan',
-        'pendidikan_thn_lulus',
-        'is_done_keluarga'
+        'pendidikan_thn_lulus'
     ]; 
 
     /**
@@ -64,7 +62,6 @@ class DetailKlien extends Model
             'kota_id' => 'nullable|exists:kotas,id',
             'kecamatan_id' => 'nullable|exists:kecamatans,id',
             'no_kk' => 'nullable|string',
-            'is_done' => 'boolean',
             'alamat_kk' => 'nullable|string',
             'kecamatan_kk_id' => 'nullable|exists:kecamatans,id',
             'kelurahan_kk_id' => 'nullable|exists:kelurahans,id',
@@ -82,7 +79,6 @@ class DetailKlien extends Model
             'pendidikan_jurusan' => 'nullable|string',
             'pendidikan_thn_lulus' => 'nullable|string|max:4',
             'no_wa' => 'nullable|string|max:12',
-            'is_done_keluarga' => 'boolean'
         ];
         return ModelUtils::rulesPatch($rules);
     }
@@ -120,7 +116,6 @@ class DetailKlien extends Model
             'kecamatan' => $request->kecamatan ? new KecamatansResource($request->kecamatan) : null,
             'no_kk' => $request->no_kk,
             'no_wa' => $request->no_wa,
-            'is_done' => $request->is_done,
             'alamat_kk' => $request->alamat_kk,
             'kecamatan_kk' => $request->kecamatan_kk ? new KecamatansResource($request->kecamatan_kk) : null,
             'kelurahan_kk' => $request->kelurahan_kk ? new KelurahansResource($request->kelurahan_kk) : null,

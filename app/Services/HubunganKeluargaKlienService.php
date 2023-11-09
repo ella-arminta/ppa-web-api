@@ -2,15 +2,12 @@
 
 namespace App\Services;
 
-use App\Models\DetailKlien;
-use App\Models\KeluargaKlien;
-use App\Repositories\DetailKlienRepository;
+use App\Models\HubunganKeluargaKlien;
 use App\Services\BaseService;
 
-
-class KeluargaKlienService extends BaseService
+class HubunganKeluargaKlienService extends BaseService
 {
-    public function __construct(KeluargaKlien $model)
+    public function __construct(HubunganKeluargaKlien $model)
     {
         parent::__construct($model);
     }

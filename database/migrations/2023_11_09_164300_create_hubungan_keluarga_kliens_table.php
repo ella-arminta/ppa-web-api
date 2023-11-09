@@ -12,14 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         //
-        Schema::create('keluarga_kliens', function (Blueprint $table) {
-            $table->id('id');
-            $table->foreignUuid('laporan_id')
-                ->references('id')
-                ->on('laporans');
-            $table->foreignIdFor('App\Models\HubunganKeluargaKlien', 'hubungan_id')->nullable();
-            $table->string('nama_lengkap');
-            $table->string('no_telp');
+        Schema::create('hubungan_keluarga_kliens', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama');
             $table->timestamps();
             $table->softDeletes();
         });

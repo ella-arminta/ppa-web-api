@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Http\Resources\API\LaporanResource;
 use App\Http\Resources\DetailKlienResource;
+use App\Http\Resources\HubunganKeluargaKlienResource;
 use App\Models\ModelUtils;
 use App\Repositories\KeluargaKlienRepository;
 use App\Services\KeluargaKlienService;
@@ -25,21 +26,10 @@ class KeluargaKlien extends Model
      * @var array
      */
     protected $fillable = [
-        'hubungan',
         'laporan_id',
+        'hubungan_id',
         'nama_lengkap',
-        'nik',
-        'no_kk',
-        'no_wa',
-        'alamat_kk',
-        'alamat_domisili',
-        'pekerjaan',
-        'sifat_pekerjaan',
-        'penghasilan',
-        'agama',
-        'kota_lahir_id',
-        'tanggal_lahir',
-        'bpjs'
+        'no_telp',
     ]; 
 
     /**
@@ -51,20 +41,9 @@ class KeluargaKlien extends Model
     {
         return [
             'laporan_id' => 'required|exists:laporans,id',
-            'hubungan' => 'nullable|string|in:Suami,Istri,Anak Kandung,Ayah Kandung,Ibu Kandung,Saudara',
-            'nama_lengkap' => 'nullable|string',
-            'nik' => 'nullable|string',
-            'no_kk' => 'nullable|string',
-            'no_wa' => 'nullable|string',
-            'alamat_kk' => 'nullable|string',
-            'alamat_domisili' => 'nullable|string',
-            'pekerjaan' => 'nullable|string',
-            'sifat_pekerjaan' => 'nullable|string',
-            'penghasilan' => 'nullable|integer',
-            'agama' => 'nullable|in:Islam,Kristen,Katholik,Buddha,Khonghucu,Hindu,Yang lain',
-            'kota_lahir_id' => 'nullable|integer',
-            'tanggal_lahir' => 'nullable|date',
-            'bpjs' => 'nullable|string'
+            'hubungan_id' => 'required|exists:hubungan_keluarga_kliens,id',
+            'nama_lengkap' => 'required|string',
+            'no_telp' => 'required|string',
         ];
     }
 
@@ -90,20 +69,9 @@ class KeluargaKlien extends Model
         $withLaporan = ModelUtils::checkParam(request('withLaporan'));
         return ModelUtils::filterNullValues([
             'id' => $request->id,
-            'hubungan' => $request->hubungan,
+            'hubungan' => new HubunganKeluargaKlienResource($request->hubungan),
             'nama_lengkap' => $request->nama_lengkap,
-            'nik' => $request->nik,
-            'no_kk' => $request->no_kk,
-            'no_wa' => $request->no_wa,
-            'alamat_kk' => $request->alamat_kk,
-            'alamat_domisili' => $request->alamat_domisili,
-            'pekerjaan' => $request->pekerjaan,
-            'sifat_pekerjaan' => $request->sifat_pekerjaan,
-            'penghasilan' => $request->penghasilan,
-            'agama' => $request->agama,
-            'kota_lahir_id' => $request->kota ? new KotaResource($request->kota) : null,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'bpjs' => $request->bpjs,
+            'no_telp' => $request->no_telp,
             'laporan_id' => $request->laporan_id,
             'laporan' => $withLaporan ? new LaporanResource($request->laporans) : null,
         ]);
@@ -160,17 +128,19 @@ class KeluargaKlien extends Model
     public function relations()
     {
         return [
-            'kota',
-            'laporans'
+            'laporans',
+            'hubungan'
         ];
-    }
-
-    public function kota(){
-        return $this->belongsTo('App\Models\Kota','kota_lahir_id','id');
     }
 
     public function laporans()
     {
         return $this->belongsTo('App\Models\Laporans', 'laporan_id', 'id');
     }
+
+    public function hubungan()
+    {
+        return $this->belongsTo('App\Models\HubunganKeluargaKlien', 'hubungan_id', 'id');
+    }
+
 }

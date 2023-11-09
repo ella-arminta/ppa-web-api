@@ -25,15 +25,6 @@ class KeluargaKlienRepository extends BaseRepository
         return $data;
     }
 
-    public function setKeluargaKlienDone($status,$laporan_id){
-        $detailKlien = DetailKlien::where('laporan_id', $laporan_id)->first();
-        $detailKlien->is_done_keluarga = $status;
-        $detailKlien->save();
-
-        $detailKlien = DetailKlien::where('laporan_id', $laporan_id)->first();
-        return $detailKlien;
-    }
-
     private function getAllWith(){
         if (request('laporan_id')){
             return $this->model->with($this->model->relations())->orderBy("id", "ASC")->where('laporan_id',request('laporan_id'))->get();

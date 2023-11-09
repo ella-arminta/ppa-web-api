@@ -25,7 +25,6 @@ return new class extends Migration
             ->nullable();
             $table->string('no_kk')->nullable();
             $table->string('no_wa')->nullable();
-            $table->boolean('is_done')->default(false);
             $table->string('alamat_kk')->nullable();
             $table->foreignIdFor('App\Models\Kecamatans', 'kecamatan_kk_id')
                 ->nullable();
@@ -46,7 +45,6 @@ return new class extends Migration
             $table->string('pendidikan_instansi')->nullable();
             $table->string('pendidikan_jurusan')->nullable();
             $table->string('pendidikan_thn_lulus')->nullable();
-            $table->boolean('is_done_keluarga')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

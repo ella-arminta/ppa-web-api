@@ -109,4 +109,14 @@ class LaporansService extends BaseService
         }
         return null;
     }
+
+    public function setStatusPenjangkauan($data){
+        $data['jenis'] = 'status_'.$data['jenis'];
+        $this->repository->update(
+            $data['laporan_id'],
+            [
+                $data['jenis'] => $data['status']
+            ]
+        );
+    }
 }
