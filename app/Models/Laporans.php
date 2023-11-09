@@ -67,6 +67,7 @@ class Laporans extends Model
             'dokumentasi_pengaduan.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status_keluarga' => 'nullable|integer|in:0,1,2',
             'status_detail_klien' => 'nullable|integer|in:0,1,2',
+            'status_pelaku' => 'nullable|integer|in:0,1,2',
         ];
         return ModelUtils::rulesPatch($rules);
     }
@@ -133,7 +134,8 @@ class Laporans extends Model
             'dokumentasi_pengaduan.*.mimes' => 'Dokumentasi pengaduan harus berupa gambar',
             'dokumentasi_pengaduan.*.max' => 'Dokumentasi pengaduan maksimal 2MB',
             'status_keluarga' => 'Status Keluarga hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)',
-            'status_detail_klien' => 'Status Keluarga hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)'
+            'status_detail_klien' => 'Status Keluarga hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)',
+            'status_pelaku' => 'Status Keluarga hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)'
         ];
     }
 

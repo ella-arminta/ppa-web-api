@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::table('laporans', function (Blueprint $table) {
             $table->integer('status_keluarga')->default(0);
             $table->integer('status_detail_klien')->default(0);
+            $table->integer('status_pelaku')->default(0);
         });
             
     }

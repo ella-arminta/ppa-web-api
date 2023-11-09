@@ -74,6 +74,7 @@ class ModelUtils
             'harapan_klien_dan_keluarga' => $request->harapan_klien_dan_keluarga,
             'status_detail_klien' => $request->status_detail_klien,
             'status_keluarga' => $request->status_keluarga,
+            'status_pelaku' => $request->status_pelaku,
 
             'kategori' => new KategorisResource($request->kategori),
             'status' => new StatusesResource($request->status),
