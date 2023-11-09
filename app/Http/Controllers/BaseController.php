@@ -8,6 +8,8 @@ use App\Utils\ValidateRequest;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class BaseController extends Controller
 {
@@ -81,6 +83,25 @@ class BaseController extends Controller
     {
         //
         $data = $this->service->getById($id);
+
+        return $this->success($data, HttpResponseCode::HTTP_OK);
+    }
+
+    public function getByLaporanId(string $id){
+        $valid = Validator::make(
+            ['laporan_id' => $id],
+            [
+                'laporan_id' => 'required|exists:laporans,id',
+            ],
+            [
+                'laporan_id.required' => 'Laporan id is required!',
+                'laporan_id.exists' => 'Laporan id is not exists!',
+            ]
+        );
+        if ($valid->fails()) {
+            return $this->error($valid->errors()->first());
+        }
+        $data = $this->service->getByLaporanId($id);
 
         return $this->success($data, HttpResponseCode::HTTP_OK);
     }

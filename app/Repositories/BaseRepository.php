@@ -19,6 +19,11 @@ class BaseRepository {
         // return $this->model->findOrFail($id)->with($this->model->relations())->first();
     }
 
+    public function getByLaporanId($id) {
+        return $this->model->with($this->model->relations())->where('laporan_id', $id)->firstOrFail();
+        // return $this->model->findOrFail($id)->with($this->model->relations())->first();
+    }
+
     public function create($data) {
         return $this->model->create($data);
     }

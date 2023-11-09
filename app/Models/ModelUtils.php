@@ -10,6 +10,7 @@ use App\Http\Resources\KelurahansResource;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\KategorisResource;
 use App\Http\Resources\KeluargaKlienResource;
+use App\Http\Resources\PelakuResource;
 use App\Http\Resources\StatusesResource;
 use App\Http\Resources\SumberPengaduanResource;
 use Carbon\Carbon;
@@ -86,6 +87,7 @@ class ModelUtils
             'dokumentasi_pengaduan' => $request->dokumentasi_pengaduan ? json_decode($request->dokumentasi_pengaduan) : null,
             'detail_klien' => $request->detail_klien ? new DetailKlienResource($request->detail_klien) : null ,
             'keluarga_klien' => $withKeluargaKlien ? KeluargaKlienResource::collection($request->keluarga_klien) : null,
+            'pelaku' => $request->pelaku ?  new PelakuResource($request->pelaku) : null
         ];
     }
 }
