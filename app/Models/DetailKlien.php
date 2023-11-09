@@ -198,7 +198,6 @@ class DetailKlien extends Model
             'kecamatan',
             'kelurahan_kk',
             'kota_lahir',
-            'keluarga_klien'
         ];
     }
 

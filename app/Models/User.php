@@ -169,6 +169,10 @@ class User extends Authenticatable
         ];
     }
 
+    public function scopeKelurahan($query,$value){
+        return $query->where('kelurahan_id',$value);
+    }
+
     public function role()
     {
         return $this->belongsTo(Roles::class, 'role_id', 'id');

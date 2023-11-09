@@ -54,7 +54,8 @@ Route::middleware(['cors'])->group(function () {
     Route::group(['middleware' => ['auth:sanctum', 'ability:superadmin,admin']], function () {
         Route::get('/statuses/count', 'App\Http\Controllers\StatusesController@getCountKasus');
         Route::apiResources(createRoutes());
-        Route::get('/detail-kliens/laporans/{laporan_id}',[DetailKlienController::class,'getByLaporanId']);
+
+        Route::get('/laporans/{laporan_id}/detail-kliens',[DetailKlienController::class,'getByLaporanId']);
         Route::post('/keluarga-kliens/set-is-done',[KeluargaKlienController::class,'setKeluargaKlienDone']);
 
     });
