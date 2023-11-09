@@ -46,13 +46,13 @@ class LaporansController extends BaseController
             ],
             [
                 'laporan_id' => 'required|exists:laporans,id',
-                'jenis' => 'required|in:detail_klien,keluarga',
+                'jenis' => 'required|in:detail_klien,keluarga,pelaku',
                 'status' => 'required|in:0,1,2'
             ],
             [
                 'laporan_id.required' => 'Laporan id is required!',
                 'laporan_id.exists' => 'Laporan id is not exists!',
-                'jenis.in' => 'Jenis hanya boleh : detail_klien , keluarga',
+                'jenis.in' => 'Jenis hanya boleh : detail_klien , keluarga, pelaku',
                 'status.in' => 'Status hanya boleh : 0, 1, atau 2 (0 = blm input, 1 = draft, 2 = published)'
             ]
         );
