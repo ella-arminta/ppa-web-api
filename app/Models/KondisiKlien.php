@@ -2,22 +2,18 @@
 
 namespace App\Models;
 
-use App\Http\Resources\API\LaporanResource;
-use App\Http\Resources\DetailKlienResource;
-use App\Http\Resources\HubunganKeluargaKlienResource;
-use App\Models\ModelUtils;
-use App\Repositories\KeluargaKlienRepository;
-use App\Services\KeluargaKlienService;
-use App\Http\Resources\KeluargaKlienResource;
-use App\Http\Resources\KotaResource;
 use App\Http\Resources\UserResource;
+use App\Models\ModelUtils;
+use App\Repositories\KondisiKlienRepository;
+use App\Services\KondisiKlienService;
+use App\Http\Resources\KondisiKlienResource;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class KeluargaKlien extends Model
+class KondisiKlien extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -28,9 +24,10 @@ class KeluargaKlien extends Model
      */
     protected $fillable = [
         'laporan_id',
-        'hubungan_id',
-        'nama_lengkap',
-        'no_telp',
+        'fisik',
+        'psikologis',
+        'sosial',
+        'spiritual',
         'satgas_id'
     ]; 
 
@@ -43,9 +40,10 @@ class KeluargaKlien extends Model
     {
         return [
             'laporan_id' => 'required|exists:laporans,id',
-            'hubungan_id' => 'required|exists:hubungan_keluarga_kliens,id',
-            'nama_lengkap' => 'required|string',
-            'no_telp' => 'required|string',
+            'fisik' => 'required|string',
+            'psikologis' => 'required|string',
+            'sosial' => 'required|string',
+            'spiritual' => 'required|string',
             'satgas_id' => 'required|exists:users,id'
         ];
     }
@@ -57,9 +55,7 @@ class KeluargaKlien extends Model
      */
     public static function validationMessages()
     {
-        return [
-            'hubungan.in' => 'Hubungan dengan Klien hanya boleh : Suami, Istri, Anak Kandung, Ayah Kandung, Ibu Kandung, Saudara'
-        ];
+        return [];
     }
 
     /**
@@ -69,14 +65,12 @@ class KeluargaKlien extends Model
      */
     public function resourceData($request)
     {
-        $withLaporan = ModelUtils::checkParam(request('withLaporan'));
         return ModelUtils::filterNullValues([
-            'id' => $request->id,
-            'hubungan' => new HubunganKeluargaKlienResource($request->hubungan),
-            'nama_lengkap' => $request->nama_lengkap,
-            'no_telp' => $request->no_telp,
             'laporan_id' => $request->laporan_id,
-            'laporan' => $withLaporan ? new LaporanResource($request->laporans) : null,
+            'fisik' => $request->fisik,
+            'psikologis' => $request->psikologis,
+            'sosial' => $request->sosial,
+            'spiritual' => $request->spiritual,
             'satgas' => $request->satgas ? new UserResource($request->satgas) : null,
         ]);
     }
@@ -90,7 +84,7 @@ class KeluargaKlien extends Model
 
     public function controller()
     {
-        return 'App\Http\Controllers\KeluargaKlienController';
+        return 'App\Http\Controllers\KondisiKlienController';
     }
 
     /**
@@ -100,7 +94,7 @@ class KeluargaKlien extends Model
      */
     public function service()
     {
-        return new KeluargaKlienService($this);
+        return new KondisiKlienService($this);
     }
 
     /**
@@ -110,7 +104,7 @@ class KeluargaKlien extends Model
      */
     public function repository()
     {
-        return new KeluargaKlienRepository($this);
+        return new KondisiKlienRepository($this);
     }
 
     /**
@@ -121,7 +115,7 @@ class KeluargaKlien extends Model
 
     public function resource()
     {
-        return new KeluargaKlienResource($this);
+        return new KondisiKlienResource($this);
     }
 
     /**
@@ -132,24 +126,17 @@ class KeluargaKlien extends Model
     public function relations()
     {
         return [
-            'laporans',
-            'hubungan',
+            'laporan',
             'satgas'
         ];
     }
-
-    public function laporans()
+    public function laporan()
     {
         return $this->belongsTo('App\Models\Laporans', 'laporan_id', 'id');
     }
 
-    public function hubungan()
+    public function satgas()
     {
-        return $this->belongsTo('App\Models\HubunganKeluargaKlien', 'hubungan_id', 'id');
+        return $this->belongsTo('App\Models\User', 'satgas_id', 'id');
     }
-
-    public function satgas(){
-        return $this->belongsTo('App\Models\User','satgas_id','id');
-    }
-
 }

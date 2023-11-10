@@ -6,6 +6,7 @@ use App\Models\ModelUtils;
 use App\Repositories\PelakuRepository;
 use App\Services\PelakuService;
 use App\Http\Resources\PelakuResource;
+use App\Http\Resources\UserResource;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,7 +26,8 @@ class Pelaku extends Model
         'laporan_id',
         'nama_lengkap',
         'hubungan',
-        'usia'
+        'usia',
+        'satgas_id'
     ]; 
 
     /**
@@ -39,7 +41,8 @@ class Pelaku extends Model
             'laporan_id' => 'required|exists:laporans,id',
             'nama_lengkap' => 'required|string',
             'hubungan' => 'required|string',
-            'usia' => 'required|integer'
+            'usia' => 'required|integer',
+            'satgas_id' => 'required|exists:users,id'
         ];
     }
 
@@ -64,7 +67,8 @@ class Pelaku extends Model
             'laporan_id' => $request->laporan_id,
             'nama_lengkap' => $request->nama_lengkap,
             'hubungan' => $request->hubungan,
-            'usia' => $request->usia
+            'usia' => $request->usia,
+            'satgas' => $request->satgas ? new UserResource($request->satgas) : null,
         ]);
     }
 
@@ -119,12 +123,17 @@ class Pelaku extends Model
     public function relations()
     {
         return [
-            'laporan'
+            'laporan',
+            'satgas'
         ];
     }
     
     public function laporan()
     {
         return $this->belongsTo('App\Models\Laporans', 'laporan_id', 'id');
+    }
+
+    public function satgas(){
+        return $this->belongsTo('App\Models\User','satgas_id','id');
     }
 }

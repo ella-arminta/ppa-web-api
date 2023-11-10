@@ -51,6 +51,7 @@ return new class extends Migration
             $table->longText('situasi_keluarga')->nullable();
             $table->longText('kronologi_kejadian')->nullable();
             $table->longText('harapan_klien_dan_keluarga')->nullable();
+            $table->longText('langkah_telah_dilakukan')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

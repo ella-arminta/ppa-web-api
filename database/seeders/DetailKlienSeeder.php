@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\DetailKlien;
 use App\Models\Laporans;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,6 +16,7 @@ class DetailKlienSeeder extends Seeder
     public function run(): void
     {
         $laporan = Laporans::first();
+        $satgas = User::first();
         DetailKlien::create([
             'laporan_id' => $laporan->id,
             'warga_surabaya' => 0,
@@ -37,7 +39,8 @@ class DetailKlienSeeder extends Seeder
             'pendidikan_kelas' => 'sdf',
             'pendidikan_instansi' => 'sdf',
             'pendidikan_jurusan' => 'sdf',
-            'pendidikan_thn_lulus' => 2023
+            'pendidikan_thn_lulus' => 2023,
+            'satgas_id' => $satgas['id']
         ]);
     }
 }

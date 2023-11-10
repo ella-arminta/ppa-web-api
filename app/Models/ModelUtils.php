@@ -10,6 +10,7 @@ use App\Http\Resources\KelurahansResource;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\KategorisResource;
 use App\Http\Resources\KeluargaKlienResource;
+use App\Http\Resources\KondisiKlienResource;
 use App\Http\Resources\PelakuResource;
 use App\Http\Resources\StatusesResource;
 use App\Http\Resources\SumberPengaduanResource;
@@ -70,11 +71,18 @@ class ModelUtils
             'dokumentasi_pengaduan' => $request->dokumentasi_pengaduan,
             'situasi_keluarga' => $request->situasi_keluarga,
             'kronologis' => $request->kronologis,
-            'situasi_keluarga' => $request->situasi_keluarga,
             'harapan_klien_dan_keluarga' => $request->harapan_klien_dan_keluarga,
+
+            // Status Penjangkauan
             'status_detail_klien' => $request->status_detail_klien,
             'status_keluarga' => $request->status_keluarga,
             'status_pelaku' => $request->status_pelaku,
+            'status_situasi_keluarga' => $request->status_situasi_keluarga,
+            'status_kronologi' => $request->status_kronologi,
+            'status_harapan_klien_dan_keluarga' => $request->status_harapan_klien_dan_keluarga,
+            'status_kondisi_klien' => $request->status_kondisi_klien,
+            'status_langkah_telah_dilakukan' => $request->status_langkah_telah_dilakukan,
+            'status_dokumen_pendukung' => $request->status_dokumen_pendukung,
 
             'kategori' => new KategorisResource($request->kategori),
             'status' => new StatusesResource($request->status),
@@ -88,7 +96,9 @@ class ModelUtils
             'dokumentasi_pengaduan' => $request->dokumentasi_pengaduan ? json_decode($request->dokumentasi_pengaduan) : null,
             'detail_klien' => $request->detail_klien ? new DetailKlienResource($request->detail_klien) : null ,
             'keluarga_klien' => $withKeluargaKlien ? KeluargaKlienResource::collection($request->keluarga_klien) : null,
-            'pelaku' => $request->pelaku ?  new PelakuResource($request->pelaku) : null
+            'pelaku' => $request->pelaku ?  new PelakuResource($request->pelaku) : null,
+            'kondisi_klien' => $request->kondisi_klien ?  new KondisiKlienResource($request->kondisi_klien) : null
+
         ];
     }
 }

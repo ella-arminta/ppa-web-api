@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Resources\UserResource;
 use App\Models\ModelUtils;
 use App\Repositories\DetailKlienRepository;
 use App\Services\DetailKlienService;
@@ -46,7 +47,8 @@ class DetailKlien extends Model
         'pendidikan_kelas',
         'pendidikan_instansi',
         'pendidikan_jurusan',
-        'pendidikan_thn_lulus'
+        'pendidikan_thn_lulus',
+        'satgas_id'
     ]; 
 
     /**
@@ -79,6 +81,7 @@ class DetailKlien extends Model
             'pendidikan_jurusan' => 'nullable|string',
             'pendidikan_thn_lulus' => 'nullable|string|max:4',
             'no_wa' => 'nullable|string|max:12',
+            'satgas_id' => 'required|exists:users,id'
         ];
         return ModelUtils::rulesPatch($rules);
     }
@@ -133,6 +136,7 @@ class DetailKlien extends Model
             'pendidikan_instansi' => $request->pendidikan_instansi,
             'pendidikan_jurusan' => $request->pendidikan_jurusan,
             'pendidikan_thn_lulus' => $request->pendidikan_thn_lulus,
+            'satgas' => $request->satgas ? new UserResource($request->satgas) : null,
         ]);
     }
 
@@ -193,6 +197,7 @@ class DetailKlien extends Model
             'kecamatan',
             'kelurahan_kk',
             'kota_lahir',
+            'satgas'
         ];
     }
 
@@ -219,6 +224,10 @@ class DetailKlien extends Model
 
     public function kota_lahir(){
         return $this->belongsTo('App\Models\Kota','kota_lahir_id','id');
+    }
+
+    public function satgas(){
+        return $this->belongsTo('App\Models\User','satgas_id','id');
     }
 
 }

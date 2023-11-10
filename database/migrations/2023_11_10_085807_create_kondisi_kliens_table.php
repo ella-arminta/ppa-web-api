@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         //
-        Schema::create('pelakus', function (Blueprint $table) {
+        Schema::create('kondisi_kliens', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('laporan_id');
-            $table->string('nama_lengkap');
-            $table->string('hubungan');
-            $table->string('usia');
+            $table->string('fisik')->nullable();
+            $table->string('psikologis')->nullable();
+            $table->string('sosial')->nullable();
+            $table->string('spiritual')->nullable();
             $table->foreignUuid('satgas_id')
             ->references('id')
             ->on('users')

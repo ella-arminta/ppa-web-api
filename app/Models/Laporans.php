@@ -68,6 +68,8 @@ class Laporans extends Model
             'status_keluarga' => 'nullable|integer|in:0,1,2',
             'status_detail_klien' => 'nullable|integer|in:0,1,2',
             'status_pelaku' => 'nullable|integer|in:0,1,2',
+            'status_situasi_keluarga' => 'nullable|integer|in:0,1,2',
+            'status_kronologi' => 'nullable|integer|in:0,1,2',
         ];
         return ModelUtils::rulesPatch($rules);
     }
@@ -135,7 +137,10 @@ class Laporans extends Model
             'dokumentasi_pengaduan.*.max' => 'Dokumentasi pengaduan maksimal 2MB',
             'status_keluarga' => 'Status Keluarga hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)',
             'status_detail_klien' => 'Status Keluarga hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)',
-            'status_pelaku' => 'Status Keluarga hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)'
+            'status_pelaku' => 'Status Keluarga hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)',
+            'status_situasi_keluarga' => 'Status Situasi Keluarga hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)',
+            'status_kronologi' => 'Status Kronologi hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)',
+            'status_dokumen_pendukung' => 'Status Dokumen Pendukung hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)'
         ];
     }
 
@@ -238,7 +243,8 @@ class Laporans extends Model
             'kelurahan.kecamatan',
             'detail_klien',
             'keluarga_klien',
-            'pelaku'
+            'pelaku',
+            'kondisi_klien'
         ];
     }
 
@@ -315,5 +321,9 @@ class Laporans extends Model
 
     public function pelaku(){
         return $this->hasOne('App\Models\Pelaku','laporan_id','id');
+    }
+
+    public function kondisi_klien(){
+        return $this->hasOne('App\Models\KondisiKlien','laporan_id','id');
     }
 }

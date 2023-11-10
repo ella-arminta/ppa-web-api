@@ -20,6 +20,11 @@ return new class extends Migration
             $table->foreignIdFor('App\Models\HubunganKeluargaKlien', 'hubungan_id')->nullable();
             $table->string('nama_lengkap');
             $table->string('no_telp');
+            $table->foreignUuid('satgas_id')
+            ->references('id')
+            ->on('users')
+            ->nullable()
+            ->default(null);
             $table->timestamps();
             $table->softDeletes();
         });

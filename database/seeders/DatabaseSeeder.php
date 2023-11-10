@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Pelaku;
 use Illuminate\Database\Seeder;
 
 use Illuminate\Support\Str;
@@ -35,7 +37,10 @@ class DatabaseSeeder extends Seeder
             SumberPengaduan::class,
             KotaSeeder::class,
             HubunganKeluargaKlienSeeder::class,
-            DetailKlienSeeder::class
+            DetailKlienSeeder::class,
+            KeluargaKlienSeeder::class,
+            KondisiKlienSeeder::class,
+            PelakuSeeder::class
             // KronologiSeeder::class,
             // AlamatSeeder::class,
             // ProgressReportSeeder::class,
