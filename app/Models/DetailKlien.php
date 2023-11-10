@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use App\Http\Resources\AgamaResource;
+use App\Http\Resources\DetailKlien\BpjsResource;
+use App\Http\Resources\DetailKlien\PekerjaanResource;
+use App\Http\Resources\DetailKlien\StatusPerkawinanResource;
 use App\Http\Resources\UserResource;
 use App\Models\ModelUtils;
 use App\Repositories\DetailKlienRepository;
@@ -14,7 +18,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use PDO;
 
 class DetailKlien extends Model
 {
@@ -37,13 +41,13 @@ class DetailKlien extends Model
         'kelurahan_kk_id',
         'kota_lahir_id',
         'tanggal_lahir',
-        'agama',
+        'agama_id',
         'kategori_klien',
         'jenis_klien',
-        'pekerjaan',
+        'pekerjaan_id',
         'penghasilan_bulanan',
-        'status_perkawinan',
-        'bpjs',
+        'status_perkawinan_id',
+        'bpjs_id',
         'pendidikan_kelas',
         'pendidikan_instansi',
         'pendidikan_jurusan',
@@ -69,13 +73,13 @@ class DetailKlien extends Model
             'kelurahan_kk_id' => 'nullable|exists:kelurahans,id',
             'kota_lahir_id' => 'nullable|exists:kotas,id',
             'tanggal_lahir' => 'nullable|date',
-            'agama' => 'nullable|in:Islam,Kristen,Katholik,Buddha,Khonghucu,Hindu,Yang lain',
-            'kategori_klien' => 'nullable|string',
-            'jenis_klien' => 'nullable|string',
-            'pekerjaan' => 'nullable|string',
+            'agama_id' => 'nullable|exists:agama,id',
+            'kategori_klien' => 'nullable|in:anak,dewasa',
+            'jenis_klien' => 'nullable|in:umum,disabilitas',
+            'pekerjaan_id' => 'nullable|exists:pekerjaans,id',
             'penghasilan_bulanan' => 'nullable|integer',
-            'status_perkawinan' => 'nullable|string|in:Belum Menikah,Menikah,Cerai Hidup,Cerai Mati',
-            'bpjs' => 'nullable|string',
+            'status_perkawinan_id' => 'nullable|exists:status_perkawinans,id',
+            'bpjs_id' => 'nullable|exists:bpjs,id',
             'pendidikan_kelas' => 'nullable|string',
             'pendidikan_instansi' => 'nullable|string',
             'pendidikan_jurusan' => 'nullable|string',
@@ -94,10 +98,10 @@ class DetailKlien extends Model
     public static function validationMessages()
     {
         return [
-            'agama.in' => 'Agama hanya boleh : Islam, Kristen, Katholik, Buddha, Khonghucu, Hindu, Yang lain.',
-            'status_perkawinan.in' => 'Status Perkawinan hanya boleh : Belum Menikah, Menikah, Cerai Hidup, Cerai Mati',
             'no_wa.string' => 'Nomor telepon atau nomor wa hanya boleh string',
-            'no_wa.max' => 'Nomor telepon atau nomor wa maksimal memiliki panjang 12 character'
+            'no_wa.max' => 'Nomor telepon atau nomor wa maksimal memiliki panjang 12 character',
+            'kategori_klien.in' => 'Kategori klien hanya bisa : anak, dewasa',
+            'jenis_klien.in' => 'Jenis klien hanya bisa umum atau disabilitas',
         ];
     }
 
@@ -124,14 +128,14 @@ class DetailKlien extends Model
             'kelurahan_kk' => $request->kelurahan_kk ? new KelurahansResource($request->kelurahan_kk) : null,
             'kota_lahir' => $request->kota_lahir ? new KelurahansResource($request->kota_lahir) : null,
             'tanggal_lahir' => $request->tanggal_lahir,
-            'agama' => $request->agama,
+            'agama' => $request->agama ? new AgamaResource($request->agama) : null,
             'usia' => $usia, 
             'kategori_klien' => $request->kategori_klien,
             'jenis_klien' => $request->jenis_klien,
-            'pekerjaan' => $request->pekerjaan,
+            'pekerjaan' => $request->pekerjaan ? new PekerjaanResource($request->pekerjaan) : null,
             'penghasilan_bulanan' => $request->penghasilan_bulanan,
-            'status_perkawinan' => $request->status_perkawinan,
-            'bpjs' => $request->bpjs,
+            'status_perkawinan' => $request->status_perkawinan ? new StatusPerkawinanResource($request->status_perkawinan) : null,
+            'bpjs' => $request->bpjs_rel ? new BpjsResource($request->bpjs_rel) : null,
             'pendidikan_kelas' => $request->pendidikan_kelas,
             'pendidikan_instansi' => $request->pendidikan_instansi,
             'pendidikan_jurusan' => $request->pendidikan_jurusan,
@@ -197,7 +201,11 @@ class DetailKlien extends Model
             'kecamatan',
             'kelurahan_kk',
             'kota_lahir',
-            'satgas'
+            'satgas',
+            'agama',
+            'pekerjaan',
+            'status_perkawinan',
+            'bpjs_rel'
         ];
     }
 
@@ -230,4 +238,19 @@ class DetailKlien extends Model
         return $this->belongsTo('App\Models\User','satgas_id','id');
     }
 
+    public function agama(){
+        return $this->belongsTo('App\Models\Agama','agama_id','id');
+    }
+
+    public function pekerjaan(){
+        return $this->belongsTo('App\Models\DetailKlien\Pekerjaan','pekerjaan_id','id');
+    }
+
+    public function status_perkawinan(){
+        return $this->belongsTo('App\Models\DetailKlien\StatusPerkawinan','status_perkawinan_id','id');
+    }
+
+    public function bpjs_rel(){
+        return $this->belongsTo('App\Models\DetailKlien\Bpjs','bpjs_id','id');
+    }
 }

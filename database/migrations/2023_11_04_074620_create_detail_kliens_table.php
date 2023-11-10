@@ -34,12 +34,11 @@ return new class extends Migration
                 ->nullable();
             $table->date('tanggal_lahir')
                 ->nullable();
-            $table->string('agama')->nullable();
+            $table->foreignIdFor('App\Models\Agama', 'agama_id')
+                ->nullable();
             $table->string('kategori_klien')->nullable();
             $table->string('jenis_klien')->nullable();
-            $table->string('pekerjaan')->nullable();
             $table->integer('penghasilan_bulanan')->nullable();
-            $table->string('status_perkawinan')->nullable();
             $table->string('bpjs')->nullable();
             $table->string('pendidikan_kelas')->nullable();
             $table->string('pendidikan_instansi')->nullable();
