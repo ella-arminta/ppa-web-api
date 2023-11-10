@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\DetailKlienController;
 use App\Http\Controllers\KeluargaKlienController;
+use App\Http\Controllers\KondisiKlienController;
 use App\Http\Controllers\LaporansController;
 use App\Http\Controllers\PelakuController;
 use App\Models\Pelaku;
@@ -58,6 +59,8 @@ Route::middleware(['cors'])->group(function () {
 
         Route::get('/laporans/{laporan_id}/detail-kliens',[DetailKlienController::class,'getByLaporanId']);
         Route::get('/laporans/{laporan_id}/pelaku',[PelakuController::class,'getByLaporanId']);
+        Route::get('/laporans/{laporan_id}/kondisi-klien',[KondisiKlienController::class,'getByLaporanId']);
+
     
         // set status penjangkauan untuk semua data penjangkauan yang tersedia
         Route::post('/laporans/{laporan_id}/status-penjangkauan',[LaporansController::class,'setStatusPenjangkauan']);
