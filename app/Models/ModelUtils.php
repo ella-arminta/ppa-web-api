@@ -12,6 +12,7 @@ use App\Http\Resources\KategorisResource;
 use App\Http\Resources\KeluargaKlienResource;
 use App\Http\Resources\KondisiKlienResource;
 use App\Http\Resources\PelakuResource;
+use App\Http\Resources\PenjadwalanResource;
 use App\Http\Resources\StatusesResource;
 use App\Http\Resources\SumberPengaduanResource;
 use Carbon\Carbon;
@@ -97,8 +98,8 @@ class ModelUtils
             'detail_klien' => $request->detail_klien ? new DetailKlienResource($request->detail_klien) : null ,
             'keluarga_klien' => $withKeluargaKlien ? KeluargaKlienResource::collection($request->keluarga_klien) : null,
             'pelaku' => $request->pelaku ?  new PelakuResource($request->pelaku) : null,
-            'kondisi_klien' => $request->kondisi_klien ?  new KondisiKlienResource($request->kondisi_klien) : null
-
+            'kondisi_klien' => $request->kondisi_klien ?  new KondisiKlienResource($request->kondisi_klien) : null,
+            'penjadwalan' => $request->penjadwalan ? new PenjadwalanResource($request->penjadwalan) : null,
         ];
     }
 }

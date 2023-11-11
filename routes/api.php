@@ -9,6 +9,7 @@ use App\Http\Controllers\KeluargaKlienController;
 use App\Http\Controllers\KondisiKlienController;
 use App\Http\Controllers\LaporansController;
 use App\Http\Controllers\PelakuController;
+use App\Http\Controllers\PenjadwalanController;
 use App\Models\Pelaku;
 
 require_once __DIR__ . '/utils.php';
@@ -58,9 +59,10 @@ Route::middleware(['cors'])->group(function () {
         Route::apiResources(createRoutes());
 
         Route::get('/laporans/{laporan_id}/detail-kliens',[DetailKlienController::class,'getByLaporanId']);
-        Route::get('/laporans/{laporan_id}/pelaku',[PelakuController::class,'getByLaporanId']);
+        Route::get('/laporans/{laporan_id}/pelakus',[PelakuController::class,'getByLaporanId']);
         Route::get('/laporans/{laporan_id}/kondisi-kliens',[KondisiKlienController::class,'getByLaporanId']);
-
+        Route::get('/laporans/{laporan_id}/keluarga-kliens',[KeluargaKlienController::class,'getByLaporanId']);
+        Route::get('/laporans/{laporan_id}/penjadwalans',[PenjadwalanController::class,'getByLaporanId']);
     
         // set status penjangkauan untuk semua data penjangkauan yang tersedia
         Route::post('/laporans/{laporan_id}/status-penjangkauan',[LaporansController::class,'setStatusPenjangkauan']);
