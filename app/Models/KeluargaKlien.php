@@ -45,7 +45,7 @@ class KeluargaKlien extends Model
             'laporan_id' => 'required|exists:laporans,id',
             'hubungan_id' => 'required|exists:hubungan_keluarga_kliens,id',
             'nama_lengkap' => 'required|string',
-            'no_telp' => 'required|string',
+            'no_telp' => 'nullable|string',
             'satgas_id' => 'required|exists:users,id'
         ];
     }

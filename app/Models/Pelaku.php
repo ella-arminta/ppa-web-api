@@ -40,8 +40,8 @@ class Pelaku extends Model
         return [
             'laporan_id' => 'required|exists:laporans,id',
             'nama_lengkap' => 'required|string',
-            'hubungan' => 'required|string',
-            'usia' => 'required|integer',
+            'hubungan' => 'nullable|string',
+            'usia' => 'nullable|integer',
             'satgas_id' => 'required|exists:users,id'
         ];
     }

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->id();
             $table->foreignUuid('laporan_id');
             $table->string('nama_lengkap');
-            $table->string('hubungan');
-            $table->string('usia');
+            $table->string('hubungan')->nullable();
+            $table->string('usia')->nullable();
             $table->foreignUuid('satgas_id')
             ->references('id')
             ->on('users')

@@ -19,7 +19,7 @@ return new class extends Migration
                 ->on('laporans');
             $table->foreignIdFor('App\Models\HubunganKeluargaKlien', 'hubungan_id')->nullable();
             $table->string('nama_lengkap');
-            $table->string('no_telp');
+            $table->string('no_telp')->nullable();
             $table->foreignUuid('satgas_id')
             ->references('id')
             ->on('users')
