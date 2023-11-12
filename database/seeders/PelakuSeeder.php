@@ -15,7 +15,7 @@ class PelakuSeeder extends Seeder
      */
     public function run(): void
     {
-        $laporan = Laporans::first();
+        $laporan = Laporans::where('status_id',2)->first();
         $satgas = User::first();
         Pelaku::create([
             'laporan_id' => $laporan->id,

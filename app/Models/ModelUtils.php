@@ -71,9 +71,10 @@ class ModelUtils
             'jenis_kelamin' => $request->jenis_kelamin,
             'dokumentasi_pengaduan' => $request->dokumentasi_pengaduan,
             'situasi_keluarga' => $request->situasi_keluarga,
-            'kronologis' => $request->kronologis,
+            'kronologi_kejadian' => $request->kronologi_kejadian,
             'harapan_klien_dan_keluarga' => $request->harapan_klien_dan_keluarga,
-
+            'langkah_telah_dilakukan' => $request->langkah_telah_dilakukan,
+            
             // Status Penjangkauan
             'status_detail_klien' => $request->status_detail_klien,
             'status_keluarga' => $request->status_keluarga,
@@ -84,6 +85,8 @@ class ModelUtils
             'status_kondisi_klien' => $request->status_kondisi_klien,
             'status_langkah_telah_dilakukan' => $request->status_langkah_telah_dilakukan,
             'status_dokumen_pendukung' => $request->status_dokumen_pendukung,
+
+
 
             'kategori' => new KategorisResource($request->kategori),
             'status' => new StatusesResource($request->status),

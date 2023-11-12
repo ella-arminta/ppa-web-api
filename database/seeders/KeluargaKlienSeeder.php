@@ -16,7 +16,7 @@ class KeluargaKlienSeeder extends Seeder
      */
     public function run(): void
     {
-        $laporan = Laporans::first();
+        $laporan = Laporans::where('status_id',2)->first();
         $hubungan = HubunganKeluargaKlien::first();
         $satgas = User::first();
         KeluargaKlien::create(

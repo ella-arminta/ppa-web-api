@@ -14,7 +14,7 @@ class PenjadwalanSeeder extends Seeder
      */
     public function run(): void
     {
-        $laporan = Laporans::first();
+        $laporan = Laporans::where('status_id',2)->first();
         Penjadwalan::create([
             'tanggal_jam' => '2023-08-03 07:13:10',
             'tempat' => 'Kafe',
