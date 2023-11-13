@@ -35,6 +35,10 @@ Route::get('/', function () {
     ]);
 });
 
+Route::patch('/test-patch', function () {
+    return response()->json(['message' => 'PATCH request received']);
+});
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
