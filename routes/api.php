@@ -51,9 +51,6 @@ Route::get('/testing', function () {
 
 // Route::middleware(['cors'])->group(function () {
 Route::middleware(['App\Http\Middleware\CorsMiddleware'])->group(function () {
-    Route::patch('/test-patch', function () {
-        return response()->json(['message' => 'PATCH request received']);
-    });
     Route::controller(AuthController::class)->group(function () {
         Route::post('/login', 'login')->name('login');
         Route::post('/logout', 'logout')->name('logout')->middleware('auth:sanctum');
