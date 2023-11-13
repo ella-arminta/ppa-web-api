@@ -35,9 +35,6 @@ Route::get('/', function () {
     ]);
 });
 
-Route::patch('/test-patch', function () {
-    return response()->json(['message' => 'PATCH request received']);
-});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -53,6 +50,9 @@ Route::get('/testing', function () {
 // disini cek routing
 
 Route::middleware(['cors'])->group(function () {
+    Route::patch('/test-patch', function () {
+        return response()->json(['message' => 'PATCH request received']);
+    });
     Route::controller(AuthController::class)->group(function () {
         Route::post('/login', 'login')->name('login');
         Route::post('/logout', 'logout')->name('logout')->middleware('auth:sanctum');
