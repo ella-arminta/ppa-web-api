@@ -35,6 +35,7 @@ Route::get('/', function () {
     ]);
 });
 
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -48,7 +49,8 @@ Route::get('/testing', function () {
 
 // disini cek routing
 
-Route::middleware(['cors'])->group(function () {
+// Route::middleware(['cors'])->group(function () {
+Route::middleware(['App\Http\Middleware\CorsMiddleware'])->group(function () {
     Route::controller(AuthController::class)->group(function () {
         Route::post('/login', 'login')->name('login');
         Route::post('/logout', 'logout')->name('logout')->middleware('auth:sanctum');
