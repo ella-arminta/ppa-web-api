@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\DetailKasus;
 use App\Models\DetailKlien\Bpjs;
+use App\Models\DetailKlien\KategoriKasus;
 use App\Models\DetailKlien\Pekerjaan;
 use App\Models\Pelaku;
 use Illuminate\Database\Seeder;
@@ -48,6 +50,9 @@ class DatabaseSeeder extends Seeder
             PelakuSeeder::class,
             AgamaSeeder::class,
             PenjadwalanSeeder::class,
+            KategoriKasusSeeder::class,
+            JenisKasusSeeder::class,
+            DetailKasusSeeder::class
             // KronologiSeeder::class,
             // AlamatSeeder::class,
             // ProgressReportSeeder::class,

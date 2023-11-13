@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Resources\DetailKasusResource;
 use App\Http\Resources\DetailKlienResource;
 use App\Http\Resources\KronologisResource;
 use App\Http\Resources\ProgressReportsResource;
@@ -74,6 +75,7 @@ class ModelUtils
             'kronologi_kejadian' => $request->kronologi_kejadian,
             'harapan_klien_dan_keluarga' => $request->harapan_klien_dan_keluarga,
             'langkah_telah_dilakukan' => $request->langkah_telah_dilakukan,
+            'detail_kasus' => $request->detail_kasus ? new DetailKasusResource($request->detail_kasus) : null,
             
             // Status Penjangkauan
             'status_detail_klien' => $request->status_detail_klien,

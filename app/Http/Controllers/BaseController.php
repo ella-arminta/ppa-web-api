@@ -57,6 +57,7 @@ class BaseController extends Controller
     public function update(Request $request, string $id)
     {
         //validate
+        // dd($request->all(),$id);
         $this->validateRequest($request->all(), $this->model);
 
         //update

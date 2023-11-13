@@ -249,7 +249,8 @@ class Laporans extends Model
             'keluarga_klien',
             'pelaku',
             'kondisi_klien',
-            'penjadwalan'
+            'penjadwalan',
+            'detail_kasus'
         ];
     }
 
@@ -334,5 +335,9 @@ class Laporans extends Model
 
     public function penjadwalan(){
         return $this->hasOne('App\Models\Penjadwalan','laporan_id','id');
+    }
+
+    public function detail_kasus(){
+        return $this->hasOne('App\Models\DetailKasus','laporan_id','id');
     }
 }
