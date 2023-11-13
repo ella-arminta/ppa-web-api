@@ -49,7 +49,7 @@ Route::get('/testing', function () {
 
 // disini cek routing
 
-Route::middleware(['Cors'])->group(function () {
+Route::middleware(['cors'])->group(function () {
     Route::patch('/test-patch', function () {
         return response()->json(['message' => 'PATCH request received']);
     });
