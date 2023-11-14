@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Http\Resources\DetailKasusResource;
 use App\Http\Resources\DetailKlienResource;
+use App\Http\Resources\DokumenPendukungResource;
 use App\Http\Resources\KronologisResource;
 use App\Http\Resources\ProgressReportsResource;
 use App\Http\Resources\PendidikansResource;
@@ -105,6 +106,7 @@ class ModelUtils
             'pelaku' => $request->pelaku ?  new PelakuResource($request->pelaku) : null,
             'kondisi_klien' => $request->kondisi_klien ?  new KondisiKlienResource($request->kondisi_klien) : null,
             'penjadwalan' => $request->penjadwalan ? new PenjadwalanResource($request->penjadwalan) : null,
+            'dokumen_pendukung' => $request->dokumen_pendukung ? new DokumenPendukungResource($request->dokumen_pendukung) : null,
         ];
     }
 }

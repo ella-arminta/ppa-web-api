@@ -250,7 +250,8 @@ class Laporans extends Model
             'pelaku',
             'kondisi_klien',
             'penjadwalan',
-            'detail_kasus'
+            'detail_kasus',
+            'dokumen_pendukung'
         ];
     }
 
@@ -339,5 +340,9 @@ class Laporans extends Model
 
     public function detail_kasus(){
         return $this->hasOne('App\Models\DetailKasus','laporan_id','id');
+    }
+
+    public function dokumen_pendukung(){
+        return $this->hasOne('App\Models\DokumenPendukung','laporan_id','id');
     }
 }

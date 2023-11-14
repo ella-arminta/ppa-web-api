@@ -117,7 +117,7 @@ class JenisKasus extends Model
 
     public function detail_kasus()
     {
-        return $this->hasMany(DetailKasus::class, 'jenis_kasus_id', 'id');
+        return $this->hasMany('App\Models\DetailKasus', 'jenis_kasus_id', 'id');
     }
 
 }
