@@ -116,7 +116,7 @@ class StatusPerkawinan extends Model
     }
 
     public function detail_klien(){
-        return $this->hasMany('App\Model\DetailKlien','status_perkawinan_id','id');
+        return $this->hasMany('App\Models\DetailKlien','status_perkawinan_id','id');
     }
 
 }

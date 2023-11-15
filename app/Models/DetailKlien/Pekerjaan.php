@@ -116,7 +116,7 @@ class Pekerjaan extends Model
     }
 
     public function detail_klien(){
-        return $this->hasMany('App\Model\DetailKlien','pekerjaan_id','id');
+        return $this->hasMany('App\Models\DetailKlien','pekerjaan_id','id');
     }
 
 }

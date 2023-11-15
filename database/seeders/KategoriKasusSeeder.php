@@ -16,5 +16,8 @@ class KategoriKasusSeeder extends Seeder
         KategoriKasus::create([
             'nama' => 'Personal Problem'
         ]);
+        KategoriKasus::create([
+            'nama' => 'Kekerasan'
+        ]);
     }
 }
