@@ -66,7 +66,7 @@ class KondisiKlien extends Model
     public function resourceData($request)
     {
         return ModelUtils::filterNullValues([
-            'id' => $this->id,
+            'id' => $request->id,
             'laporan_id' => $request->laporan_id,
             'fisik' => $request->fisik,
             'psikologis' => $request->psikologis,
