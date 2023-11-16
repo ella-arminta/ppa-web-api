@@ -79,15 +79,15 @@ class ModelUtils
             'detail_kasus' => $request->detail_kasus ? new DetailKasusResource($request->detail_kasus) : null,
             
             // Status Penjangkauan
-            'status_detail_klien' => $request->status_detail_klien,
-            'status_keluarga' => $request->status_keluarga,
-            'status_pelaku' => $request->status_pelaku,
-            'status_situasi_keluarga' => $request->status_situasi_keluarga,
-            'status_kronologi' => $request->status_kronologi,
-            'status_harapan_klien_dan_keluarga' => $request->status_harapan_klien_dan_keluarga,
-            'status_kondisi_klien' => $request->status_kondisi_klien,
-            'status_langkah_telah_dilakukan' => $request->status_langkah_telah_dilakukan,
-            'status_dokumen_pendukung' => $request->status_dokumen_pendukung,
+            'status_detail_klien' => (int) $request->status_detail_klien,
+            'status_keluarga' => (int) $request->status_keluarga,
+            'status_pelaku' => (int) $request->status_pelaku,
+            'status_situasi_keluarga' => (int) $request->status_situasi_keluarga,
+            'status_kronologi' => (int) $request->status_kronologi,
+            'status_harapan_klien_dan_keluarga' => (int) $request->status_harapan_klien_dan_keluarga,
+            'status_kondisi_klien' => (int) $request->status_kondisi_klien,
+            'status_langkah_telah_dilakukan' => (int) $request->status_langkah_telah_dilakukan,
+            'status_dokumen_pendukung' => (int) $request->status_dokumen_pendukung,
 
 
 
