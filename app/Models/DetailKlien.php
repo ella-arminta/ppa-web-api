@@ -133,7 +133,7 @@ class DetailKlien extends Model
             'kategori_klien' => $request->kategori_klien,
             'jenis_klien' => $request->jenis_klien,
             'pekerjaan' => $request->pekerjaan ? new PekerjaanResource($request->pekerjaan) : null,
-            'penghasilan_bulanan' => $request->penghasilan_bulanan,
+            'penghasilan_bulanan' => (int) $request->penghasilan_bulanan,
             'status_perkawinan' => $request->status_perkawinan ? new StatusPerkawinanResource($request->status_perkawinan) : null,
             'bpjs' => $request->bpjs_rel ? new BpjsResource($request->bpjs_rel) : null,
             'pendidikan_kelas' => $request->pendidikan_kelas,
