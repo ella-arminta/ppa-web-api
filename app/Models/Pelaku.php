@@ -64,6 +64,7 @@ class Pelaku extends Model
     public function resourceData($request)
     {
         return ModelUtils::filterNullValues([
+            'id' => $request->id,
             'laporan_id' => $request->laporan_id,
             'nama_lengkap' => $request->nama_lengkap,
             'hubungan' => $request->hubungan,
