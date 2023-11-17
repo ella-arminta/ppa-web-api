@@ -28,7 +28,7 @@ class BaseService {
     public function getByLaporanId($id) {
         $data = $this->repository->getByLaporanId($id);
 
-        return new $this->resource($data);
+        return $this->resource::collection($data);
     }
 
     public function create($data) {

@@ -20,7 +20,7 @@ class BaseRepository {
     }
 
     public function getByLaporanId($id) {
-        return $this->model->with($this->model->relations())->where('laporan_id', $id)->firstOrFail();
+        return $this->model->with($this->model->relations())->where('laporan_id', $id)->get();
         // return $this->model->findOrFail($id)->with($this->model->relations())->first();
     }
 
