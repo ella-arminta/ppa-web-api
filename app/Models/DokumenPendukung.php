@@ -43,20 +43,20 @@ class DokumenPendukung extends Model
             'laporan_id' => 'required|exists:laporans,id',
             'dokumen_pendukung' => 'nullable|array',
             'dokumen_pendukung.*.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpeg,png,jpg,gif,svg|max:2048',
-            // 'foto_klien' => 'nullable|array',
-            // 'foto_klien.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // 'foto_tempat_tinggal' => 'nullable|array',
-            // 'foto_tempat_tinggal.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // 'foto_pendampingan_awal' => 'nullable|array',
-            // 'foto_pendampingan_awal.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // 'foto_pendampingan_lanjutan' => 'nullable|array',
-            // 'foto_pendampingan_lanjutan.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // 'foto_pendampingan_monitoring' => 'nullable|array',
-            // 'foto_pendampingan_monitoring.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // 'foto_kk' => 'nullable|array',
-            // 'foto_kk.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // 'dokumen_pendukung' => 'nullable|array',
-            // 'dokumen_pendukung.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpeg,png,jpg,gif,svg|max:2048',
+            'foto_klien' => 'nullable|array',
+            'foto_klien.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto_tempat_tinggal' => 'nullable|array',
+            'foto_tempat_tinggal.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto_pendampingan_awal' => 'nullable|array',
+            'foto_pendampingan_awal.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto_pendampingan_lanjutan' => 'nullable|array',
+            'foto_pendampingan_lanjutan.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto_pendampingan_monitoring' => 'nullable|array',
+            'foto_pendampingan_monitoring.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto_kk' => 'nullable|array',
+            'foto_kk.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'dokumen_pendukung' => 'nullable|array',
+            'dokumen_pendukung.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 
@@ -80,13 +80,16 @@ class DokumenPendukung extends Model
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'laporan_id' => $request->laporan_id,
-            'foto_klien' => $request->foto_klien,
-            'foto_tempat_tinggal' => $request->foto_tempat_tinggal,
-            'foto_pendampingan_awal' => $request->foto_pendampingan_awal,
-            'foto_pendampingan_lanjutan' => $request->foto_pendampingan_lanjutan,
-            'foto_pendampingan_monitoring' => $request->foto_pendampingan_monitoring,
-            'foto_kk' => $request->foto_kk,
-            'dokumen_pendukung' => $request->dokumen_pendukung,
+            'dokumen_pendukung' => [
+                'foto_klien' => $request->foto_klien ? json_decode($request->foto_klien) : null,
+                'foto_tempat_tinggal' => $request->foto_tempat_tinggal ? json_decode($request->foto_tempat_tinggal) : null,
+                'foto_pendampingan_awal' => $request->foto_pendampingan_awal ? json_decode($request->foto_pendampingan_awal) : null,
+                'foto_pendampingan_lanjutan' => $request->foto_pendampingan_lanjutan ? json_decode($request->foto_pendampingan_lanjutan) : null,
+                'foto_pendampingan_monitoring' => $request->foto_pendampingan_monitoring ? json_decode($request->foto_pendampingan_monitoring) : null,
+                'foto_kk' => $request->foto_kk ? json_decode($request->foto_kk) : null,
+                // 'dokumen_pendukung' => $request->dokumen_pendukung,
+                'dokumen_pendukung' => $request->dokumen_pendukung ? json_decode($request->dokumen_pendukung) : null,
+            ],
         ]);
     }
 
@@ -146,7 +149,7 @@ class DokumenPendukung extends Model
     }
 
     public function laporan(){
-        return $this->belongsTo(Laporan::class,'laporan_id','id');
+        return $this->belongsTo('App\Models\Laporans','laporan_id','id');
     }
 
 }
