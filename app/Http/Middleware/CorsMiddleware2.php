@@ -17,6 +17,7 @@ class CorsMiddleware2
     public function handle($request, Closure $next)
     {
         Log::info('CorsMiddleware is being executed');
+        dd('Middleware is being executed');
 
         if ($request->isMethod('OPTIONS')) {
             return response('', 200)
