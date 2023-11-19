@@ -117,6 +117,9 @@ class DetailKlien extends Model
 
         return ModelUtils::filterNullValues([
             'id' => $request->id,
+            'nama_klien' => $request->laporans->nama_klien,
+            'nik_klien' => $request->laporans->nik_klien,
+            'alamat_klien' => $request->laporans->alamat_klien,
             'laporan_id' => $request->laporan_id,
             'warga_surabaya' => $request->warga_surabaya,
             'kota' => $request->kota ? new KotaResource($request->kota) : null,
