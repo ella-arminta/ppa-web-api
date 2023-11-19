@@ -15,6 +15,8 @@ class CorsMiddleware2
      */
     public function handle($request, Closure $next)
     {
+        \Log::info('CorsMiddleware is being executed');
+        
         if ($request->isMethod('OPTIONS')) {
             return response('', 200)
                 ->header('Access-Control-Allow-Origin', '*')
