@@ -11,6 +11,8 @@ use App\Http\Controllers\LaporansController;
 use App\Http\Controllers\PelakuController;
 use App\Http\Controllers\PenjadwalanController;
 use App\Models\Pelaku;
+use App\Http\Middleware\CorsMiddleware2;
+
 
 require_once __DIR__ . '/utils.php';
 
@@ -50,7 +52,9 @@ Route::get('/testing', function () {
 // disini cek routing
 
 // Route::middleware(['cors'])->group(function () {
-Route::middleware(['App\Http\Middleware\CorsMiddleware'])->group(function () {
+// Route::middleware(['App\Http\Middleware\CorsMiddleware'])->group(function () {
+// Route::middleware([CorsMiddleware2::class])->group(function () {
+
     Route::controller(AuthController::class)->group(function () {
         Route::post('/login', 'login')->name('login');
         Route::post('/logout', 'logout')->name('logout')->middleware('auth:sanctum');
@@ -86,7 +90,7 @@ Route::middleware(['App\Http\Middleware\CorsMiddleware'])->group(function () {
     // Route::group(['middleware' => ['auth:sanctum', 'ability:superadmin,admin']], function () {
     //     Route::apiResources(createRouteNoAdmin(), ['only' => ['show', 'update']]);
     // });
-});
+// });
 
 
 // Route::apiResources(createRoutes());
