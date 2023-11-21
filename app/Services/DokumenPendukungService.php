@@ -35,6 +35,22 @@ class DokumenPendukungService extends BaseService
         return $data;
     }
 
+    public function update($id, $data) {
+        $files = $this->model->getFillable();
+
+        foreach ($files as $file) {
+            if($file == 'laporan_id') continue;
+            if (isset($data[$file])) {
+                $data[$file] = $this->uploadFile($data[$file], 'dokumen_pendukung/'.$file);
+            }
+        }
+        
+        $data = $this->repository->update($id, $data);
+        $data = new $this->resource($data);
+        return $data;
+    }
+
+
     private function uploadFile($file, $folder)
     {
         $file = $file ?? null;
