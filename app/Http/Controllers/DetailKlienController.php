@@ -34,18 +34,18 @@ class DetailKlienController extends BaseController
         
         $laporan = new Laporans();
         if($request->has('nama_klien')){
-            $laporan->service->update($request->laporan_id, [
+            $laporan->service()->update($request->laporan_id, [
                 'nama_klien' =>  $request->nama_klien
             ]);
         }
         if($request->has('nik_klien')){
-            $laporan->service->update($request->laporan_id, [
+            $laporan->service()->update($request->laporan_id, [
                 'nik_klien' => $request->nik_klien
             ]);
         }
         // alamat domisili
         if($request->has('alamat_klien')){
-            $laporan->service->update($request->laporan_id, [
+            $laporan->service()->update($request->laporan_id, [
                 'alamat_klien' => $request->alamat_klien
             ]);
         }
