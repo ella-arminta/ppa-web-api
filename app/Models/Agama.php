@@ -21,6 +21,7 @@ class Agama extends Model
      *
      * @var array
      */
+    protected $table = 'agamas';
     protected $fillable = [
         'nama'
     ]; 
