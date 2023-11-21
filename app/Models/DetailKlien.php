@@ -73,7 +73,7 @@ class DetailKlien extends Model
             'kelurahan_kk_id' => 'nullable|exists:kelurahans,id',
             'kota_lahir_id' => 'nullable|exists:kotas,id',
             'tanggal_lahir' => 'nullable|date',
-            'agama_id' => 'nullable|exists:agama,id',
+            'agama_id' => 'nullable|exists:agamas,id',
             'kategori_klien' => 'nullable|in:anak,dewasa',
             'jenis_klien' => 'nullable|in:umum,disabilitas',
             'pekerjaan_id' => 'nullable|exists:pekerjaans,id',

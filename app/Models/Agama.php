@@ -15,13 +15,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Agama extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $table = 'agamas';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $table = 'agamas';
     protected $fillable = [
         'nama'
     ]; 
