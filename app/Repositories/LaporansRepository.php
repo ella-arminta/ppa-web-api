@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Laporans;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\DB;
 
 class LaporansRepository extends BaseRepository
 {
@@ -81,4 +82,23 @@ class LaporansRepository extends BaseRepository
             ->orderBy("updated_at", "DESC")
             ->klien($params)->role();
     }
+
+    public function getCountByRtKategori() {
+        $data = $this->model
+        ->join('kategoris', 'laporans.kategori_id', '=', 'kategoris.id')
+        ->select('laporans.rt', 'laporans.kategori_id', 'kategoris.nama', DB::raw('COUNT(*) as count'))
+        ->groupBy('laporans.rt', 'laporans.kategori_id', 'kategoris.nama')
+        ->get();
+
+        return $data;
+    }
+
+    public function getRt(){
+        $data = $this->model
+                ->select('rt', DB::raw('COUNT(rt) as rt_count'))
+                ->groupBy('rt')
+                ->get();
+        return $data;
+    }
 }
+

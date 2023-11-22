@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Http\Resources\LaporansResource;
+use App\Models\Kategoris;
 use App\Models\Laporans;
 use App\Models\Kronologis;
+use App\Models\Statuses;
 use App\Services\BaseService;
 
 use App\Models\User;
@@ -118,5 +120,77 @@ class LaporansService extends BaseService
                 $data['jenis'] => $data['status']
             ]
         );
+    }
+
+    public function getCountByRtKategori() {
+        /* 
+        $dataFormat  = [
+            [
+        
+                'kategori_id' => 1,
+                'kategori_nama'
+                'count_total' => [
+                    [
+                        'rt' => 1,
+                        'count' => 2
+                    ],
+                    [
+                        'rt' => 2,
+                        'count' => 3
+                    ]
+                ]
+            ],
+            [
+        
+                'kategori_id' => 2,
+                'count_total' => [
+                    [
+                        'rt' => 1,
+                        'count' => 2
+                    ],
+                    [
+                        'rt' => 2,
+                        'count' => 3
+                    ]
+                ]
+            ]
+        ] */
+
+        function isKategoriIdExists($data, $kategoriIdToCheck) {
+            $i = 0;
+            foreach ($data as $item) {
+                if ($item['kategori_id'] == $kategoriIdToCheck) {
+                    return $i;
+                }
+                $i++;
+            }
+            return false;
+        }
+
+        $data = [];
+        $result = $this->repository->getCountByRtKategori();
+
+        foreach ($result as $r) {
+            $index = isKategoriIdExists($data, $r['kategori_id']) != false;
+            if($index != false){
+                $data[$index]['count_total'][] = [
+                    'rt' => $r['rt'],
+                    'count' => $r['count']
+                ];
+            }else{
+                $data[] = [
+                    'kategori_id' => $r['kategori_id'],
+                    'kategori_nama' => $r['nama'],
+                    'count_total' => [
+                        [
+                            'rt' => $r['rt'],
+                            'count' => $r['count']
+                        ]
+                    ],
+                ];
+            }
+        }
+
+        return $data;
     }
 }

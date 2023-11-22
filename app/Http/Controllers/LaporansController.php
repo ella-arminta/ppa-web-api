@@ -8,6 +8,8 @@ use App\Models\Laporans;
 use App\Utils\HttpResponseCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
+
 
 
 class LaporansController extends BaseController
@@ -63,5 +65,10 @@ class LaporansController extends BaseController
         return $this->success($this->service->setStatusPenjangkauan(
             $valid->getData()
         ), HttpResponseCode::HTTP_CREATED);
+    }
+    
+    public function getCountByRtKategori() {
+        $data = $this->service->getCountByRtKategori();
+        return $this->success($data, HttpResponseCode::HTTP_OK);
     }
 }

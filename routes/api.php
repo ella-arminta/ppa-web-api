@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\LaporanController;
 use App\Http\Controllers\DetailKlienController;
 use App\Http\Controllers\KeluargaKlienController;
 use App\Http\Controllers\KondisiKlienController;
@@ -12,7 +13,8 @@ use App\Http\Controllers\PelakuController;
 use App\Http\Controllers\PenjadwalanController;
 use App\Models\Pelaku;
 use App\Http\Middleware\CorsMiddleware2;
-
+use App\Repositories\LaporansRepository;
+use App\Services\LaporansService;
 
 require_once __DIR__ . '/utils.php';
 
@@ -62,6 +64,8 @@ Route::middleware(['cors'])->group(function () {
     
     Route::group(['middleware' => ['auth:sanctum', 'ability:superadmin,admin']], function () {
         Route::get('/statuses/count', 'App\Http\Controllers\StatusesController@getCountKasus');
+        Route::get('/laporans/count-by-kategoris', [LaporansController::class, 'getCountByRtKategori']);
+        
         Route::apiResources(createRoutes());
 
         Route::get('/laporans/{laporan_id}/detail-kliens',[DetailKlienController::class,'getByLaporanId']);
