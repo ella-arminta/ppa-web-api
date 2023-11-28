@@ -67,8 +67,26 @@ class LaporansController extends BaseController
         ), HttpResponseCode::HTTP_CREATED);
     }
     
-    public function getCountByRtKategori() {
-        $data = $this->service->getCountByRtKategori();
+    public function getCountByRwKategori() {
+        $kelurahan_id = request('kelurahan_id');
+        
+        $valid = Validator::make(
+            [
+                'kelurahan_id' => $kelurahan_id
+            ],
+            [
+                'kelurahan_id' => 'required|exists:kelurahans,id'
+            ],
+            [
+                'kelurahan_id.required' => 'Kelurahan id is required!',
+                'kelurahan_id.exists' => 'Kelurahan id is not exists!'
+            ]
+        );
+        if ($valid->fails()) {
+            return $this->error($valid->errors()->first());
+        }
+
+        $data = $this->service->getCountByRwKategori($kelurahan_id);
         return $this->success($data, HttpResponseCode::HTTP_OK);
     }
 }

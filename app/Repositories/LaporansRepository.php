@@ -83,20 +83,47 @@ class LaporansRepository extends BaseRepository
             ->klien($params)->role();
     }
 
-    public function getCountByRtKategori() {
+    public function getCountByRwKategoriGroupBy($kelurahan_id) {
+        // $data = $this->model
+        // ->join('kategoris', 'laporans.kategori_id', '=', 'kategoris.id')
+        // ->select('laporans.rw', 'laporans.kategori_id', 'kategoris.nama', DB::raw('COUNT(*) as count'))
+        // ->groupBy('laporans.rw', 'laporans.kategori_id', 'kategoris.nama')
+        // ->get();
+
         $data = $this->model
         ->join('kategoris', 'laporans.kategori_id', '=', 'kategoris.id')
-        ->select('laporans.rt', 'laporans.kategori_id', 'kategoris.nama', DB::raw('COUNT(*) as count'))
-        ->groupBy('laporans.rt', 'laporans.kategori_id', 'kategoris.nama')
+        ->join('kelurahans', 'laporans.kelurahan_id', '=', 'kelurahans.id')
+        ->where('kelurahans.id', '=', $kelurahan_id)
+        ->select('kelurahans.id', 'laporans.rw', 'laporans.kategori_id', 'kategoris.nama', DB::raw('COUNT(*) as count'))
+        ->groupBy('kelurahans.id', 'laporans.rw', 'laporans.kategori_id', 'kategoris.nama')
         ->get();
+
 
         return $data;
     }
 
-    public function getRt(){
+    public function getCountByKelurahanRwKategori($kelurahan_id, $rw, $kategori_id){
         $data = $this->model
-                ->select('rt', DB::raw('COUNT(rt) as rt_count'))
-                ->groupBy('rt')
+        ->where('kelurahan_id', $kelurahan_id)
+        ->where('rw', $rw)
+        ->where('kategori_id', $kategori_id)
+        ->count();
+
+        return $data;
+    }
+
+    public function getRw($kelurahan_id = null){
+        if($kelurahan_id == null){
+            $data = $this->model
+            ->select('rw', DB::raw('COUNT(rw) as rw_count'))
+            ->groupBy('rw')
+            ->get();
+            return $data;
+        }
+        $data = $this->model
+                ->select('rw', DB::raw('COUNT(rw) as rw_count'))
+                ->where('kelurahan_id', '=', $kelurahan_id)
+                ->groupBy('rw')
                 ->get();
         return $data;
     }

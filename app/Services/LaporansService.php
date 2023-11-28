@@ -122,7 +122,7 @@ class LaporansService extends BaseService
         );
     }
 
-    public function getCountByRtKategori() {
+    public function getCountByRwKategori($kelurahan_id) {
         /* 
         $dataFormat  = [
             [
@@ -155,42 +155,25 @@ class LaporansService extends BaseService
                 ]
             ]
         ] */
-
-        function isKategoriIdExists($data, $kategoriIdToCheck) {
-            $i = 0;
-            foreach ($data as $item) {
-                if ($item['kategori_id'] == $kategoriIdToCheck) {
-                    return $i;
-                }
-                $i++;
-            }
-            return false;
-        }
-
         $data = [];
-        $result = $this->repository->getCountByRtKategori();
-
-        foreach ($result as $r) {
-            $index = isKategoriIdExists($data, $r['kategori_id']) != false;
-            if($index != false){
-                $data[$index]['count_total'][] = [
-                    'rt' => $r['rt'],
-                    'count' => $r['count']
-                ];
-            }else{
-                $data[] = [
-                    'kategori_id' => $r['kategori_id'],
-                    'kategori_nama' => $r['nama'],
-                    'count_total' => [
-                        [
-                            'rt' => $r['rt'],
-                            'count' => $r['count']
-                        ]
-                    ],
+        $rws = $this->repository->getRw();
+        $kategoris = Kategoris::all();
+        foreach ($kategoris as $kategori) {
+            $data_kategori = [
+                'kategori_id' => $kategori->id,
+                'kategori_nama' => $kategori->nama,
+                'count_total' => []
+            ];
+            foreach ($rws as $rw) {
+                $count = $this->repository->getCountByKelurahanRwKategori($kelurahan_id, $rw->rw, $kategori->id);
+                $data_kategori['count_total'][] = [
+                    'rw' => $rw->rw,
+                    'count' => $count
                 ];
             }
+            $data[] = $data_kategori;
         }
-
+        
         return $data;
     }
 }
