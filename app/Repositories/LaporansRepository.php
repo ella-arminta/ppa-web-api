@@ -124,6 +124,7 @@ class LaporansRepository extends BaseRepository
                 ->select('rw', DB::raw('COUNT(rw) as rw_count'))
                 ->where('kelurahan_id', '=', $kelurahan_id)
                 ->groupBy('rw')
+                ->orderBy('rw', 'asc')
                 ->get();
         return $data;
     }
