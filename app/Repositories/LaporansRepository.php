@@ -116,15 +116,16 @@ class LaporansRepository extends BaseRepository
         if($kelurahan_id == null){
             $data = $this->model
             ->select('rw', DB::raw('COUNT(rw) as rw_count'))
+            ->orderBy('rw', 'asc')
             ->groupBy('rw')
             ->get();
             return $data;
         }
         $data = $this->model
                 ->select('rw', DB::raw('COUNT(rw) as rw_count'))
+                ->orderBy('rw', 'asc')
                 ->where('kelurahan_id', '=', $kelurahan_id)
                 ->groupBy('rw')
-                ->orderBy('rw', 'asc')
                 ->get();
         return $data;
     }

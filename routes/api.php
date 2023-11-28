@@ -65,6 +65,7 @@ Route::middleware(['cors'])->group(function () {
     Route::group(['middleware' => ['auth:sanctum', 'ability:superadmin,admin']], function () {
         Route::get('/statuses/count', 'App\Http\Controllers\StatusesController@getCountKasus');
         Route::get('/laporans/count-by-kategoris', [LaporansController::class, 'getCountByRwKategori']);
+        Route::get('/laporans/rw', [LaporansRepository::class, 'getRw']);
         
         Route::apiResources(createRoutes());
 
