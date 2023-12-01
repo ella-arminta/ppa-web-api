@@ -202,7 +202,7 @@ class LaporansService extends BaseService
         $langkah_telah_dilakukan = new LangkahTelahDilakukan();
         $langkah_telah_dilakukan = $langkah_telah_dilakukan->repository()->getByLaporanId($laporan_id);
         for ($i=0; $i < count($langkah_telah_dilakukan); $i++) { 
-            $langkah_telah_dilakukan[$i]['tanggal_pelayanan'] = Carbon::parse($langkah_telah_dilakukan[$i]['tanggal_pelayanan'])->format('D MMMM YYYY');
+            $langkah_telah_dilakukan[$i]['tanggal_pelayanan'] = Carbon::parse($langkah_telah_dilakukan[$i]['tanggal_pelayanan'])->format('d M Y');
         }
         $dokumen_pendukung = new DokumenPendukung();
         $dokumen_pendukung = $dokumen_pendukung->repository()->getByLaporanId($laporan_id);
