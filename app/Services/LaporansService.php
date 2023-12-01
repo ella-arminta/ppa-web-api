@@ -3,13 +3,23 @@
 namespace App\Services;
 
 use App\Http\Resources\LaporansResource;
+use App\Models\DetailKasus;
+use App\Models\DetailKlien;
+use App\Models\DokumenPendukung;
 use App\Models\Kategoris;
+use App\Models\KeluargaKlien;
 use App\Models\Laporans;
 use App\Models\Kronologis;
+use App\Models\LangkahTelahDilakukan;
+use App\Models\ModelUtils;
+use App\Models\PenangananAwal;
 use App\Models\Statuses;
 use App\Services\BaseService;
+use Carbon\Carbon;
+
 
 use App\Models\User;
+use App\Repositories\LaporansRepository;
 
 class LaporansService extends BaseService
 {
@@ -175,5 +185,98 @@ class LaporansService extends BaseService
         }
         
         return $data;
+    }
+
+    public function cetakLaporan($laporan_id){
+        $laporan = $this->repository->getById($laporan_id);
+        $penanganan_awal = new PenangananAwal();
+        $penanganan_awal = $penanganan_awal->repository()->getByLaporanId($laporan_id);
+        $keluargaKlien = new KeluargaKlien();
+        $keluargaKlien = $keluargaKlien->repository()->getAll([
+            'laporan_id' => $laporan_id
+        ]);
+        $detailKlien = new DetailKlien();
+        $detailKlien = $detailKlien->repository()->getByLaporanId($laporan_id);
+        $kasus = new DetailKasus();
+        $kasus = $kasus->repository()->getByLaporanId($laporan_id)[0];
+        $langkah_telah_dilakukan = new LangkahTelahDilakukan();
+        $langkah_telah_dilakukan = $langkah_telah_dilakukan->repository()->getByLaporanId($laporan_id);
+        for ($i=0; $i < count($langkah_telah_dilakukan); $i++) { 
+            $langkah_telah_dilakukan[$i]['tanggal_pelayanan'] = Carbon::parse($langkah_telah_dilakukan[$i]['tanggal_pelayanan'])->format('D MMMM YYYY');
+        }
+        $dokumen_pendukung = new DokumenPendukung();
+        $dokumen_pendukung = $dokumen_pendukung->repository()->getByLaporanId($laporan_id);
+        return ModelUtils::filterNullValues([
+            'nomor_register' => $laporan->nomor_register,
+            'pengaduan' => [
+                    'hari' => Carbon::parse($laporan->created_at)->format('l'),
+                    'tanggal' => Carbon::parse($laporan->created_at)->format('d/m/Y'),
+                    'waktu' => Carbon::parse($laporan->created_at)->format('H:i'),
+                    'sumber_aduan' => $laporan->sumber_aduan,
+            ],
+            'petugas' => [
+                'nama' => $laporan->satgas_pelapor->nama,
+                'no_hp' => $laporan->satgas_pelapor->no_telp,
+            ],
+            'petugas2' => [
+                'nama' => $laporan->previous_satgas->nama,
+                'no_hp' => $laporan->previous_satgas->no_telp,
+            ],
+            'penanganan_awal' => [
+                'hari' => empty($penanganan_awal) ? Carbon::parse($penanganan_awal->tanggal_penanganan_awal)->format('l') : null,
+                'tanggal' => empty($penanganan_awal) ? Carbon::parse($penanganan_awal->tanggal_penanganan_awal)->format('d/m/Y') : null,
+                'waktu' => empty($penanganan_awal) ? Carbon::parse($penanganan_awal->tanggal_penanganan_awal)->format('H:i') : null,
+            ],
+            'tanggal_penjangkauan' => [
+                'hari' => Carbon::parse($laporan->tanggal_penjangkauan)->format('l'),
+                'tanggal' => Carbon::parse($laporan->tanggal_penjangkauan)->format('d/m/Y'),
+                'waktu' => Carbon::parse($laporan->tanggal_penjangkauan)->format('H:i'),
+            ],
+            'data_pelapor' => [
+                'nama_lengkap' => $laporan->nama_pelapor,
+                'nik' => $laporan->nik_pelapor,
+                'alamat_domisili' => $laporan->alamat_pelapor,
+                'kota' => $laporan->kota_pelapor->nama,
+                'no_telp' => $laporan->no_telp_pelapor,
+            ],
+            'data_klien' => [
+                'nama_lengkap' => $laporan->nama_klien,
+                'nik' => $laporan->nik_klien,
+                'no_kk' => $laporan->detail_klien->no_kk,
+                'ttl' => $detailKlien->kota_lahir->nama . ', '. Carbon::parse($detailKlien->tanggal_lahir)->format('d F Y'),
+                'usia' => $detailKlien->usia. ' Tahun',
+                'jenis_kelamin' => $laporan->jenis_kelamin == 'P' ? 'Perempuan' : 'Laki-laki',
+                'agama' => $detailKlien->agama->nama,
+                'pendidikan_terakhir' => $laporan->pendidikan->nama,
+                'pekerjaan' => $detailKlien->pekerjaan->nama,
+                'status_pernikahan' => $detailKlien->status_perkawinan->nama,
+                'alamat_kk' => $laporan->detail_klien->alamat_kk,
+                'alamat_domisili' => $laporan->alamat_klien,
+                'no_telp' => $laporan->no_telp_klien,
+            ],
+            'data_keluarga_klien' => $keluargaKlien,
+            'data_kasus' => [
+                'jenis_klien' => $detailKlien->jenis_klien,
+                'kategori_klien' => $detailKlien->kategori_klien,
+                'tipe_permasalahan' => $laporan->kategori->nama,
+                'kategori_kasus' => $kasus->kategori_kasus->nama,
+                'jenis_kasus' => $kasus->jenis_kasus->nama,
+                'deskripsi_singkat_kasus' => $kasus->deskripsi,
+                'lokasi_kejadian' => $kasus->lokasi_kasus,
+                'tanggal_dan_waktu_kejadian' => Carbon::parse($kasus->tanggal_jam_kejadian)->isoFormat('D MMMM YYYY') . ', ' . Carbon::parse($kasus->tanggal_jam_kejadian)->format('H:i') . ' ' . Carbon::parse($kasus->tanggal_jam_kejadian)->tzName
+            ],
+            'situasi_keluarga' => $laporan->situasi_keluarga,
+            'kronologi_kejadian' => $laporan->kronologi_kejadian,
+            'harapan_klien_dan_keluarga' => $laporan->harapan_klien_dan_keluarga,
+            'kondisi_klien' => [
+                'fisik' => $laporan->kondisi_klien->fisik,
+                'psikologis' => $laporan->kondisi_klien->psikologis,
+                'sosial' => $laporan->kondisi_klien->sosial,
+                'spiritual'=> $laporan->kondisi_klien->spiritual,
+            ],
+            'langkah_telah_dilakukan' => $langkah_telah_dilakukan,
+            'dokumen_pendukung' => $dokumen_pendukung,
+
+        ]);
     }
 }

@@ -15,12 +15,23 @@ class DetailKasusSeeder extends Seeder
     public function run(): void
     {
 
-        $laporan = Laporans::where('status_id',2)->first();
+        $laporan2 = Laporans::where('status_id',2)->first();
+        $laporan = Laporans::first();
+
+        DetailKasus::create([
+            'laporan_id' => $laporan2->id,
+            'kategori_kasus_id' => 1,
+            'jenis_kasus_id' => 1,
+            'lokasi_kasus' => 'hai',
+            'deskripsi' => 'jadi ya begitu',
+            'tanggal_jam_kejadian' => '2023-10-10 10:10:10'
+        ]);
         DetailKasus::create([
             'laporan_id' => $laporan->id,
             'kategori_kasus_id' => 1,
             'jenis_kasus_id' => 1,
             'lokasi_kasus' => 'hai',
+            'deskripsi' => 'dianya kasih harapan tapi kabur',
             'tanggal_jam_kejadian' => '2023-10-10 10:10:10'
         ]);
     }

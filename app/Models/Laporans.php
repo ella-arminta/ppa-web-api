@@ -50,6 +50,7 @@ class Laporans extends Model
             'uraian_singkat_masalah' => 'required',
             'nama_klien' => 'nullable|regex:/^[a-zA-Z ]*$/|min:3',
             'nama_pelapor' => 'required|regex:/^[a-zA-Z ]*$/|min:3',
+            'kota_id_pelapor' => 'nullable|exists:kotas,id',
             'usia' => 'nullable|numeric|min:1',
             'kategori_id' => 'required|numeric|min:1|exists:kategoris,id',
             'kelurahan_id' => 'required|numeric|min:1|exists:kelurahans,id',
@@ -68,12 +69,15 @@ class Laporans extends Model
             'situasi_keluarga' => 'nullable|string',
             'kronologi_kejadian' => 'nullable|string',
             'harapan_klien_dan_keluarga' => 'nullable|string',
-            'langkah_telah_dilakukan' => 'nullable|string',
+            // 'langkah_telah_dilakukan' => 'nullable|string',
             'status_keluarga' => 'nullable|integer|in:0,1,2',
             'status_detail_klien' => 'nullable|integer|in:0,1,2',
             'status_pelaku' => 'nullable|integer|in:0,1,2',
             'status_situasi_keluarga' => 'nullable|integer|in:0,1,2',
             'status_kronologi' => 'nullable|integer|in:0,1,2',
+            'nomor_register' => 'nullable|string',
+            'tanggal_penjangkauan' => 'nullable|date_format:Y-m-d H:i:s',
+            'sumber_aduan' => 'string'
         ];
         return ModelUtils::rulesPatch($rules);
     }
@@ -251,7 +255,10 @@ class Laporans extends Model
             'kondisi_klien',
             'penjadwalan',
             'detail_kasus',
-            'dokumen_pendukung'
+            'dokumen_pendukung',
+            'kota_pelapor',
+            'penanganan_awal',
+            'langkah_telah_dilakukan'
         ];
     }
 
@@ -317,6 +324,11 @@ class Laporans extends Model
         return $this->belongsTo('App\Models\SumberPengaduan', 'sumber_pengaduan_id', 'id');
     }
 
+    public function kota_pelapor()
+    {
+        return $this->belongsTo('App\Models\Kota', 'kota_id_pelapor', 'id');
+    }
+
     public function detail_klien()
     {
         return $this->hasOne('App\Models\DetailKlien', 'laporan_id', 'id');
@@ -344,5 +356,13 @@ class Laporans extends Model
 
     public function dokumen_pendukung(){
         return $this->hasOne('App\Models\DokumenPendukung','laporan_id','id');
+    }
+
+    public function penanganan_awal(){
+        return $this->hasOne('App\Models\PenangananAwal','laporan_id','id');
+    }
+
+    public function langkah_telah_dilakukan(){
+        return $this->hasMany('App\Models\LangkahTelahDilakukan','laporan_id','id');
     }
 }

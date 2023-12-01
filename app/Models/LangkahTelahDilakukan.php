@@ -2,20 +2,17 @@
 
 namespace App\Models;
 
-use App\Http\Resources\API\KategoriResource;
 use App\Models\ModelUtils;
-use App\Repositories\DetailKasusRepository;
-use App\Services\DetailKasusService;
-use App\Http\Resources\DetailKasusResource;
-use App\Http\Resources\DetailKlien\JenisKasusResource;
-use App\Http\Resources\DetailKlien\KategoriKasusResource;
+use App\Repositories\LangkahTelahDilakukanRepository;
+use App\Services\LangkahTelahDilakukanService;
+use App\Http\Resources\LangkahTelahDilakukanResource;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class DetailKasus extends Model
+class LangkahTelahDilakukan extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -26,10 +23,8 @@ class DetailKasus extends Model
      */
     protected $fillable = [
         'laporan_id',
-        'kategori_kasus_id',
-        'jenis_kasus_id',
-        'lokasi_kasus',
-        'tanggal_jam_kejadian',
+        'tanggal_pelayanan',
+        'pelayanan_yang_diberikan',
         'deskripsi'
     ]; 
 
@@ -42,11 +37,9 @@ class DetailKasus extends Model
     {
         return [
             'laporan_id' => 'required|exists:laporans,id',
-            'kategori_kasus_id' => 'required|exists:kategori_kasuses,id',
-            'jenis_kasus_id' => 'required|exists:jenis_kasuses,id',
-            'lokasi_kasus' => 'required|string',
-            'tanggal_jam_kejadian' => 'required|date_format:Y-m-d H:i:s',
-            'deskripsi' => 'nullable|string'
+            'tanggal_pelayanan' => 'required|date',
+            'pelayanan_yang_diberikan' => 'required|string',
+            'deskripsi' => 'required|string',
         ];
     }
 
@@ -70,10 +63,8 @@ class DetailKasus extends Model
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'laporan_id' => $request->laporan_id,
-            'kategori_kasus' => $request->kategori_kasus ? new KategoriKasusResource($request->kategori_kasus) : null,
-            'jenis_kasus' => $request->jenis_kasus ? new JenisKasusResource($request->jenis_kasus) : null,
-            'lokasi_kasus' => $request->lokasi_kasus,
-            'tanggal_jam_kejadian' => $request->tanggal_jam_kejadian,
+            'tanggal_pelayanan' => $request->tanggal_pelayanan,
+            'pelayanan_yang_diberikan' => $request->pelayanan_yang_diberikan,
             'deskripsi' => $request->deskripsi,
         ]);
     }
@@ -87,7 +78,7 @@ class DetailKasus extends Model
 
     public function controller()
     {
-        return 'App\Http\Controllers\DetailKasusController';
+        return 'App\Http\Controllers\LangkahTelahDilakukanController';
     }
 
     /**
@@ -97,7 +88,7 @@ class DetailKasus extends Model
      */
     public function service()
     {
-        return new DetailKasusService($this);
+        return new LangkahTelahDilakukanService($this);
     }
 
     /**
@@ -107,7 +98,7 @@ class DetailKasus extends Model
      */
     public function repository()
     {
-        return new DetailKasusRepository($this);
+        return new LangkahTelahDilakukanRepository($this);
     }
 
     /**
@@ -118,7 +109,7 @@ class DetailKasus extends Model
 
     public function resource()
     {
-        return new DetailKasusResource($this);
+        return new LangkahTelahDilakukanResource($this);
     }
 
     /**
@@ -129,23 +120,12 @@ class DetailKasus extends Model
     public function relations()
     {
         return [
-            'laporan',
-            'kategori_kasus',
-            'jenis_kasus'
+            'laporan'
         ];
     }
 
     public function laporan(){
-        return $this->belongsTo(Laporans::class, 'laporan_id', 'id');
-    }
-
-    public function kategori_kasus()
-    {
-        return $this->belongsTo('App\Models\DetailKlien\KategoriKasus', 'kategori_kasus_id', 'id');
-    }
-
-    public function jenis_kasus(){
-        return $this->belongsTo('App\Models\DetailKlien\JenisKasus', 'jenis_kasus_id', 'id');
+        return $this->belongsTo('App\Models\Laporans','laporan_id','id');
     }
 
 }

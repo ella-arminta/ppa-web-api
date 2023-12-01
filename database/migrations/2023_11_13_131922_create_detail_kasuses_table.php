@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignIdFor('App\Models\DetailKlien\JenisKasus', 'jenis_kasus_id');
             $table->string('lokasi_kasus');
             $table->dateTime('tanggal_jam_kejadian');
+            $table->longText('deskripsi')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

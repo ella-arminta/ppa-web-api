@@ -13,6 +13,7 @@ use App\Http\Resources\UserResource;
 use App\Http\Resources\KategorisResource;
 use App\Http\Resources\KeluargaKlienResource;
 use App\Http\Resources\KondisiKlienResource;
+use App\Http\Resources\KotaResource;
 use App\Http\Resources\PelakuResource;
 use App\Http\Resources\PenjadwalanResource;
 use App\Http\Resources\StatusesResource;
@@ -75,7 +76,6 @@ class ModelUtils
             'situasi_keluarga' => $request->situasi_keluarga,
             'kronologi_kejadian' => $request->kronologi_kejadian,
             'harapan_klien_dan_keluarga' => $request->harapan_klien_dan_keluarga,
-            'langkah_telah_dilakukan' => $request->langkah_telah_dilakukan,
             'detail_kasus' => $request->detail_kasus ? new DetailKasusResource($request->detail_kasus) : null,
             
             // Status Penjangkauan
@@ -107,6 +107,10 @@ class ModelUtils
             'kondisi_klien' => $request->kondisi_klien ?  new KondisiKlienResource($request->kondisi_klien) : null,
             'penjadwalan' => $request->penjadwalan ? new PenjadwalanResource($request->penjadwalan) : null,
             'dokumen_pendukung' => $request->dokumen_pendukung ? new DokumenPendukungResource($request->dokumen_pendukung) : null,
+            'nomor_register' => $request->nomor_register,
+            'tanggal_penjangkauan' => $request->tanggal_penjangkauan,
+            'kota_pelapor' => $request->kota_pelapor ? new KotaResource($request->kota_pelapor) : null,
+            'sumber_aduan' => $request->sumber_aduan,
         ];
     }
 }

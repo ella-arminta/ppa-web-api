@@ -31,6 +31,9 @@ class KeluargaKlien extends Model
         'hubungan_id',
         'nama_lengkap',
         'no_telp',
+        'nik',
+        'alamat_kk',
+        'pekerjaan',
         'satgas_id'
     ]; 
 
@@ -46,7 +49,10 @@ class KeluargaKlien extends Model
             'hubungan_id' => 'required|exists:hubungan_keluarga_kliens,id',
             'nama_lengkap' => 'required|string',
             'no_telp' => 'nullable|string',
-            'satgas_id' => 'required|exists:users,id'
+            'satgas_id' => 'required|exists:users,id',
+            'nik' => 'nullable|string',
+            'alamat_kk' => 'nullable|string',
+            'pekerjaan' => 'nullable|string',
         ];
     }
 
@@ -78,6 +84,9 @@ class KeluargaKlien extends Model
             'laporan_id' => $request->laporan_id,
             'laporan' => $withLaporan ? new LaporanResource($request->laporans) : null,
             'satgas' => $request->satgas ? new UserResource($request->satgas) : null,
+            'nik' => $request->nik,
+            'alamat_kk' => $request->alamat_kk,
+            'pekerjaan' => $request->pekerjaan,
         ]);
     }
 

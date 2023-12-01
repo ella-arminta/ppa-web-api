@@ -8,7 +8,9 @@ use App\Models\DetailKasus;
 use App\Models\DetailKlien\Bpjs;
 use App\Models\DetailKlien\KategoriKasus;
 use App\Models\DetailKlien\Pekerjaan;
+use App\Models\LangkahTelahDilakukan;
 use App\Models\Pelaku;
+use App\Models\PenangananAwal;
 use Illuminate\Database\Seeder;
 
 use Illuminate\Support\Str;
@@ -37,9 +39,9 @@ class DatabaseSeeder extends Seeder
             StatusSeeder::class,
             RolesSeeder::class,
             KategoriSeeder::class,
+            KotaSeeder::class,
             LaporanSeeder::class,
             SumberPengaduan::class,
-            KotaSeeder::class,
             HubunganKeluargaKlienSeeder::class,
             PekerjaanSeeder::class,
             StatusPerkawinanSeeder::class,
@@ -52,7 +54,8 @@ class DatabaseSeeder extends Seeder
             PenjadwalanSeeder::class,
             KategoriKasusSeeder::class,
             JenisKasusSeeder::class,
-            DetailKasusSeeder::class
+            DetailKasusSeeder::class,
+            LangkahTelahDilakukanSeeder::class,
             // KronologiSeeder::class,
             // AlamatSeeder::class,
             // ProgressReportSeeder::class,

@@ -89,4 +89,24 @@ class LaporansController extends BaseController
         $data = $this->service->getCountByRwKategori($kelurahan_id);
         return $this->success($data, HttpResponseCode::HTTP_OK);
     }
+
+    public function cetakLaporan(Request $request){
+        $valid = Validator::make(
+            [
+                'laporan_id' => $request->laporan_id
+            ],
+            [
+                'laporan_id' => 'required|exists:laporans,id'
+            ],
+            [
+                'laporan_id.required' => 'Laporan id is required!',
+                'laporan_id.exists' => 'Laporan id is not exists!'
+            ]
+        );
+        if ($valid->fails()) {
+            return $this->error($valid->errors()->first());
+        }
+        $data = $this->service->cetakLaporan($request->laporan_id);
+        return $this->success($data, HttpResponseCode::HTTP_OK);
+    }
 }

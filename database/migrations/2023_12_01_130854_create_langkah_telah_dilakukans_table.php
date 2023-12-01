@@ -12,22 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         //
-        Schema::create('keluarga_kliens', function (Blueprint $table) {
+        Schema::create('langkah_telah_dilakukans', function (Blueprint $table) {
             $table->id('id');
             $table->foreignUuid('laporan_id')
                 ->references('id')
                 ->on('laporans');
-            $table->foreignIdFor('App\Models\HubunganKeluargaKlien', 'hubungan_id')->nullable();
-            $table->string('nama_lengkap');
-            $table->string('no_telp')->nullable();
-            $table->foreignUuid('satgas_id')
-            ->references('id')
-            ->on('users')
-            ->nullable()
-            ->default(null);
-            $table->string('nik')->nullable();
-            $table->string('alamat_kk')->nullable();
-            $table->string('pekerjaan')->nullable();
+            $table->dateTime('tanggal_pelayanan');
+            $table->string('pelayanan_yang_diberikan');
+            $table->longText('deskripsi');
             $table->timestamps();
             $table->softDeletes();
         });
