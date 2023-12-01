@@ -245,7 +245,7 @@ class LaporansService extends BaseService
                 'nik' => $laporan->nik_klien,
                 'no_kk' => $laporan->detail_klien->no_kk,
                 'ttl' => $detailKlien->kota_lahir->nama . ', '. Carbon::parse($detailKlien->tanggal_lahir)->format('d F Y'),
-                'usia' => $detailKlien->usia. ' Tahun',
+                'usia' => $laporan->usia . ' Tahun',
                 'jenis_kelamin' => $laporan->jenis_kelamin == 'P' ? 'Perempuan' : 'Laki-laki',
                 'agama' => $detailKlien->agama->nama,
                 'pendidikan_terakhir' => $laporan->pendidikan->nama,
