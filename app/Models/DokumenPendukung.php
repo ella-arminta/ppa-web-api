@@ -21,7 +21,7 @@ class DokumenPendukung extends Model
      *
      * @var array
      */
-    protected $fillable =[
+    protected $fillable = [
         'laporan_id',
         'foto_klien',
         'foto_tempat_tinggal',

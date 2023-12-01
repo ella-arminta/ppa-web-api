@@ -222,11 +222,12 @@ class LaporansService extends BaseService
                 'nama' => $laporan->previous_satgas->nama,
                 'no_hp' => $laporan->previous_satgas->no_telp,
             ],
-            'penanganan_awal' => [
-                'hari' => empty($penanganan_awal) ? Carbon::parse($penanganan_awal->tanggal_penanganan_awal)->format('l') : null,
-                'tanggal' => empty($penanganan_awal) ? Carbon::parse($penanganan_awal->tanggal_penanganan_awal)->format('d/m/Y') : null,
-                'waktu' => empty($penanganan_awal) ? Carbon::parse($penanganan_awal->tanggal_penanganan_awal)->format('H:i') : null,
-            ],
+            'penanganan_awal' => count($penanganan_awal) > 0 ?
+            [
+                'hari' => Carbon::parse($penanganan_awal[0]->tanggal_penanganan_awal)->format('l'),
+                'tanggal' => Carbon::parse($penanganan_awal[0]->tanggal_penanganan_awal)->format('d/m/Y'),
+                'waktu' => Carbon::parse($penanganan_awal[0]->tanggal_penanganan_awal)->format('H:i'),
+            ] :  null,
             'tanggal_penjangkauan' => [
                 'hari' => Carbon::parse($laporan->tanggal_penjangkauan)->format('l'),
                 'tanggal' => Carbon::parse($laporan->tanggal_penjangkauan)->format('d/m/Y'),
