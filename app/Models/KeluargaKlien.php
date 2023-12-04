@@ -33,6 +33,7 @@ class KeluargaKlien extends Model
         'no_telp',
         'nik',
         'alamat_kk',
+        'alamat_domisili',
         'pekerjaan',
         'satgas_id'
     ]; 
@@ -53,6 +54,7 @@ class KeluargaKlien extends Model
             'nik' => 'nullable|string',
             'alamat_kk' => 'nullable|string',
             'pekerjaan' => 'nullable|string',
+            'alamat_domisili' => 'nullable|string'
         ];
     }
 
@@ -87,6 +89,7 @@ class KeluargaKlien extends Model
             'nik' => $request->nik,
             'alamat_kk' => $request->alamat_kk,
             'pekerjaan' => $request->pekerjaan,
+            'alamat_domisili' => $request->alamat_domisili
         ]);
     }
 

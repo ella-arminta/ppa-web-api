@@ -30,6 +30,7 @@ class KeluargaKlienSeeder extends Seeder
                 'nik' => '1234567890123456',
                 'alamat_kk' => 'Jl. Jalan No. 1',
                 'pekerjaan' => 'Pelajar',
+                'alamat_domisili' => 'Jl. Jalan No. 1'
             ]
         );
         KeluargaKlien::create(
@@ -41,7 +42,8 @@ class KeluargaKlienSeeder extends Seeder
                 'satgas_id' => $satgas->id,
                 'nik' => '9876543210987654',
                 'alamat_kk' => 'Jl. Jalan No. 2',
-                'pekerjaan' => 'Pelajar'
+                'pekerjaan' => 'Pelajar',
+                'alamat_domisili' => 'Jl. Jalan No. 2'
             ]
         );
     }

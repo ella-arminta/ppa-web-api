@@ -2,7 +2,11 @@
 
 namespace App\Services;
 
+use App\Http\Resources\DokumenPendukungResource;
+use App\Http\Resources\KeluargaKlienResource;
+use App\Http\Resources\LangkahTelahDilakukanResource;
 use App\Http\Resources\LaporansResource;
+use App\Http\Resources\PelakuResource;
 use App\Models\DetailKasus;
 use App\Models\DetailKlien;
 use App\Models\DokumenPendukung;
@@ -12,6 +16,7 @@ use App\Models\Laporans;
 use App\Models\Kronologis;
 use App\Models\LangkahTelahDilakukan;
 use App\Models\ModelUtils;
+use App\Models\Pelaku;
 use App\Models\PenangananAwal;
 use App\Models\Statuses;
 use App\Services\BaseService;
@@ -195,17 +200,33 @@ class LaporansService extends BaseService
         $keluargaKlien = $keluargaKlien->repository()->getAll([
             'laporan_id' => $laporan_id
         ]);
+        $ResourceKeluargaKlien = [];
+        foreach ($keluargaKlien as $keluarga) {
+            $ResourceKeluargaKlien[] = new KeluargaKlienResource($keluarga);
+        }
         $detailKlien = new DetailKlien();
         $detailKlien = $detailKlien->repository()->getByLaporanId($laporan_id);
         $kasus = new DetailKasus();
         $kasus = $kasus->repository()->getByLaporanId($laporan_id)[0];
         $langkah_telah_dilakukan = new LangkahTelahDilakukan();
         $langkah_telah_dilakukan = $langkah_telah_dilakukan->repository()->getByLaporanId($laporan_id);
+        $ResourceLangkahTelahDilakukan = [];
         for ($i=0; $i < count($langkah_telah_dilakukan); $i++) { 
             $langkah_telah_dilakukan[$i]['tanggal_pelayanan'] = Carbon::parse($langkah_telah_dilakukan[$i]['tanggal_pelayanan'])->format('d M Y');
+            $ResourceLangkahTelahDilakukan[] = new LangkahTelahDilakukanResource($langkah_telah_dilakukan[$i]);
         }
         $dokumen_pendukung = new DokumenPendukung();
         $dokumen_pendukung = $dokumen_pendukung->repository()->getByLaporanId($laporan_id);
+        $ResourceDokumenPendukung = [];
+        foreach ($dokumen_pendukung as $dokumen) {
+            $ResourceDokumenPendukung[] = new DokumenPendukungResource($dokumen);
+        }
+        $pelaku = new Pelaku();
+        $pelaku = $pelaku->repository()->getByLaporanId($laporan_id);
+        $ResourcePelaku = [];
+        foreach ($pelaku as $p) {
+            $ResourcePelaku = new PelakuResource($p);
+        }
         return ModelUtils::filterNullValues([
             'nomor_register' => $laporan->nomor_register,
             'pengaduan' => [
@@ -255,7 +276,7 @@ class LaporansService extends BaseService
                 'alamat_domisili' => $laporan->alamat_klien,
                 'no_telp' => $laporan->no_telp_klien,
             ],
-            'data_keluarga_klien' => $keluargaKlien,
+            'data_keluarga_klien' => $ResourceKeluargaKlien,
             'data_kasus' => [
                 'jenis_klien' => $detailKlien->jenis_klien,
                 'kategori_klien' => $detailKlien->kategori_klien,
@@ -275,9 +296,9 @@ class LaporansService extends BaseService
                 'sosial' => $laporan->kondisi_klien->sosial,
                 'spiritual'=> $laporan->kondisi_klien->spiritual,
             ],
-            'langkah_telah_dilakukan' => $langkah_telah_dilakukan,
-            'dokumen_pendukung' => $dokumen_pendukung,
-
+            'langkah_telah_dilakukan' => $ResourceLangkahTelahDilakukan,
+            'dokumen_pendukung' =>  $ResourceDokumenPendukung,
+            'pelaku' => $ResourcePelaku,
         ]);
     }
 }

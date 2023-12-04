@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('nik')->nullable();
             $table->string('alamat_kk')->nullable();
             $table->string('pekerjaan')->nullable();
+            $table->string('alamat_domisili')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
