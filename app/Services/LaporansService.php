@@ -6,7 +6,10 @@ use App\Http\Resources\DokumenPendukungResource;
 use App\Http\Resources\KeluargaKlienResource;
 use App\Http\Resources\LangkahTelahDilakukanResource;
 use App\Http\Resources\LaporansResource;
+use App\Http\Resources\LintasOPDResource;
 use App\Http\Resources\PelakuResource;
+use App\Http\Resources\RAKKResource;
+use App\Http\Resources\RRKKResource;
 use App\Models\DetailKasus;
 use App\Models\DetailKlien;
 use App\Models\DokumenPendukung;
@@ -15,9 +18,12 @@ use App\Models\KeluargaKlien;
 use App\Models\Laporans;
 use App\Models\Kronologis;
 use App\Models\LangkahTelahDilakukan;
+use App\Models\LintasOPD;
 use App\Models\ModelUtils;
 use App\Models\Pelaku;
 use App\Models\PenangananAwal;
+use App\Models\RAKK;
+use App\Models\RRKK;
 use App\Models\Statuses;
 use App\Services\BaseService;
 use Carbon\Carbon;
@@ -227,6 +233,27 @@ class LaporansService extends BaseService
         foreach ($pelaku as $p) {
             $ResourcePelaku = new PelakuResource($p);
         }
+
+        $RAKK = new RAKK();
+        $RAKK =
+            count($RAKK->repository()->getByLaporanId($laporan_id)) > 0 ? 
+                new RAKKResource($RAKK->repository()->getByLaporanId($laporan_id)[0]) 
+                : null;
+    
+
+        $RRKK = new RRKK();
+        $RRKK =
+            count($RRKK->repository()->getByLaporanId($laporan_id)) > 0 ? 
+                new RRKKResource($RRKK->repository()->getByLaporanId($laporan_id)[0]) 
+                : null;
+
+        $lintasOpd = new LintasOPD();
+        $lintasOpd = $lintasOpd->repository()->getByLaporanId($laporan_id);
+        $ResourceLintasOpd = [];
+        foreach ($lintasOpd as $lintas) {
+            $ResourceLintasOpd[] = new LintasOPDResource($lintas);
+        }
+
         return ModelUtils::filterNullValues([
             'nomor_register' => $laporan->nomor_register,
             'pengaduan' => [
@@ -299,6 +326,9 @@ class LaporansService extends BaseService
             'langkah_telah_dilakukan' => $ResourceLangkahTelahDilakukan,
             'dokumen_pendukung' =>  $ResourceDokumenPendukung,
             'pelaku' => $ResourcePelaku,
+            'rencana_analisis_kebutuhan_klien' => $RAKK,
+            'rencana_rujukan_kebutuhan_klien' => $RRKK,
+            'langkah_yang_telah_dilakukan_lintas_opd' => $ResourceLintasOpd,
         ]);
     }
 }

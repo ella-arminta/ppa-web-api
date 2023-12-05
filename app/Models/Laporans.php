@@ -258,7 +258,10 @@ class Laporans extends Model
             'dokumen_pendukung',
             'kota_pelapor',
             'penanganan_awal',
-            'langkah_telah_dilakukan'
+            'langkah_telah_dilakukan',
+            'RAKK',
+            'RRKK',
+            'lintas_opd'
         ];
     }
 
@@ -364,5 +367,17 @@ class Laporans extends Model
 
     public function langkah_telah_dilakukan(){
         return $this->hasMany('App\Models\LangkahTelahDilakukan','laporan_id','id');
+    }
+
+    public function RAKK(){
+        return $this->hasOne('App\Models\RAKK','laporan_id','id');
+    }
+
+    public function RRKK(){
+        return $this->hasOne('App\Models\RRKK','laporan_id','id');
+    }
+
+    public function lintas_opd(){
+        return $this->hasMany('App\Models\LintasOPD','laporan_id','id');
     }
 }
