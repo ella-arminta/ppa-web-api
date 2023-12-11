@@ -69,31 +69,27 @@ class LaporansController extends BaseController
     
     public function getCountByRwKategori() {
         $kelurahan_id = request('kelurahan_id');
-        $tanggal_start = request('tanggal_start');
-        $tanggal_end = request('tanggal_end');
+        $tahun = request('tahun');
         
         $valid = Validator::make(
             [
                 'kelurahan_id' => $kelurahan_id,
-                'tanggal_start' => $tanggal_start,
-                'tanggal_end' => $tanggal_end
+                'tahun' => $tahun,
             ],
             [
                 'kelurahan_id' => 'required|exists:kelurahans,id',
-                'tanggal_start' => 'required|date',
-                'tanggal_end' => 'required|date|after:tanggal_start'
+                'tahun' => 'required|numeric|digits:4'
             ],
             [
                 'kelurahan_id.required' => 'Kelurahan id is required!',
                 'kelurahan_id.exists' => 'Kelurahan id is not exists!',
-                'tanggal_end.after' => 'Tanggal end must be a date after Tanggal start.'
             ]
         );
         if ($valid->fails()) {
             return $this->error($valid->errors()->first());
         }
 
-        $data = $this->service->getCountByRwKategori($kelurahan_id,$tanggal_start,$tanggal_end);
+        $data = $this->service->getCountByRwKategori($kelurahan_id,$tahun);
         return $this->success($data, HttpResponseCode::HTTP_OK);
     }
 
