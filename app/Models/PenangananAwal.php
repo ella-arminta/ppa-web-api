@@ -40,8 +40,8 @@ class PenangananAwal extends Model
             'laporan_id' => 'required|exists:laporans,id',
             'tanggal_penanganan_awal' => 'required|date_format:Y-m-d H:i:s',
             'hasil' => 'required|string',
-            'dokumen_pendukung' => 'required|array',
-            'dokumen_pendukung.*.file' => 'required|file|mimes:jpeg,png,jpg,gif,pdf,svg|max:2048'
+            'dokumen_pendukung' => 'nullable|array',
+            'dokumen_pendukung.*.file' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf,svg|max:2048'
         ];
     }
 

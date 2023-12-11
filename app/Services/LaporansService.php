@@ -143,7 +143,7 @@ class LaporansService extends BaseService
         );
     }
 
-    public function getCountByRwKategori($kelurahan_id) {
+    public function getCountByRwKategori($kelurahan_id,$tanggal_start,$tanggal_end) {
         /* 
         $dataFormat  = [
             [
@@ -179,6 +179,14 @@ class LaporansService extends BaseService
         $data = [];
         $rws = $this->repository->getRw();
         $kategoris = Kategoris::all();
+        $tahun_start = Carbon::parse($tanggal_start)->year;
+        $tahun_end = Carbon::parse($tanggal_end)->year;
+
+        for ($tahun = $tahun_start; $tahun <= $tahun_end; $tahun++) {
+            // Your code for each iteration
+            echo "Year: $tahun\n";
+        }
+
         foreach ($kategoris as $kategori) {
             $data_kategori = [
                 'kategori_id' => $kategori->id,
@@ -186,7 +194,7 @@ class LaporansService extends BaseService
                 'count_total' => []
             ];
             foreach ($rws as $rw) {
-                $count = $this->repository->getCountByKelurahanRwKategori($kelurahan_id, $rw->rw, $kategori->id);
+                $count = $this->repository->getCountByKelurahanRwKategori($kelurahan_id, $rw->rw, $kategori->id,$tanggal_start,$tanggal_end);
                 $data_kategori['count_total'][] = [
                     'rw' => $rw->rw,
                     'count' => $count

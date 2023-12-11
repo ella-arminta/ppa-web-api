@@ -77,7 +77,12 @@ class Laporans extends Model
             'status_kronologi' => 'nullable|integer|in:0,1,2',
             'nomor_register' => 'nullable|string',
             'tanggal_penjangkauan' => 'nullable|date_format:Y-m-d H:i:s',
-            'sumber_aduan' => 'string'
+            
+            'status_kondisi_klien' => 'nullable|integer|in:0,1,2',
+            'status_langkah_telah_dilakukan' => 'nullable|integer|in:0,1,2',
+            'status_rakk' => 'nullable|integer|in:0,1,2',
+            'status_rrkk' => 'nullable|integer|in:0,1,2',
+            'status_lintas_opd' => 'nullable|integer|in:0,1,2',
         ];
         return ModelUtils::rulesPatch($rules);
     }
@@ -148,7 +153,13 @@ class Laporans extends Model
             'status_pelaku' => 'Status Keluarga hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)',
             'status_situasi_keluarga' => 'Status Situasi Keluarga hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)',
             'status_kronologi' => 'Status Kronologi hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)',
-            'status_dokumen_pendukung' => 'Status Dokumen Pendukung hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)'
+            'status_dokumen_pendukung' => 'Status Dokumen Pendukung hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)',
+
+            'status_kondisi_klien' => 'Status Kondisi Klien hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)',
+            'status_langkah_telah_dilakukan' => 'Status Langkah Telah Dilakukan DP3A hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)',
+            'status_rakk' => 'Status Rencana Analisis Kebutuhan Klien hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)',
+            'status_rrkk' => 'Status Rencana Rujukan hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)',
+            'status_lintas_opd' => 'Status Lintas OPD hanya boleh 0, 1 atau 2. (0 = blm input, 1 = draft, 2 = publish)',
         ];
     }
 

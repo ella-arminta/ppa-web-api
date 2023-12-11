@@ -25,7 +25,8 @@ class LangkahTelahDilakukan extends Model
         'laporan_id',
         'tanggal_pelayanan',
         'pelayanan_yang_diberikan',
-        'deskripsi'
+        'deskripsi',
+        'dokumen_pendukung'
     ]; 
 
     /**
@@ -40,6 +41,8 @@ class LangkahTelahDilakukan extends Model
             'tanggal_pelayanan' => 'required|date',
             'pelayanan_yang_diberikan' => 'required|string',
             'deskripsi' => 'required|string',
+            'dokumen_pendukung' => 'required|array',
+            'dokumen_pendukung.*.file' => 'required|file|mimes:jpeg,png,jpg,gif,pdf,svg|max:2048'
         ];
     }
 
@@ -66,6 +69,7 @@ class LangkahTelahDilakukan extends Model
             'tanggal_pelayanan' => $request->tanggal_pelayanan,
             'pelayanan_yang_diberikan' => $request->pelayanan_yang_diberikan,
             'deskripsi' => $request->deskripsi,
+            'dokumen_pendukung' => $request->dokumen_pendukung ? json_decode($request->dokumen_pendukung) : null
         ]);
     }
 

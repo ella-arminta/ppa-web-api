@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('status_kondisi_klien')->default(0);
             $table->integer('status_langkah_telah_dilakukan')->default(0);
             $table->integer('status_dokumen_pendukung')->default(0);
-            $table->string('sumber_aduan')->nullable();
+            // $table->string('sumber_aduan')->nullable();
         });
             
     }

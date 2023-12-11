@@ -14,8 +14,13 @@ use App\Http\Resources\KategorisResource;
 use App\Http\Resources\KeluargaKlienResource;
 use App\Http\Resources\KondisiKlienResource;
 use App\Http\Resources\KotaResource;
+use App\Http\Resources\LangkahTelahDilakukanResource;
+use App\Http\Resources\LintasOPDResource;
 use App\Http\Resources\PelakuResource;
+use App\Http\Resources\PenangananAwalResource;
 use App\Http\Resources\PenjadwalanResource;
+use App\Http\Resources\RAKKResource;
+use App\Http\Resources\RRKKResource;
 use App\Http\Resources\StatusesResource;
 use App\Http\Resources\SumberPengaduanResource;
 use Carbon\Carbon;
@@ -110,7 +115,18 @@ class ModelUtils
             'nomor_register' => $request->nomor_register,
             'tanggal_penjangkauan' => $request->tanggal_penjangkauan,
             'kota_pelapor' => $request->kota_pelapor ? new KotaResource($request->kota_pelapor) : null,
-            'sumber_aduan' => $request->sumber_aduan,
+            // 'sumber_aduan' => $request->sumber_aduan,
+
+            'status_kondisi_klien' => (int) $request->status_kondisi_kien,
+            'status_rakk' => (int) $request->status_rakk,
+            'status_rrkk' => (int) $request->status_rrkk,
+            'status_lintas_opd' => (int) $request->status_lintas_opd,
+
+            'penanganan_awal' => $request->penanganan_awal ? new PenangananAwalResource($request->penanganan_awal) : null,
+            'langkah_telah_dilakukan' => LangkahTelahDilakukanResource::collection($request->langkah_telah_dilakukan),
+            'RAKK' => $request->RAKK ? new RAKKResource($request->RAKK) : null,
+            'RRKK' => $request->RRKK ? new RRKKResource($request->RRKK) : null,
+            'lintas_opd' => LintasOPDResource::collection($request->lintas_opd),
         ];
     }
 }
