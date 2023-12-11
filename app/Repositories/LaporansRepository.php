@@ -102,13 +102,14 @@ class LaporansRepository extends BaseRepository
         return $data;
     }
 
-    public function getCountByKelurahanRwKategori($kelurahan_id, $rw, $kategori_id, $tahun){
+    public function getCountByKelurahanRwKategori($kelurahan_id, $rw, $kategori_id, $tanggal_start, $tanggal_end){
         $data = $this->model
             ->where('kelurahan_id', $kelurahan_id)
             ->where('rw', $rw)
             ->where('kategori_id', $kategori_id)
-            ->whereRaw('YEAR(tanggal_jam_pengaduan) = ?', [$tahun])
+            ->whereBetween('tanggal_jam_pengaduan', [$tanggal_start, $tanggal_end . ' 23:59:59'])
             ->count();
+    
 
 
         return $data;
