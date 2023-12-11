@@ -80,8 +80,8 @@ class LaporansController extends BaseController
             ],
             [
                 'kelurahan_id' => 'required|exists:kelurahans,id',
-                'tanggal_start' => 'required|date',
-                'tanggal_end' => 'required|date|after:tanggal_start'
+                'tanggal_start' => 'nullable|date',
+                'tanggal_end' => 'nullable|date|after:tanggal_start'
             ],
             [
                 'kelurahan_id.required' => 'Kelurahan id is required!',

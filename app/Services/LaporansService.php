@@ -179,8 +179,6 @@ class LaporansService extends BaseService
         $data = [];
         $rws = $this->repository->getRw();
         $kategoris = Kategoris::all();
-        $tahun_start = Carbon::parse($tanggal_start)->year;
-        $tahun_end = Carbon::parse($tanggal_end)->year;
 
         foreach ($kategoris as $kategori) {
             $data_kategori = [

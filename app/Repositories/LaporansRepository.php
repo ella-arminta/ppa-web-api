@@ -103,12 +103,20 @@ class LaporansRepository extends BaseRepository
     }
 
     public function getCountByKelurahanRwKategori($kelurahan_id, $rw, $kategori_id, $tanggal_start, $tanggal_end){
-        $data = $this->model
+        if ($tanggal_start == null || $tanggal_end == null) {
+            $data = $this->model
             ->where('kelurahan_id', $kelurahan_id)
             ->where('rw', $rw)
             ->where('kategori_id', $kategori_id)
-            ->whereBetween('tanggal_jam_pengaduan', [$tanggal_start, $tanggal_end . ' 23:59:59'])
             ->count();
+        }else{
+            $data = $this->model
+                ->where('kelurahan_id', $kelurahan_id)
+                ->where('rw', $rw)
+                ->where('kategori_id', $kategori_id)
+                ->whereBetween('tanggal_jam_pengaduan', [$tanggal_start, $tanggal_end . ' 23:59:59'])
+                ->count();
+        }
     
 
 
