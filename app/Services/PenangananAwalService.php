@@ -18,7 +18,9 @@ class PenangananAwalService extends BaseService
         Override existing service here...
     */
     public function create($data) {
-        $data['dokumen_pendukung'] = $this->uploadFile($data['dokumen_pendukung'], 'penanganan_awal/');
+        if(isset($data['dokumen_pendukung'])){
+            $data['dokumen_pendukung'] = $this->uploadFile($data['dokumen_pendukung'], 'penanganan_awal/');
+        }
 
         $data = $this->repository->create($data);
 
@@ -28,7 +30,8 @@ class PenangananAwalService extends BaseService
     }
 
     public function update($id, $data) {
-        $data['dokumen_pendukung'] = $this->uploadFile($data['dokumen_pendukung'], 'penanganan_awal/');
+        if(isset($data['dokumen_pendukung']))
+            $data['dokumen_pendukung'] = $this->uploadFile($data['dokumen_pendukung'], 'penanganan_awal/');
         
         $data = $this->repository->update($id, $data);
         $data = new $this->resource($data);
