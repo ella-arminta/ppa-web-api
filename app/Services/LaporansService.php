@@ -214,7 +214,10 @@ class LaporansService extends BaseService
         $detailKlien = new DetailKlien();
         $detailKlien = $detailKlien->repository()->getByLaporanId($laporan_id);
         $kasus = new DetailKasus();
-        $kasus = $kasus->repository()->getByLaporanId($laporan_id)[0];
+        $kasus = $kasus->repository()->getByLaporanId($laporan_id);
+        if(count($kasus) > 0){
+            $kasus = $kasus[0];
+        }
         $langkah_telah_dilakukan = new LangkahTelahDilakukan();
         $langkah_telah_dilakukan = $langkah_telah_dilakukan->repository()->getByLaporanId($laporan_id);
         $ResourceLangkahTelahDilakukan = [];
@@ -254,7 +257,6 @@ class LaporansService extends BaseService
         foreach ($lintasOpd as $lintas) {
             $ResourceLintasOpd[] = new LintasOPDResource($lintas);
         }
-
         return ModelUtils::filterNullValues([
             'nomor_register' => $laporan->nomor_register,
             'pengaduan' => [
@@ -292,38 +294,38 @@ class LaporansService extends BaseService
             'data_klien' => [
                 'nama_lengkap' => $laporan->nama_klien,
                 'nik' => $laporan->nik_klien,
-                'no_kk' => $laporan->detail_klien->no_kk,
-                'ttl' => $detailKlien->kota_lahir->nama . ', '. Carbon::parse($detailKlien->tanggal_lahir)->format('d F Y'),
+                'no_kk' => $laporan->detail_klien ? $laporan->detail_klien->no_kk : null,
+                'ttl' => $detailKlien ? $detailKlien->kota_lahir->nama . ', '. Carbon::parse($detailKlien->tanggal_lahir)->format('d F Y') : null,
                 'usia' => $laporan->usia . ' Tahun',
                 'jenis_kelamin' => $laporan->jenis_kelamin == 'P' ? 'Perempuan' : 'Laki-laki',
-                'agama' => $detailKlien->agama->nama,
+                'agama' => $detailKlien ? $detailKlien->agama->nama : null,
                 'pendidikan_terakhir' => $laporan->pendidikan->nama,
-                'pekerjaan' => $detailKlien->pekerjaan->nama,
-                'status_pernikahan' => $detailKlien->status_perkawinan->nama,
-                'alamat_kk' => $laporan->detail_klien->alamat_kk,
+                'pekerjaan' => $detailKlien ? $detailKlien->pekerjaan->nama : null,
+                'status_pernikahan' => $detailKlien ? $detailKlien->status_perkawinan->nama : null,
+                'alamat_kk' => $laporan->detail_klien ? $laporan->detail_klien->alamat_kk : null,
                 'alamat_domisili' => $laporan->alamat_klien,
                 'no_telp' => $laporan->no_telp_klien,
             ],
             'data_keluarga_klien' => $ResourceKeluargaKlien,
             'data_kasus' => [
-                'jenis_klien' => $detailKlien->jenis_klien,
-                'kategori_klien' => $detailKlien->kategori_klien,
+                'jenis_klien' => $detailKlien ? $detailKlien->jenis_klien : null,
+                'kategori_klien' => $detailKlien ? $detailKlien->kategori_klien : null,
                 'tipe_permasalahan' => $laporan->kategori->nama,
-                'kategori_kasus' => $kasus->kategori_kasus->nama,
-                'jenis_kasus' => $kasus->jenis_kasus->nama,
-                'deskripsi_singkat_kasus' => $kasus->deskripsi,
-                'lokasi_kejadian' => $kasus->lokasi_kasus,
-                'tanggal_dan_waktu_kejadian' => Carbon::parse($kasus->tanggal_jam_kejadian)->isoFormat('D MMMM YYYY') . ', ' . Carbon::parse($kasus->tanggal_jam_kejadian)->format('H:i') . ' ' . Carbon::parse($kasus->tanggal_jam_kejadian)->tzName
+                'kategori_kasus' => count($kasus) > 0 ?  $kasus->kategori_kasus->nama : null,
+                'jenis_kasus' =>count($kasus) > 0 ? $kasus->jenis_kasus->nama : null,
+                'deskripsi_singkat_kasus' =>count($kasus) > 0 ? $kasus->deskripsi : null,
+                'lokasi_kejadian' =>count($kasus) > 0 ? $kasus->lokasi_kasus : null,
+                'tanggal_dan_waktu_kejadian' => count($kasus) > 0 ? Carbon::parse($kasus->tanggal_jam_kejadian)->isoFormat('D MMMM YYYY') . ', ' . Carbon::parse($kasus->tanggal_jam_kejadian)->format('H:i') . ' ' . Carbon::parse($kasus->tanggal_jam_kejadian)->tzName : null
             ],
             'situasi_keluarga' => $laporan->situasi_keluarga,
             'kronologi_kejadian' => $laporan->kronologi_kejadian,
             'harapan_klien_dan_keluarga' => $laporan->harapan_klien_dan_keluarga,
-            'kondisi_klien' => [
+            'kondisi_klien' => $laporan->kondisi_klien ? [
                 'fisik' => $laporan->kondisi_klien->fisik,
                 'psikologis' => $laporan->kondisi_klien->psikologis,
                 'sosial' => $laporan->kondisi_klien->sosial,
                 'spiritual'=> $laporan->kondisi_klien->spiritual,
-            ],
+            ] : null,
             'langkah_telah_dilakukan' => $ResourceLangkahTelahDilakukan,
             'dokumen_pendukung' =>  $ResourceDokumenPendukung,
             'pelaku' => $ResourcePelaku,
