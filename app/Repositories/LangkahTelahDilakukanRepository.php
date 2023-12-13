@@ -17,13 +17,13 @@ class LangkahTelahDilakukanRepository extends BaseRepository
         OR
         Override existing repository here...
     */
-    public function create($data) {
-        if(count($this->getByLaporanId($data['laporan_id'])) > 0){
-            $dokumenPendukung = $this->getByLaporanId($data['laporan_id']);
-            return $this->update($dokumenPendukung[0]->id, $data);
-        }
+    // public function create($data) {
+    //     if(count($this->getByLaporanId($data['laporan_id'])) > 0){
+    //         $dokumenPendukung = $this->getByLaporanId($data['laporan_id']);
+    //         return $this->update($dokumenPendukung[0]->id, $data);
+    //     }
         
-        return $this->model->create($data);
-    }
+    //     return $this->model->create($data);
+    // }
 
 }
