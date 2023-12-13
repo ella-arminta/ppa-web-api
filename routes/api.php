@@ -13,6 +13,8 @@ use App\Http\Controllers\PelakuController;
 use App\Http\Controllers\PenjadwalanController;
 use App\Models\Pelaku;
 use App\Http\Middleware\CorsMiddleware2;
+use App\Models\LangkahTelahDilakukan;
+use App\Models\LintasOPD;
 use App\Repositories\LaporansRepository;
 use App\Services\LaporansService;
 
@@ -74,8 +76,8 @@ Route::middleware(['cors'])->group(function () {
         Route::get('/laporans/{laporan_id}/kondisi-kliens',[KondisiKlienController::class,'getByLaporanId']);
         Route::get('/laporans/{laporan_id}/keluarga-kliens',[KeluargaKlienController::class,'getByLaporanId']);
         Route::get('/laporans/{laporan_id}/penjadwalans',[PenjadwalanController::class,'getByLaporanId']);
-        Route::get('/laporans/{laporan_id}/langkah-telah-dilakukans',[PenjadwalanController::class,'getByLaporanId']);
-        Route::get('/laporans/{laporan_id}/lintas-o-p-ds',[PenjadwalanController::class,'getByLaporanId']);
+        Route::get('/laporans/{laporan_id}/langkah-telah-dilakukans',[LangkahTelahDilakukan::class,'getByLaporanId']);
+        Route::get('/laporans/{laporan_id}/lintas-o-p-ds',[LintasOPD::class,'getByLaporanId']);
     
         Route::get('/laporans/{laporan_id}/cetak',[LaporansController::class,'cetakLaporan']);
     
