@@ -125,7 +125,7 @@ class ModelUtils
             'penanganan_awal' => $request->penanganan_awal ? new PenangananAwalResource($request->penanganan_awal) : null,
             'langkah_telah_dilakukan' => LangkahTelahDilakukanResource::collection($request->langkah_telah_dilakukan),
             'RAKK' => RAKKResource::collection($request->RAKK),
-            'RRKK' => $request->RRKK ? new RRKKResource($request->RRKK) : null,
+            'RRKK' => RRKKResource::collection($request->RRKK),
             'lintas_opd' => LintasOPDResource::collection($request->lintas_opd),
 
             'updated_at_keluarga' => $request->updated_at_keluarga,

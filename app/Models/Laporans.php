@@ -406,7 +406,7 @@ class Laporans extends Model
     }
 
     public function RRKK(){
-        return $this->hasOne('App\Models\RRKK','laporan_id','id');
+        return $this->hasMany('App\Models\RRKK','laporan_id','id');
     }
 
     public function lintas_opd(){

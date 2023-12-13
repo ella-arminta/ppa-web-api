@@ -17,11 +17,9 @@ class RRKKSeeder extends Seeder
         $laporan = Laporans::where('nama_klien','Haha ')->first();
         RRKK::create([
             'laporan_id' => $laporan->id,
-            'ekonomi' => 'Ekonomi',
-            'pendidikan' => 'Pendidikan',
-            'sosial' => 'Sosial',
-            'kesehatan' => 'Kesehatan',
-            'hukum' => 'Hukum',
+            'kebutuhan' => 'Pendidikan',
+            'OPD' => 'Surabaya',
+            'layanan_yang_diberikan' => 'ini adlaah langkah yg diberikan',
         ]);
     }
 }

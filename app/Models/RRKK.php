@@ -23,11 +23,10 @@ class RRKK extends Model
      */
     protected $fillable = [
         'laporan_id',
-        'ekonomi',
-        'pendidikan',
-        'sosial',
-        'kesehatan',
-        'hukum'
+        'kebutuhan',
+        'opd',
+        'layanan_yang_diberikan',
+        'dokumen_pendukung'
     ]; 
 
     /**
@@ -39,11 +38,24 @@ class RRKK extends Model
     {
         return [
             'laporan_id' => 'required|exists:laporans,id',
-            'ekonomi' => 'required|string',
-            'pendidikan' => 'required|string',
-            'sosial' => 'required|string',
-            'kesehatan' => 'required|string',
-            'hukum' => 'required|string',
+            'kebutuhan' => 'nullable|string',
+            'opd' => 'required|string|in:Surabaya',
+            'layanan_yang_diberikan' => 'nullable|string',
+            'dokumen_pendukung' => 'nullable|array',
+            'dokumen_pendukung.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:2048',
+        ];
+    }
+
+    public static function validationRulesPatch()
+    {
+        return [
+            'id' => 'required|exists:r_r_k_k_s,id',
+            'laporan_id' => 'nullable|exists:laporans,id',
+            'kebutuhan' => 'nullable|string',
+            'opd' => 'nullable|string|in:Surabaya',
+            'layanan_yang_diberikan' => 'nullable|string',
+            'dokumen_pendukung' => 'nullable|array',
+            'dokumen_pendukung.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:2048',
         ];
     }
 
@@ -67,11 +79,10 @@ class RRKK extends Model
         return ModelUtils::filterNullValues([
             'laporan_id' => $request->laporan_id,
             'id' => $request->id,
-            'ekonomi' => $request->ekonomi,
-            'pendidikan' => $request->pendidikan,
-            'sosial' => $request->sosial,
-            'kesehatan' => $request->kesehatan,
-            'hukum' => $request->hukum
+            'kebutuhan' => $request->kebutuhan,
+            'opd' => $request->OPD,
+            'layanan_yang_diberikan' => $request->layanan_yang_diberikan,
+            'dokumen_pendukung' => $request->dokumen_pendukung ? json_decode($request->dokumen_pendukung) : null,
         ]);
     }
 

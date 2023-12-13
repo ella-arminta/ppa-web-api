@@ -17,11 +17,10 @@ return new class extends Migration
             $table->foreignUuid('laporan_id')
                 ->references('id')
                 ->on('laporans');
-            $table->string('ekonomi')->nullable();
-            $table->string('pendidikan')->nullable();
-            $table->string('sosial')->nullable();
-            $table->string('kesehatan')->nullable();
-            $table->string('hukum')->nullable();
+            $table->string('kebutuhan')->nullable();
+            $table->string('OPD');
+            $table->string('layanan_yang_diberikan')->nullable();
+            $table->longText('dokumen_pendukung')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
