@@ -402,7 +402,7 @@ class Laporans extends Model
     }
 
     public function RAKK(){
-        return $this->hasOne('App\Models\RAKK','laporan_id','id');
+        return $this->hasMany('App\Models\RAKK','laporan_id','id');
     }
 
     public function RRKK(){

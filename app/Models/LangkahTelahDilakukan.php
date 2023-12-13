@@ -49,6 +49,7 @@ class LangkahTelahDilakukan extends Model
     public static function validationRulesPatch()
     {
         return [
+            'id' => 'required|exists:langkah_telah_dilakukans,id',
             'laporan_id' => 'nullable|exists:laporans,id',
             'tanggal_pelayanan' => 'nullable|date',
             'pelayanan_yang_diberikan' => 'nullable|string',

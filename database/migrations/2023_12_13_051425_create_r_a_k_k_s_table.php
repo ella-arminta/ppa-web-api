@@ -17,11 +17,9 @@ return new class extends Migration
             $table->foreignUuid('laporan_id')
                 ->references('id')
                 ->on('laporans');
-            $table->string('pend_psikologis')->nullable();
-            $table->string('pend_medis')->nullable();
-            $table->string('pend_hukum')->nullable();
-            $table->string('psikososial')->nullable();
-            $table->string('rumah_aman')->nullable();
+            $table->string('kebutuhan')->nullable();
+            $table->string('deskripsi')->nullable();
+            $table->longText('dokumen_pendukung')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

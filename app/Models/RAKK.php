@@ -23,11 +23,9 @@ class RAKK extends Model
      */
     protected $fillable = [
         'laporan_id',
-        'pend_psikologis',
-        'pend_medis',
-        'pend_hukum',
-        'psikososial',
-        'rumah_aman',
+        'kebutuhan',
+        'deskripsi',
+        'dokumen_pendukung'
     ]; 
 
     /**
@@ -39,11 +37,22 @@ class RAKK extends Model
     {
         return [
             'laporan_id' => 'required|exists:laporans,id',
-            'pend_psikologis' => 'required|string',
-            'pend_medis' => 'required|string',
-            'pend_hukum' => 'required|string',
-            'psikososial' => 'required|string',
-            'rumah_aman' => 'required|string|in:Shelter ABH,Shelter Anak Perempuan',
+            'kebutuhan' => 'required|string|in:Kesehatan,Pendidikan,Ekonomi,Hukum',
+            'deskripsi' => 'required|string',
+            'dokumen_pendukung' => 'nullable|array',
+            'dokumen_pendukung.*.file' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf,svg|max:2048'
+        ];
+    }
+
+    public static function validationRulesPatch()
+    {
+        return [            
+            'id' => 'required|exists:r_a_k_k_s,id',
+            'laporan_id' => 'nullable|exists:laporans,id',
+            'kebutuhan' => 'nullable|string',
+            'deskripsi' => 'nullable|string',
+            'dokumen_pendukung' => 'nullable|array',
+            'dokumen_pendukung.*.file' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf,svg|max:2048'
         ];
     }
 
@@ -67,11 +76,9 @@ class RAKK extends Model
         return ModelUtils::filterNullValues([
             'laporan_id' => $request->laporan_id,
             'id' => $request->id,
-            'pend_psikologis' => $request->pend_psikologis,
-            'pend_medis' => $request->pend_medis,
-            'pend_hukum' => $request->pend_hukum,
-            'psikososial' => $request->psikososial,
-            'rumah_aman' => $request->rumah_aman,
+            'kebutuhan' => $request->kebutuhan,
+            'deskripsi' => $request->deskripsi,
+            'dokumen_pendukung' => $request->dokumen_pendukung ? json_decode($request->dokumen_pendukung) : null
         ]);
     }
 

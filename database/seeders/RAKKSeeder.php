@@ -17,11 +17,8 @@ class RAKKSeeder extends Seeder
         $laporan = Laporans::where('nama_klien','Haha ')->first();
         RAKK::create([
             'laporan_id' => $laporan->id,
-            'pend_psikologis' => 'Pendampingan Psikologis',
-            'pend_medis' => 'Pendampingan Medis',
-            'pend_hukum' => 'Pendampingan Hukum',
-            'psikososial' => 'Psikososial',
-            'rumah_aman' => 'Shelter ABH',
+            'kebutuhan' => 'Pendidikan',
+            'deskripsi' => 'Deskripsi',
         ]);
     }
 }

@@ -19,7 +19,7 @@ class LintasOPDService extends BaseService
     */
     public function create($data) {
         if(isset($data['dokumentasi'])){
-            $data['dokumentasi'] = $this->uploadFile($data['dokumentasi'], 'lintas_opd/');
+            $data['dokumentasi'] = $this->uploadFile($data['dokumentasi'], 'lintas_opd');
         }
 
         $data = $this->repository->create($data);
@@ -31,7 +31,7 @@ class LintasOPDService extends BaseService
 
     public function update($id, $data) {
         if(isset($data['dokumentasi']))
-            $data['dokumentasi'] = $this->uploadFile($data['dokumentasi'], 'lintas_opd/');
+            $data['dokumentasi'] = $this->uploadFile($data['dokumentasi'], 'lintas_opd');
         
         $data = $this->repository->update($id, $data);
         $data = new $this->resource($data);
