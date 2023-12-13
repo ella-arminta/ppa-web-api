@@ -42,8 +42,7 @@ class BaseController extends Controller
     {
         // validate
         // $this->validate($request, $this->model->rules());
-        if($request->has('id') && $request->id != null){
-            return $request->id;
+        if($request->has('id') && $request->id != null && is_numeric($request->id) && !is_nan($request->id)){
             $this->validateRequestPatch($request->all(), $this->model);
             $data = $this->service->update($request->id, $request->all());
         }
