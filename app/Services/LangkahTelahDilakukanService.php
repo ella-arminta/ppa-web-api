@@ -19,7 +19,8 @@ class LangkahTelahDilakukanService extends BaseService
     */
 
     public function create($data) {
-        $data['dokumen_pendukung'] = $this->uploadFile($data['dokumen_pendukung'], 'langkahTelahDilakukan/');
+        if(isset($data['dokumen_pendukung']))
+            $data['dokumen_pendukung'] = $this->uploadFile($data['dokumen_pendukung'], 'langkahTelahDilakukan');
 
         $data = $this->repository->create($data);
 
@@ -29,7 +30,8 @@ class LangkahTelahDilakukanService extends BaseService
     }
 
     public function update($id, $data) {
-        $data['dokumen_pendukung'] = $this->uploadFile($data['dokumen_pendukung'], 'langkahTelahDilakukan/');
+        if(isset($data['dokumen_pendukung']))
+            $data['dokumen_pendukung'] = $this->uploadFile($data['dokumen_pendukung'], 'langkahTelahDilakukan');
         
         $data = $this->repository->update($id, $data);
         $data = new $this->resource($data);

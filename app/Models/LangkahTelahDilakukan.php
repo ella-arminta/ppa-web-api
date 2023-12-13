@@ -41,8 +41,8 @@ class LangkahTelahDilakukan extends Model
             'tanggal_pelayanan' => 'required|date',
             'pelayanan_yang_diberikan' => 'required|string',
             'deskripsi' => 'required|string',
-            'dokumen_pendukung' => 'required|array',
-            'dokumen_pendukung.*.file' => 'required|file|mimes:jpeg,png,jpg,gif,pdf,svg|max:2048'
+            'dokumen_pendukung' => 'nullable|array',
+            'dokumen_pendukung.*.file' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf,svg|max:2048'
         ];
     }
 
