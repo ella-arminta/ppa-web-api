@@ -46,6 +46,18 @@ class LangkahTelahDilakukan extends Model
         ];
     }
 
+    public static function validationRulesPatch()
+    {
+        return [
+            'laporan_id' => 'nullable|exists:laporans,id',
+            'tanggal_pelayanan' => 'nullable|date',
+            'pelayanan_yang_diberikan' => 'nullable|string',
+            'deskripsi' => 'nullable|string',
+            'dokumen_pendukung' => 'nullable|array',
+            'dokumen_pendukung.*.file' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf,svg|max:2048'
+        ];
+    }
+
     /**
      * Messages that applied in this model
      *
