@@ -51,7 +51,6 @@ class LaporanSeeder extends Seeder
             'kota_id_pelapor' => 1,
             'tanggal_penjangkauan' => '2023-11-10',
             'nomor_register' => '37/0544/PERSONALPROBLEM/VII/2023',
-            'sumber_aduan' => 'Tatap Muka'
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Pelecehan',
@@ -85,7 +84,6 @@ class LaporanSeeder extends Seeder
             'kota_id_pelapor' => 1,
             'tanggal_penjangkauan' => '2023-11-10',
             'nomor_register' => '37/0544/PERSONALPROBLEM/VII/2023',
-            'sumber_aduan' => 'Tatap Muka'
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
@@ -119,7 +117,6 @@ class LaporanSeeder extends Seeder
             'kota_id_pelapor' => 1,
             'tanggal_penjangkauan' => '2023-11-10',
             'nomor_register' => '37/0544/PERSONALPROBLEM/VII/2023',
-            'sumber_aduan' => 'Tatap Muka'
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
@@ -153,7 +150,6 @@ class LaporanSeeder extends Seeder
             'kota_id_pelapor' => 1,
             'tanggal_penjangkauan' => '2023-11-10',
             'nomor_register' => '37/0544/PERSONALPROBLEM/VII/2023',
-            'sumber_aduan' => 'Tatap Muka'
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
@@ -187,7 +183,6 @@ class LaporanSeeder extends Seeder
             'kota_id_pelapor' => 1,
             'tanggal_penjangkauan' => '2023-11-10',
             'nomor_register' => '37/0544/PERSONALPROBLEM/VII/2023',
-            'sumber_aduan' => 'Tatap Muka'
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
@@ -221,7 +216,6 @@ class LaporanSeeder extends Seeder
             'kota_id_pelapor' => 1,
             'tanggal_penjangkauan' => '2023-11-10',
             'nomor_register' => '37/0544/PERSONALPROBLEM/VII/2023',
-            'sumber_aduan' => 'Tatap Muka'
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan KDRT',
@@ -255,7 +249,6 @@ class LaporanSeeder extends Seeder
             'kota_id_pelapor' => 1,
             'tanggal_penjangkauan' => '2023-11-10',
             'nomor_register' => '37/0544/PERSONALPROBLEM/VII/2023',
-            'sumber_aduan' => 'Tatap Muka'
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Pelecehan',
@@ -289,7 +282,6 @@ class LaporanSeeder extends Seeder
             'kota_id_pelapor' => 1,
             'tanggal_penjangkauan' => '2023-11-10',
             'nomor_register' => '37/0544/PERSONALPROBLEM/VII/2023',
-            'sumber_aduan' => 'Tatap Muka'
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
@@ -323,7 +315,6 @@ class LaporanSeeder extends Seeder
             'kota_id_pelapor' => 1,
             'tanggal_penjangkauan' => '2023-11-10',
             'nomor_register' => '37/0544/PERSONALPROBLEM/VII/2023',
-            'sumber_aduan' => 'Tatap Muka'
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
@@ -358,7 +349,6 @@ class LaporanSeeder extends Seeder
             'kota_id_pelapor' => 1,
             'tanggal_penjangkauan' => '2023-11-10',
             'nomor_register' => '37/0544/PERSONALPROBLEM/VII/2023',
-            'sumber_aduan' => 'Tatap Muka'
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
@@ -392,7 +382,6 @@ class LaporanSeeder extends Seeder
             'kota_id_pelapor' => 1,
             'tanggal_penjangkauan' => '2023-11-10',
             'nomor_register' => '37/0544/PERSONALPROBLEM/VII/2023',
-            'sumber_aduan' => 'Tatap Muka'
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
@@ -426,7 +415,6 @@ class LaporanSeeder extends Seeder
             'kota_id_pelapor' => 1,
             'tanggal_penjangkauan' => '2023-11-10',
             'nomor_register' => '37/0544/PERSONALPROBLEM/VII/2023',
-            'sumber_aduan' => 'Tatap Muka'
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan KDRT',
@@ -460,7 +448,6 @@ class LaporanSeeder extends Seeder
             'kota_id_pelapor' => 1,
             'tanggal_penjangkauan' => '2023-11-10',
             'nomor_register' => '37/0544/PERSONALPROBLEM/VII/2023',
-            'sumber_aduan' => 'Tatap Muka'
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Pelecehan',
@@ -494,7 +481,6 @@ class LaporanSeeder extends Seeder
             'kota_id_pelapor' => 1,
             'tanggal_penjangkauan' => '2023-11-10',
             'nomor_register' => '37/0544/PERSONALPROBLEM/VII/2023',
-            'sumber_aduan' => 'Tatap Muka'
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
@@ -528,7 +514,6 @@ class LaporanSeeder extends Seeder
             'kota_id_pelapor' => 1,
             'tanggal_penjangkauan' => '2023-11-10',
             'nomor_register' => '37/0544/PERSONALPROBLEM/VII/2023',
-            'sumber_aduan' => 'Tatap Muka'
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
@@ -562,7 +547,6 @@ class LaporanSeeder extends Seeder
             'kota_id_pelapor' => 1,
             'tanggal_penjangkauan' => '2023-11-10',
             'nomor_register' => '37/0544/PERSONALPROBLEM/VII/2023',
-            'sumber_aduan' => 'Tatap Muka'
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
@@ -596,7 +580,6 @@ class LaporanSeeder extends Seeder
             'kota_id_pelapor' => 1,
             'tanggal_penjangkauan' => '2023-11-10',
             'nomor_register' => '37/0544/PERSONALPROBLEM/VII/2023',
-            'sumber_aduan' => 'Tatap Muka'
         ]);
         Laporans::create([
             'uraian_singkat_masalah' => 'Laporan Kesuksesan',
@@ -630,7 +613,6 @@ class LaporanSeeder extends Seeder
             'kota_id_pelapor' => 1,
             'tanggal_penjangkauan' => '2023-11-10',
             'nomor_register' => '37/0544/PERSONALPROBLEM/VII/2023',
-            'sumber_aduan' => 'Tatap Muka'
         ]);
         
     }
