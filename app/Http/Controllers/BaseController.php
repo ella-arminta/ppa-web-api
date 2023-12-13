@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Utils\HttpResponse;
 use App\Utils\HttpResponseCode;
 use App\Utils\ValidateRequest;
+use App\Utils\ValidateRequestPatch;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 
 class BaseController extends Controller
 {
-    use HttpResponse, ValidateRequest;
+    use HttpResponse, ValidateRequest, ValidateRequestPatch;
 
     public $model;
     protected $service;
@@ -41,10 +42,17 @@ class BaseController extends Controller
     {
         // validate
         // $this->validate($request, $this->model->rules());
-        $this->validateRequest($request->all(), $this->model);
-
-        // store
-        $data = $this->service->create($request->all());
+        if($request->has('id')){
+            $this->validateRequestPatch($request->all(), $this->model);
+            $data = $this->service->update($request->id, $request->all());
+        }
+        else
+        {
+            $this->validateRequest($request->all(), $this->model);
+    
+            // store
+            $data = $this->service->create($request->all());
+        }
 
         // return
         return $this->success($data, HttpResponseCode::HTTP_CREATED);
@@ -58,7 +66,10 @@ class BaseController extends Controller
     {
         //validate
         // dd($request->all(),$id);
-        $this->validateRequest($request->all(), $this->model);
+        $requestData = $request->all();
+        $requestData['id'] = $id;
+
+        $this->validateRequestPatch($requestData, $this->model);
 
         //update
         $data = $this->service->update($id, $request->all());

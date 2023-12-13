@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\BaseController;
 use App\Models\LintasOPD;
+use App\Utils\HttpResponseCode;
 
 class LintasOPDController extends BaseController
 {

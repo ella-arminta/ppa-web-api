@@ -27,7 +27,8 @@ class LintasOPD extends Model
         'tanggal_pelayanan',
         'instansi',
         'pelayanan_diberikan',
-        'deskripsi_pelayanan'
+        'deskripsi_pelayanan',
+        'dokumentasi'
     ]; 
 
     /**
@@ -39,10 +40,26 @@ class LintasOPD extends Model
     {
         return [
             'laporan_id' => 'required|exists:laporans,id',
-            'tanggal_pelayanan' => 'required|date',
-            'instansi' => 'required|string',
-            'pelayanan_diberikan' => 'required|string',
-            'deskripsi_pelayanan' => 'required|string',
+            'tanggal_pelayanan' => 'nullable|date',
+            'instansi' => 'nullable|string',
+            'pelayanan_diberikan' => 'nullable|string',
+            'deskripsi_pelayanan' => 'nullable|string',
+            'dokumentasi' => 'nullable|array',
+            'dokumentasi.*.file' => 'nullable|file|max:2048'
+        ];
+    }
+
+    public static function validationRulesPatch()
+    {
+        return [
+            'id' => 'required|exists:lintas_o_p_ds,id',
+            'laporan_id' => 'nullable|exists:laporans,id',
+            'tanggal_pelayanan' => 'nullable|date',
+            'instansi' => 'nullable|string',
+            'pelayanan_diberikan' => 'nullable|string',
+            'deskripsi_pelayanan' => 'nullable|string',
+            'dokumentasi' => 'nullable|array',
+            'dokumentasi.*.file' => 'nullable|file|max:2048'
         ];
     }
 
@@ -70,6 +87,7 @@ class LintasOPD extends Model
             'instansi' => $request->instansi,
             'pelayanan_diberikan' => $request->pelayanan_diberikan,
             'deskripsi_pelayanan' => $request->deskripsi_pelayanan,
+            'dokumentasi' => $request->dokumentasi ? json_decode($request->dokumentasi) : null,
         ]);
     }
 
