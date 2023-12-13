@@ -215,7 +215,7 @@ class LaporansService extends BaseService
         $detailKlien = $detailKlien->repository()->getByLaporanId($laporan_id);
         $kasus = new DetailKasus();
         $kasus = $kasus->repository()->getByLaporanId($laporan_id);
-        if(count($kasus) > 0){
+        if($kasus){
             $kasus = $kasus[0];
         }
         $langkah_telah_dilakukan = new LangkahTelahDilakukan();
@@ -311,11 +311,11 @@ class LaporansService extends BaseService
                 'jenis_klien' => $detailKlien ? $detailKlien->jenis_klien : null,
                 'kategori_klien' => $detailKlien ? $detailKlien->kategori_klien : null,
                 'tipe_permasalahan' => $laporan->kategori->nama,
-                'kategori_kasus' => count($kasus) > 0 ?  $kasus->kategori_kasus->nama : null,
-                'jenis_kasus' =>count($kasus) > 0 ? $kasus->jenis_kasus->nama : null,
-                'deskripsi_singkat_kasus' =>count($kasus) > 0 ? $kasus->deskripsi : null,
-                'lokasi_kejadian' =>count($kasus) > 0 ? $kasus->lokasi_kasus : null,
-                'tanggal_dan_waktu_kejadian' => count($kasus) > 0 ? Carbon::parse($kasus->tanggal_jam_kejadian)->isoFormat('D MMMM YYYY') . ', ' . Carbon::parse($kasus->tanggal_jam_kejadian)->format('H:i') . ' ' . Carbon::parse($kasus->tanggal_jam_kejadian)->tzName : null
+                'kategori_kasus' => $kasus ?  $kasus->kategori_kasus->nama : null,
+                'jenis_kasus' => $kasus ? $kasus->jenis_kasus->nama : null,
+                'deskripsi_singkat_kasus' => $kasus ? $kasus->deskripsi : null,
+                'lokasi_kejadian' => $kasus ? $kasus->lokasi_kasus : null,
+                'tanggal_dan_waktu_kejadian' =>  $kasus ? Carbon::parse($kasus->tanggal_jam_kejadian)->isoFormat('D MMMM YYYY') . ', ' . Carbon::parse($kasus->tanggal_jam_kejadian)->format('H:i') . ' ' . Carbon::parse($kasus->tanggal_jam_kejadian)->tzName : null
             ],
             'situasi_keluarga' => $laporan->situasi_keluarga,
             'kronologi_kejadian' => $laporan->kronologi_kejadian,
