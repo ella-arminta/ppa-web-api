@@ -46,7 +46,8 @@ class Pelaku extends Model
         'alamat_domisili',
         'kewarganegaraan',
         'no_telp',
-        'hubungan_dengan_klien'
+        'hubungan_dengan_klien',
+        'usia'
     ]; 
 
     /**
@@ -75,6 +76,7 @@ class Pelaku extends Model
             'kewarganegaraan'  => 'nullable|string',
             'no_telp' => 'nullable|string',
             'hubungan_dengan_klien' => 'nullable|string',
+            'usia' => 'nullable|integer'
         ];
     }
 
@@ -96,13 +98,13 @@ class Pelaku extends Model
     public function resourceData($request)
     {
 
-        $usia = $request->tanggal_lahir ? Carbon::parse($request->tanggal_lahir)->age : null;
+        // $usia = $request->tanggal_lahir ? Carbon::parse($request->tanggal_lahir)->age : null;
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'laporan_id' => $request->laporan_id,
             'nama_lengkap' => $request->nama_lengkap,
             'hubungan' => $request->hubungan,
-            'usia' => $usia,
+            'usia' => $request->usia,
             'satgas' => $request->satgas ? new UserResource($request->satgas) : null,
             'nik' => $request->nik,
             'no_kk' => $request->no_kk,
