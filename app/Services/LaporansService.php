@@ -271,7 +271,7 @@ class LaporansService extends BaseService
                     'hari' => Carbon::parse($laporan->created_at)->format('l'),
                     'tanggal' => Carbon::parse($laporan->created_at)->format('d/m/Y'),
                     'waktu' => Carbon::parse($laporan->created_at)->format('H:i'),
-                    'sumber_aduan' => $laporan->sumber_aduan,
+                    'sumber_aduan' => $laporan->sumber_pengaduan,
             ],
             'petugas' => [
                 'nama' => $laporan->satgas_pelapor->nama,

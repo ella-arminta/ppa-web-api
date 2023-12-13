@@ -115,8 +115,7 @@ class ModelUtils
             'nomor_register' => $request->nomor_register,
             'tanggal_penjangkauan' => $request->tanggal_penjangkauan,
             'kota_pelapor' => $request->kota_pelapor ? new KotaResource($request->kota_pelapor) : null,
-            // 'sumber_aduan' => $request->sumber_aduan,
-            
+
             'status_rakk' => (int) $request->status_rakk,
             'status_rrkk' => (int) $request->status_rrkk,
             'status_lintas_opd' => (int) $request->status_lintas_opd,
