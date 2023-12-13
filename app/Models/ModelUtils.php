@@ -96,7 +96,7 @@ class ModelUtils
 
 
 
-            'tipe_permasalahan' => new KategorisResource($request->kategori),
+            'kategori' => new KategorisResource($request->kategori),
             'status' => new StatusesResource($request->status),
             'satgas_pelapor' => $request->satgas_pelapor ? new UserResource($request->satgas_pelapor) : null,
             'previous_satgas' => $request->previous_satgas ? new UserResource($request->previous_satgas) : null,
