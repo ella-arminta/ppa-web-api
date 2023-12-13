@@ -83,6 +83,27 @@ class Laporans extends Model
             'status_rakk' => 'nullable|integer|in:0,1,2',
             'status_rrkk' => 'nullable|integer|in:0,1,2',
             'status_lintas_opd' => 'nullable|integer|in:0,1,2',
+
+            'updated_at_keluarga' => 'nullable|date_format:Y-m-d H:i:s',
+            'updated_at_detail_klien' => 'nullable|date_format:Y-m-d H:i:s',
+            'updated_at_pelaku' => 'nullable|date_format:Y-m-d H:i:s',
+            'updated_at_situasi_keluarga' => 'nullable|date_format:Y-m-d H:i:s',
+            'updated_at_kronologi' => 'nullable|date_format:Y-m-d H:i:s',
+            'updated_at_kondisi_klien' => 'nullable|date_format:Y-m-d H:i:s',
+            'updated_at_langkah_telah_dilakukan' => 'nullable|date_format:Y-m-d H:i:s',
+            'updated_at_rakk' => 'nullable|date_format:Y-m-d H:i:s',
+            'updated_at_rrkk' => 'nullable|date_format:Y-m-d H:i:s',
+            'updated_at_lintas_opd' => 'nullable|date_format:Y-m-d H:i:s',
+            'updated_by_keluarga' => 'nullable|exists:users,id',
+            'updated_by_detail_klien' => 'nullable|exists:users,id',
+            'updated_by_pelaku' => 'nullable|exists:users,id',
+            'updated_by_situasi_keluarga' => 'nullable|exists:users,id',
+            'updated_by_kronologi' => 'nullable|exists:users,id',
+            'updated_by_kondisi_klien' => 'nullable|exists:users,id',
+            'updated_by_langkah_telah_dilakukan' => 'nullable|exists:users,id',
+            'updated_by_rakk' => 'nullable|exists:users,id',
+            'updated_by_rrkk' => 'nullable|exists:users,id',
+            'updated_by_lintas_opd' => 'nullable|exists:users,id',
         ];
         return ModelUtils::rulesPatch($rules);
     }

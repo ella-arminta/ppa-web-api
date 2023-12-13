@@ -19,7 +19,7 @@ class PenangananAwalService extends BaseService
     */
     public function create($data) {
         if(isset($data['dokumen_pendukung'])){
-            $data['dokumen_pendukung'] = $this->uploadFile($data['dokumen_pendukung'], 'penanganan_awal/');
+            $data['dokumen_pendukung'] = $this->uploadFile($data['dokumen_pendukung'], 'penanganan_awal');
         }
 
         $data = $this->repository->create($data);
@@ -31,7 +31,7 @@ class PenangananAwalService extends BaseService
 
     public function update($id, $data) {
         if(isset($data['dokumen_pendukung']))
-            $data['dokumen_pendukung'] = $this->uploadFile($data['dokumen_pendukung'], 'penanganan_awal/');
+            $data['dokumen_pendukung'] = $this->uploadFile($data['dokumen_pendukung'], 'penanganan_awal');
         
         $data = $this->repository->update($id, $data);
         $data = new $this->resource($data);

@@ -96,7 +96,7 @@ class ModelUtils
 
 
 
-            'kategori' => new KategorisResource($request->kategori),
+            'tipe_permasalahan' => new KategorisResource($request->kategori),
             'status' => new StatusesResource($request->status),
             'satgas_pelapor' => $request->satgas_pelapor ? new UserResource($request->satgas_pelapor) : null,
             'previous_satgas' => $request->previous_satgas ? new UserResource($request->previous_satgas) : null,
@@ -127,6 +127,27 @@ class ModelUtils
             'RAKK' => $request->RAKK ? new RAKKResource($request->RAKK) : null,
             'RRKK' => $request->RRKK ? new RRKKResource($request->RRKK) : null,
             'lintas_opd' => LintasOPDResource::collection($request->lintas_opd),
+
+            'updated_at_keluarga' => $request->updated_at_keluarga,
+            'updated_at_detail_klien' => $request->updated_at_detail_klien,
+            'updated_at_pelaku' => $request->updated_at_pelaku,
+            'updated_at_situasi_keluarga' => $request->updated_at_situasi_keluarga,
+            'updated_at_kronologi' => $request->updated_at_kronologi,
+            'updated_at_kondisi_klien' => $request->updated_at_kondisi_klien,
+            'updated_at_langkah_telah_dilakukan' => $request->updated_at_langkah_telah_dilakukan,
+            'updated_at_rakk' => $request->updated_at_rakk,
+            'updated_at_rrkk' => $request->updated_at_rrkk,
+            'updated_at_lintas_opd' => $request->updated_at_lintas_opd,
+            'updated_by_keluarga' => $request->updated_by_keluarga,
+            'updated_by_detail_klien' => $request->updated_by_detail_klien ,
+            'updated_by_pelaku' => $request->updated_by_pelaku ,
+            'updated_by_situasi_keluarga' => $request->updated_by_situasi_keluarga ,
+            'updated_by_kronologi' => $request->updated_by_kronologi ,
+            'updated_by_kondisi_klien' => $request->updated_by_kondisi_klien ,
+            'updated_by_langkah_telah_dilakukan' => $request->updated_by_langkah_telah_dilakukan ,
+            'updated_by_rakk' => $request->updated_by_rakk ,
+            'updated_by_rrkk' => $request->updated_by_rrkk ,
+            'updated_by_lintas_opd' => $request->updated_by_lintas_opd,
         ];
     }
 }
