@@ -42,17 +42,17 @@ class BaseController extends Controller
     {
         // validate
         // $this->validate($request, $this->model->rules());
-        // if($request->has('id')){
-        //     $this->validateRequestPatch($request->all(), $this->model);
-        //     $data = $this->service->update($request->id, $request->all());
-        // }
-        // else
-        // {
+        if($request->has('id')){
+            $this->validateRequestPatch($request->all(), $this->model);
+            $data = $this->service->update($request->id, $request->all());
+        }
+        else
+        {
             $this->validateRequest($request->all(), $this->model);
     
             // store
             $data = $this->service->create($request->all());
-        // }
+        }
 
         // return
         return $this->success($data, HttpResponseCode::HTTP_CREATED);
