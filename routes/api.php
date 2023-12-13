@@ -75,7 +75,8 @@ Route::middleware(['cors'])->group(function () {
         Route::get('/laporans/{laporan_id}/keluarga-kliens',[KeluargaKlienController::class,'getByLaporanId']);
         Route::get('/laporans/{laporan_id}/penjadwalans',[PenjadwalanController::class,'getByLaporanId']);
         Route::get('/laporans/{laporan_id}/langkah-telah-dilakukans',[PenjadwalanController::class,'getByLaporanId']);
-
+        Route::get('/laporans/{laporan_id}/lintas-o-p-ds',[PenjadwalanController::class,'getByLaporanId']);
+    
         Route::get('/laporans/{laporan_id}/cetak',[LaporansController::class,'cetakLaporan']);
     
         // set status penjangkauan untuk semua data penjangkauan yang tersedia
