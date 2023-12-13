@@ -144,6 +144,7 @@ class DetailKlien extends Model
             'pendidikan_jurusan' => $request->pendidikan_jurusan,
             'pendidikan_thn_lulus' => $request->pendidikan_thn_lulus,
             'satgas' => $request->satgas ? new UserResource($request->satgas) : null,
+            'jenis_kelamin' => $request->laporans ? $request->laporans->jenis_kelamin : null,
         ]);
     }
 

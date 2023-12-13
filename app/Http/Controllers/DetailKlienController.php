@@ -49,6 +49,12 @@ class DetailKlienController extends BaseController
                 'alamat_klien' => $request->alamat_klien
             ]);
         }
+        // jenis kelamin
+        if($request->has('jenis_kelamin')){
+            $laporan->service()->update($request->laporan_id, [
+                'jenis_kelamin' => $request->jenis_kelamin
+            ]);
+        }
 
         // return
         return $this->success($data, HttpResponseCode::HTTP_CREATED);
@@ -63,24 +69,32 @@ class DetailKlienController extends BaseController
 
         //update
         $data = $this->service->update($id, $request->all());
-
-        $laporan = new Laporans();
-        
-        if($request->has('nama_klien')){
-            $laporan->service()->update($request->laporan_id, [
-                'nama_klien' =>  $request->nama_klien
-            ]);
-        }
-        if($request->has('nik_klien')){
-            $laporan->service()->update($request->laporan_id, [
-                'nik_klien' => $request->nik_klien
-            ]);
-        }
-        // alamat domisili
-        if($request->has('alamat_klien')){
-            $laporan->service()->update($request->laporan_id, [
-                'alamat_klien' => $request->alamat_klien
-            ]);
+        $detailKlien = DetailKlien::findOrFail($id);
+        if($detailKlien){
+            $laporan = new Laporans();
+            if($request->has('nama_klien')){
+                $laporan->service()->update($detailKlien->laporan_id, [
+                    'nama_klien' =>  $request->nama_klien
+                ]);
+            }
+            if($request->has('nik_klien')){
+                $laporan->service()->update($detailKlien->laporan_id, [
+                    'nik_klien' => $request->nik_klien
+                ]);
+            }
+            // alamat domisili
+            if($request->has('alamat_klien')){
+                $laporan->service()->update($detailKlien->laporan_id, [
+                    'alamat_klien' => $request->alamat_klien
+                ]);
+            }
+    
+            // jenis kelamin
+            if($request->has('jenis_kelamin')){
+                $laporan->service()->update($detailKlien->laporan_id, [
+                    'jenis_kelamin' => $request->jenis_kelamin
+                ]);
+            }
         }
         
         //return
