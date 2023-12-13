@@ -45,10 +45,10 @@ return new class extends Migration
             $table->string('pendidikan_jurusan')->nullable();
             $table->string('pendidikan_thn_lulus')->nullable();
             $table->foreignUuid('satgas_id')
-            ->references('id')
-            ->on('users')
             ->nullable()
-            ->default(null);
+            ->default(null)
+            ->references('id')
+            ->on('users');
             $table->timestamps();
             $table->softDeletes();
         });

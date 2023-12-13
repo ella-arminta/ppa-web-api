@@ -19,37 +19,37 @@ return new class extends Migration
             $table->string('hubungan')->nullable();
             $table->string('usia')->nullable();
             $table->foreignUuid('satgas_id')
-            ->references('id')
-            ->on('users')
             ->nullable()
-            ->default(null);
+            ->default(null)
+            ->references('id')
+            ->on('users');
             $table->timestamps();
             $table->softDeletes();
             $table->string('nik')->nullable();
             $table->string('no_kk')->nullable();
             $table->foreignId('kota_lahir_id')
-            ->references('id')
-            ->on('kotas')
             ->nullable()
-            ->default(null);
+            ->default(null)
+            ->references('id')
+            ->on('kotas');
             $table->date('tanggal_lahir')->nullable();
             $table->enum('jenis_kelamin', ['L', 'P'])->nullable();
             $table->foreignId('agama_id')
-            ->references('id')
-            ->on('agamas')
             ->nullable()
-            ->default(null);
+            ->default(null)
+            ->references('id')
+            ->on('agamas');
             $table->foreignId('pendidikan_id')
-            ->references('id')
-            ->on('pendidikans')
             ->nullable()
-            ->default(null);
+            ->default(null)
+            ->references('id')
+            ->on('pendidikans');
             $table->string('pekerjaan')->nullable();
             $table->foreignId('status_perkawinan_id')
-            ->references('id')
-            ->on('status_perkawinans')
             ->nullable()
-            ->default(null);
+            ->default(null)
+            ->references('id')
+            ->on('status_perkawinans');
             $table->string('alamat_kk')->nullable();
             $table->string('alamat_domisili')->nullable();
             $table->string('kewarganegaraan')->nullable();

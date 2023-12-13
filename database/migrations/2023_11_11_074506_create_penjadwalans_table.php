@@ -15,10 +15,10 @@ return new class extends Migration
         Schema::create('penjadwalans', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('laporan_id')
-                ->references('id')
-                ->on('laporans')
                 ->nullable()
-                ->default(null);
+                ->default(null)
+                ->references('id')
+                ->on('laporans');
             $table->dateTime('tanggal_jam');
             $table->string('tempat');
             $table->string('alamat');

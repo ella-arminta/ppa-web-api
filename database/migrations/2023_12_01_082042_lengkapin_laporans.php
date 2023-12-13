@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('nomor_register')->nullable();
             $table->timestamp('tanggal_penjangkauan')->nullable();
             $table->foreignId('kota_id_pelapor')
-                ->references('id')
-                ->on('kotas')
                 ->nullable()
-                ->default(null);
+                ->default(null)
+                ->references('id')
+                ->on('kotas');
         });
     }
 

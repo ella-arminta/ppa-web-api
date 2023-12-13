@@ -181,6 +181,11 @@ class LaporansService extends BaseService
         ] */
         $data = [];
         $rws = $this->repository->getRw();
+        for ($i=0; $i < count($rws); $i++) { 
+            $rws[$i]['rw'] =(int) ltrim($rws[$i]['rw'], '0') ?: '0';
+        }
+        $rws = $rws->sortBy('rw')->values();
+        
         $kategoris = Kategoris::all();
 
         foreach ($kategoris as $kategori) {

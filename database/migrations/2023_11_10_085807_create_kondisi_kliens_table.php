@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('sosial')->nullable();
             $table->string('spiritual')->nullable();
             $table->foreignUuid('satgas_id')
-            ->references('id')
-            ->on('users')
             ->nullable()
-            ->default(null);
+            ->default(null)
+            ->references('id')
+            ->on('users');
             $table->timestamps();
             $table->softDeletes();
         });

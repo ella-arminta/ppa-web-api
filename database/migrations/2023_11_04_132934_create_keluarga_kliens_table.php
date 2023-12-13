@@ -21,10 +21,10 @@ return new class extends Migration
             $table->string('nama_lengkap');
             $table->string('no_telp')->nullable();
             $table->foreignUuid('satgas_id')
-            ->references('id')
-            ->on('users')
             ->nullable()
-            ->default(null);
+            ->default(null)
+            ->references('id')
+            ->on('users');
             $table->string('nik')->nullable();
             $table->string('alamat_kk')->nullable();
             $table->string('pekerjaan')->nullable();

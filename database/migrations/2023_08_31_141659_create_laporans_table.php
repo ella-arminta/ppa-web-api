@@ -34,19 +34,19 @@ return new class extends Migration
             ->nullable();
             $table->char('jenis_kelamin', 1)->nullable();
             $table->foreignUuid('satgas_pelapor_id')
-                ->references('id')
-                ->on('users')
                 ->nullable()
-                ->default(null);
+                ->default(null)
+                ->references('id')
+                ->on('users');
             $table->foreignUuid('previous_satgas_id')
-                ->references('id')
-                ->on('users')
                 ->nullable()
-                ->default(null);
+                ->default(null)
+                ->references('id')
+                ->on('users');
             $table->foreignIdFor('App\Models\Statuses', 'status_id')->default(1);
             $table->string('token', 8);
             $table->foreignIdFor('App\Models\Pendidikans', 'pendidikan_id')->nullable();
-            $table->foreignIdFor('App\Models\SumberPengaduan', 'sumber_pengaduan_id');
+            $table->foreignIdFor('App\Models\SumberPengaduan', 'sumber_pengaduan_id')->nullable();
             $table->longText('dokumentasi_pengaduan')->nullable();
             $table->longText('situasi_keluarga')->nullable();
             $table->longText('kronologi_kejadian')->nullable();
