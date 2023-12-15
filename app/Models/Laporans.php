@@ -65,7 +65,7 @@ class Laporans extends Model
             'sumber_pengaduan_id' => 'nullable|numeric|min:1|exists:sumber_pengaduans,id',
             'pendidikan_id' => 'nullable|numeric|min:1|exists:pendidikans,id',
             'dokumentasi_pengaduan' => 'nullable|array',
-            'dokumentasi_pengaduan.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'dokumentasi_pengaduan.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
             'situasi_keluarga' => 'nullable|string',
             'kronologi_kejadian' => 'nullable|string',
             'harapan_klien_dan_keluarga' => 'nullable|string',
@@ -298,8 +298,11 @@ class Laporans extends Model
     }
 
     public function scopeKlien($query, $value=null) {
-        $result = $query->whereRaw('LOWER(nama_klien) LIKE ?', ["%".strtolower($value)."%"])
-        ->orWhereRaw('LOWER(nama_pelapor) LIKE ?', ["%".strtolower($value)."%"]);
+        $result = $query
+        ->whereRaw('LOWER(nama_klien) LIKE ?', ["%".strtolower($value)."%"])
+        ->orWhereRaw('LOWER(nama_pelapor) LIKE ?', ["%".strtolower($value)."%"])
+        ->orWhereRaw('LOWER(nik_pelapor) LIKE ?', ["%".strtolower($value)."%"])
+        ->orWhereRaw('LOWER(nik_klien) LIKE ?', ["%".strtolower($value)."%"]);
 
         return $result;
     }

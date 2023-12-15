@@ -41,7 +41,7 @@ class PenangananAwal extends Model
             'tanggal_penanganan_awal' => 'required|date_format:Y-m-d H:i:s',
             'hasil' => 'required|string',
             'dokumen_pendukung' => 'nullable|array',
-            'dokumen_pendukung.*.file' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf,svg|max:2048'
+            'dokumen_pendukung.*.file' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf,svg|max:10240'
         ];
     }
 

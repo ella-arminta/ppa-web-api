@@ -45,7 +45,7 @@ class LintasOPD extends Model
             'pelayanan_diberikan' => 'nullable|string',
             'deskripsi_pelayanan' => 'nullable|string',
             'dokumentasi' => 'nullable|array',
-            'dokumentasi.*.file' => 'nullable|file|max:2048'
+            'dokumentasi.*.file' => 'nullable|file|max:10240'
         ];
     }
 
@@ -59,7 +59,7 @@ class LintasOPD extends Model
             'pelayanan_diberikan' => 'nullable|string',
             'deskripsi_pelayanan' => 'nullable|string',
             'dokumentasi' => 'nullable|array',
-            'dokumentasi.*.file' => 'nullable|file|max:2048'
+            'dokumentasi.*.file' => 'nullable|file|max:10240'
         ];
     }
 

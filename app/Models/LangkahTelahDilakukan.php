@@ -42,7 +42,7 @@ class LangkahTelahDilakukan extends Model
             'pelayanan_yang_diberikan' => 'required|string',
             'deskripsi' => 'required|string',
             'dokumen_pendukung' => 'nullable|array',
-            'dokumen_pendukung.*.file' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf,svg|max:2048'
+            'dokumen_pendukung.*.file' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf,svg|max:10240'
         ];
     }
 
@@ -55,7 +55,7 @@ class LangkahTelahDilakukan extends Model
             'pelayanan_yang_diberikan' => 'nullable|string',
             'deskripsi' => 'nullable|string',
             'dokumen_pendukung' => 'nullable|array',
-            'dokumen_pendukung.*.file' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf,svg|max:2048'
+            'dokumen_pendukung.*.file' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf,svg|max:10240'
         ];
     }
 

@@ -40,7 +40,7 @@ class RAKK extends Model
             'kebutuhan' => 'required|string|in:Kesehatan,Pendidikan,Ekonomi,Hukum',
             'deskripsi' => 'required|string',
             'dokumen_pendukung' => 'nullable|array',
-            'dokumen_pendukung.*.file' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf,svg|max:2048'
+            'dokumen_pendukung.*.file' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf,svg|max:10240'
         ];
     }
 
@@ -52,7 +52,7 @@ class RAKK extends Model
             'kebutuhan' => 'nullable|string',
             'deskripsi' => 'nullable|string',
             'dokumen_pendukung' => 'nullable|array',
-            'dokumen_pendukung.*.file' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf,svg|max:2048'
+            'dokumen_pendukung.*.file' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf,svg|max:10240'
         ];
     }
 

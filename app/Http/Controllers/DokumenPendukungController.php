@@ -30,7 +30,7 @@ class DokumenPendukungController extends BaseController
             [
                 'laporan_id' => 'required|exists:laporans,id',
                 'dokumen_pendukung' => 'required|array',
-                'dokumen_pendukung.*.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+                'dokumen_pendukung.*.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
             ], 
             [
                 'laporan_id.required' => 'Laporan tidak boleh kosong',

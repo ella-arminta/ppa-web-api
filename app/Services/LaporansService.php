@@ -223,7 +223,7 @@ class LaporansService extends BaseService
         $detailKlien = $detailKlien->repository()->getByLaporanId($laporan_id);
         $kasus = new DetailKasus();
         $kasus = $kasus->repository()->getByLaporanId($laporan_id);
-        if($kasus){
+        if(count($kasus) > 0){
             $kasus = $kasus[0];
         }
         $langkah_telah_dilakukan = new LangkahTelahDilakukan();
@@ -265,70 +265,70 @@ class LaporansService extends BaseService
         foreach ($lintasOpd as $lintas) {
             $ResourceLintasOpd[] = new LintasOPDResource($lintas);
         }
-        return ModelUtils::filterNullValues([
-            'nomor_register' => $laporan->nomor_register,
+        return [
+            'nomor_register' => isset($laporan->nomor_register) ? $laporan->nomor_register : null,
             'pengaduan' => [
-                    'hari' => Carbon::parse($laporan->created_at)->format('l'),
-                    'tanggal' => Carbon::parse($laporan->created_at)->format('d/m/Y'),
-                    'waktu' => Carbon::parse($laporan->created_at)->format('H:i'),
-                    'sumber_aduan' => $laporan->sumber_pengaduan,
+                    'hari' => isset($laporan->created_at) ? Carbon::parse($laporan->created_at)->format('l') : null,
+                    'tanggal' =>isset($laporan->created_at) ? Carbon::parse($laporan->created_at)->format('d/m/Y') : null,
+                    'waktu' =>isset($laporan->created_at) ? Carbon::parse($laporan->created_at)->format('H:i') : null,
+                    'sumber_aduan' =>isset($laporan->sumber_pengaduan) ? $laporan->sumber_pengaduan : null,
             ],
             'petugas' => [
-                'nama' => $laporan->satgas_pelapor->nama,
-                'no_hp' => $laporan->satgas_pelapor->no_telp,
+                'nama' => isset($laporan->satgas_pelapor) && isset($laporan->satgas_pelapor->nama) ? $laporan->satgas_pelapor->nama : null,
+                'no_hp' => isset($laporan->satgas_pelapor) && isset($laporan->satgas_pelapor->no_telp) ?  $laporan->satgas_pelapor->no_telp : null,
             ],
             'petugas2' => [
-                'nama' => $laporan->previous_satgas->nama,
-                'no_hp' => $laporan->previous_satgas->no_telp,
+                'nama' => isset($laporan->previous_satgas) && isset($laporan->previous_satgas->nama) ? $laporan->previous_satgas->nama : null,
+                'no_hp' => isset($laporan->previous_satgas) && isset($laporan->previous_satgas->no_telp) ? $laporan->previous_satgas->no_telp : null,
             ],
-            'penanganan_awal' => count($penanganan_awal) > 0 ?
+            'penanganan_awal' =>isset($penanganan_awal) && count($penanganan_awal) > 0 ?
             [
                 'hari' => Carbon::parse($penanganan_awal[0]->tanggal_penanganan_awal)->format('l'),
                 'tanggal' => Carbon::parse($penanganan_awal[0]->tanggal_penanganan_awal)->format('d/m/Y'),
                 'waktu' => Carbon::parse($penanganan_awal[0]->tanggal_penanganan_awal)->format('H:i'),
             ] :  null,
             'tanggal_penjangkauan' => [
-                'hari' => Carbon::parse($laporan->tanggal_penjangkauan)->format('l'),
-                'tanggal' => Carbon::parse($laporan->tanggal_penjangkauan)->format('d/m/Y'),
-                'waktu' => Carbon::parse($laporan->tanggal_penjangkauan)->format('H:i'),
+                'hari' =>isset($laporan->tanggal_penjangkauan) ? Carbon::parse($laporan->tanggal_penjangkauan)->format('l') : null,
+                'tanggal' => isset($laporan->tanggal_penjangkauan) ? Carbon::parse($laporan->tanggal_penjangkauan)->format('d/m/Y') : null,
+                'waktu' => isset($laporan->tanggal_penjangkauan) ? Carbon::parse($laporan->tanggal_penjangkauan)->format('H:i') : null,
             ],
             'data_pelapor' => [
-                'nama_lengkap' => $laporan->nama_pelapor,
-                'nik' => $laporan->nik_pelapor,
-                'alamat_domisili' => $laporan->alamat_pelapor,
-                'kota' => $laporan->kota_pelapor->nama,
-                'no_telp' => $laporan->no_telp_pelapor,
+                'nama_lengkap' =>isset($laporan->nama_pelapor) ? $laporan->nama_pelapor : null,
+                'nik' => isset($laporan->nik_pelapor) ? $laporan->nik_pelapor : null,
+                'alamat_domisili' => isset($laporan->alamat_pelapor) ? $laporan->alamat_pelapor : null,
+                'kota' => isset($laporan->kota_pelapor) && isset($laporan->kota_pelapor->nama) ? $laporan->kota_pelapor->nama : null,
+                'no_telp' =>isset($laporan->no_telp_pelapor) ? $laporan->no_telp_pelapor : null,
             ],
             'data_klien' => [
-                'nama_lengkap' => $laporan->nama_klien,
-                'nik' => $laporan->nik_klien,
-                'no_kk' => $laporan->detail_klien ? $laporan->detail_klien->no_kk : null,
-                'ttl' => $detailKlien ? $detailKlien->kota_lahir->nama . ', '. Carbon::parse($detailKlien->tanggal_lahir)->format('d F Y') : null,
-                'usia' => $laporan->usia . ' Tahun',
-                'jenis_kelamin' => $laporan->jenis_kelamin == 'P' ? 'Perempuan' : 'Laki-laki',
-                'agama' => $detailKlien ? $detailKlien->agama->nama : null,
-                'pendidikan_terakhir' => $laporan->pendidikan->nama,
-                'pekerjaan' => $detailKlien ? $detailKlien->pekerjaan->nama : null,
-                'status_pernikahan' => $detailKlien ? $detailKlien->status_perkawinan->nama : null,
-                'alamat_kk' => $laporan->detail_klien ? $laporan->detail_klien->alamat_kk : null,
-                'alamat_domisili' => $laporan->alamat_klien,
-                'no_telp' => $laporan->no_telp_klien,
+                'nama_lengkap' => isset($laporan->nama_klien) ? $laporan->nama_klien : null,
+                'nik' => isset($laporan->nik_klien) ? $laporan->nik_klien : null,
+                'no_kk' => isset($laporan->detail_klien) ? $laporan->detail_klien->no_kk : null,
+                'ttl' => $detailKlien && isset($detailKlien->kota_lahir) && isset($detailKlien->kota_lahir->nama) ? $detailKlien->kota_lahir->nama . ', '. Carbon::parse($detailKlien->tanggal_lahir)->format('d F Y')  : null,
+                'usia' => isset($laporan->usia) ? $laporan->usia . ' Tahun' : null,
+                'jenis_kelamin' => isset($laporan->jenis_kelamin) ? ($laporan->jenis_kelamin == 'P' ? 'Perempuan' : 'Laki-laki') : null,
+                'agama' => $detailKlien && isset($detailKlien->agama) && isset($detailKlien->agama->nama) ? $detailKlien->agama->nama : null,
+                'pendidikan_terakhir' =>isset($laporan->pendidikan) && isset($laporan->pendidikan->nama) ? $laporan->pendidikan->nama : null,
+                'pekerjaan' => $detailKlien && isset($detailKlien->pekerjaan) && isset($detailKlien->pekerjaan->nama) ? $detailKlien->pekerjaan->nama : null,
+                'status_pernikahan' => $detailKlien && isset($detailKlien->status_perkawinan)&& isset($detailKlien->status_perkawinan->nama) ? $detailKlien->status_perkawinan->nama : null,
+                'alamat_kk' => isset($laporan->detail_klien) && isset($laporan->detail_klien->alamat_kk) ? $laporan->detail_klien->alamat_kk : null,
+                'alamat_domisili' =>isset($laporan->alamat_klien) ? $laporan->alamat_klien : null,
+                'no_telp' =>isset($laporan->no_telp_klien) ? $laporan->no_telp_klien : null,
             ],
             'data_keluarga_klien' => $ResourceKeluargaKlien,
             'data_kasus' => [
-                'jenis_klien' => $detailKlien ? $detailKlien->jenis_klien : null,
-                'kategori_klien' => $detailKlien ? $detailKlien->kategori_klien : null,
-                'tipe_permasalahan' => $laporan->kategori->nama,
-                'kategori_kasus' => $kasus ?  $kasus->kategori_kasus->nama : null,
-                'jenis_kasus' => $kasus ? $kasus->jenis_kasus->nama : null,
-                'deskripsi_singkat_kasus' => $kasus ? $kasus->deskripsi : null,
-                'lokasi_kejadian' => $kasus ? $kasus->lokasi_kasus : null,
-                'tanggal_dan_waktu_kejadian' =>  $kasus ? Carbon::parse($kasus->tanggal_jam_kejadian)->isoFormat('D MMMM YYYY') . ', ' . Carbon::parse($kasus->tanggal_jam_kejadian)->format('H:i') . ' ' . Carbon::parse($kasus->tanggal_jam_kejadian)->tzName : null
+                'jenis_klien' => $detailKlien && isset($detailKlien->jenis_klien) ? $detailKlien->jenis_klien : null,
+                'kategori_klien' => $detailKlien && isset($detailKlien->kategori_klien) ? $detailKlien->kategori_klien : null,
+                'tipe_permasalahan' =>isset($laporan->kategori) && isset($laporan->kategori->nama)? $laporan->kategori->nama : null,
+                'kategori_kasus' => $kasus && isset($kasus->kategori_kasus) && isset($kasus->kategori_kasus->nama) ?  $kasus->kategori_kasus->nama : null,
+                'jenis_kasus' => $kasus && isset($kasus->jenis_kasus) && isset($kasus->jenis_kasus->nama) ? $kasus->jenis_kasus->nama : null,
+                'deskripsi_singkat_kasus' => $kasus && isset($kasus->deskripsi) ? $kasus->deskripsi : null,
+                'lokasi_kejadian' => $kasus && isset($kasus->lokasi_kasus) ? $kasus->lokasi_kasus : null,
+                'tanggal_dan_waktu_kejadian' =>  $kasus && isset($kasus->tanggal_jam_kejadian) ? Carbon::parse($kasus->tanggal_jam_kejadian)->isoFormat('D MMMM YYYY') . ', ' . Carbon::parse($kasus->tanggal_jam_kejadian)->format('H:i') . ' ' . Carbon::parse($kasus->tanggal_jam_kejadian)->tzName : null
             ],
-            'situasi_keluarga' => $laporan->situasi_keluarga,
-            'kronologi_kejadian' => $laporan->kronologi_kejadian,
-            'harapan_klien_dan_keluarga' => $laporan->harapan_klien_dan_keluarga,
-            'kondisi_klien' => $laporan->kondisi_klien ? [
+            'situasi_keluarga' => isset($laporan->situasi_keluarga) ? $laporan->situasi_keluarga : null,
+            'kronologi_kejadian' => isset($laporan->kronologi_kejadian) ? $laporan->kronologi_kejadian :null,
+            'harapan_klien_dan_keluarga' =>isset($laporan->harapan_klien_dan_keluarga) ? $laporan->harapan_klien_dan_keluarga :null,
+            'kondisi_klien' => isset($laporan->kondisi_klien) && $laporan->kondisi_klien ? [
                 'fisik' => $laporan->kondisi_klien->fisik,
                 'psikologis' => $laporan->kondisi_klien->psikologis,
                 'sosial' => $laporan->kondisi_klien->sosial,
@@ -340,6 +340,6 @@ class LaporansService extends BaseService
             'rencana_analisis_kebutuhan_klien' => $RAKK,
             'rencana_rujukan_kebutuhan_klien' => $RRKK,
             'langkah_yang_telah_dilakukan_lintas_opd' => $ResourceLintasOpd,
-        ]);
+        ];
     }
 }

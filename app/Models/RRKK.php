@@ -42,7 +42,7 @@ class RRKK extends Model
             'opd' => 'required|string|in:Surabaya',
             'layanan_yang_diberikan' => 'nullable|string',
             'dokumen_pendukung' => 'nullable|array',
-            'dokumen_pendukung.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:2048',
+            'dokumen_pendukung.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:10240',
         ];
     }
 
@@ -55,7 +55,7 @@ class RRKK extends Model
             'opd' => 'nullable|string|in:Surabaya',
             'layanan_yang_diberikan' => 'nullable|string',
             'dokumen_pendukung' => 'nullable|array',
-            'dokumen_pendukung.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:2048',
+            'dokumen_pendukung.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:10240',
         ];
     }
 
