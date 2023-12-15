@@ -293,7 +293,17 @@ class Laporans extends Model
             'langkah_telah_dilakukan',
             'RAKK',
             'RRKK',
-            'lintas_opd'
+            'lintas_opd',
+            'updated_by_keluargas',
+            'updated_by_detail_kliens',
+            'updated_by_pelakus',
+            'updated_by_situasi_keluargas' ,
+            'updated_by_kronologis'  ,
+            'updated_by_kondisi_kliens'  ,
+            'updated_by_langkah_telah_dilakukans'  ,
+            'updated_by_rakks' ,
+            'updated_by_rrkks' ,
+            'updated_by_lintas_opds' ,
         ];
     }
 
@@ -414,5 +424,45 @@ class Laporans extends Model
 
     public function lintas_opd(){
         return $this->hasMany('App\Models\LintasOPD','laporan_id','id');
+    }
+
+    public function updated_by_keluargas(){
+        return $this->belongsTo('App\Models\User','updated_by_keluarga','id');
+    }
+
+    public function updated_by_detail_kliens(){
+        return $this->belongsTo('App\Models\User','updated_by_detail_klien','id');
+    }
+    
+    public function updated_by_pelakus(){
+        return $this->belongsTo('App\Models\User','updated_by_pelaku','id');
+    }
+
+    public function updated_by_situasi_keluargas(){
+        return $this->belongsTo('App\Models\User','updated_by_situasi_keluarga','id');
+    }
+
+    public function updated_by_kronologis(){
+        return $this->belongsTo('App\Models\User','updated_by_kronologi','id');
+    }
+
+    public function updated_by_kondisi_kliens(){
+        return $this->belongsTo('App\Models\User','updated_by_kondisi_klien','id');
+    }
+
+    public function updated_by_langkah_telah_dilakukans(){
+        return $this->belongsTo('App\Models\User','updated_by_langkah_telah_dilakukan','id');
+    }
+
+    public function updated_by_rakks(){
+        return $this->belongsTo('App\Models\User','updated_by_rakk','id');
+    }
+
+    public function updated_by_rrkks(){
+        return $this->belongsTo('App\Models\User','updated_by_rrkk','id');
+    }
+
+    public function updated_by_lintas_opds(){
+        return $this->belongsTo('App\Models\User','updated_by_lintas_opd','id');
     }
 }
