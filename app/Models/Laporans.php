@@ -94,6 +94,8 @@ class Laporans extends Model
             'updated_at_rakk' => 'nullable|date_format:Y-m-d H:i:s',
             'updated_at_rrkk' => 'nullable|date_format:Y-m-d H:i:s',
             'updated_at_lintas_opd' => 'nullable|date_format:Y-m-d H:i:s',
+            'updated_at_harapan' => 'nullable|date_format:Y-m-d H:i:s',
+            'updated_at_dokumen_pendukung' => 'nullable|date_format:Y-m-d H:i:s',
             'updated_by_keluarga' => 'nullable|exists:users,id',
             'updated_by_detail_klien' => 'nullable|exists:users,id',
             'updated_by_pelaku' => 'nullable|exists:users,id',
@@ -104,6 +106,8 @@ class Laporans extends Model
             'updated_by_rakk' => 'nullable|exists:users,id',
             'updated_by_rrkk' => 'nullable|exists:users,id',
             'updated_by_lintas_opd' => 'nullable|exists:users,id',
+            'updated_by_harapan' => 'nullable|exists:users,id',
+            'updated_by_dokumen_pendukung' => 'nullable|exists:users,id',
         ];
         return ModelUtils::rulesPatch($rules);
     }
@@ -304,6 +308,8 @@ class Laporans extends Model
             'updated_by_rakks' ,
             'updated_by_rrkks' ,
             'updated_by_lintas_opds' ,
+            'updated_by_harapans',
+            'updated_by_dokumen_pendukungs'
         ];
     }
 
@@ -464,5 +470,13 @@ class Laporans extends Model
 
     public function updated_by_lintas_opds(){
         return $this->belongsTo('App\Models\User','updated_by_lintas_opd','id');
+    }
+
+    public function updated_by_harapans(){
+        return $this->belongsTo('App\Models\User','updated_by_harapan','id');
+    }
+
+    public function updated_by_dokumen_pendukungs(){
+        return $this->belongsTo('App\Models\User','updated_by_dokumen_pendukung','id');
     }
 }

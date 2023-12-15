@@ -136,6 +136,8 @@ class ModelUtils
             'updated_at_rakk' => $request->updated_at_rakk,
             'updated_at_rrkk' => $request->updated_at_rrkk,
             'updated_at_lintas_opd' => $request->updated_at_lintas_opd,
+            'updated_at_harapan' => $request->updated_at_harapan,
+            'updated_at_dokumen_pendukung' => $request->updated_at_dokumen_pendukung,
             'updated_by_keluarga' => $request->updated_by_keluargas ? new UserResource($request->updated_by_keluargas) : null,
             'updated_by_detail_klien' => $request->updated_by_detail_kliens ? new UserResource($request->updated_by_detail_kliens) : null,
             'updated_by_pelaku' => $request->updated_by_pelakus ? new UserResource($request->updated_by_pelakus) : null,
@@ -146,6 +148,8 @@ class ModelUtils
             'updated_by_rakk' => $request->updated_by_rakks ? new UserResource($request->updated_by_rakks) : null,
             'updated_by_rrkk' => $request->updated_by_rrkks ? new UserResource($request->updated_by_rrkks) : null,
             'updated_by_lintas_opd' => $request->updated_by_lintas_opds ? new UserResource($request->updated_by_lintas_opds) : null,
+            'updated_by_harapan' => $request->updated_by_harapans ? new UserResource($request->updated_by_harapans) : null,
+            'updated_by_dokumen_pendukung' => $request->updated_by_dokumen_pendukungs ? new UserResource($request->updated_by_dokumen_pendukungs) : null,
         ];
     }
 }
