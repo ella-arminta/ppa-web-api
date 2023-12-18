@@ -123,6 +123,34 @@ class Pelaku extends Model
         ]);
     }
 
+    public function resourceDataCetak($request)
+    {
+
+        // $usia = $request->tanggal_lahir ? Carbon::parse($request->tanggal_lahir)->age : null;
+        return [
+            'id' => $request->id,
+            'laporan_id' => $request->laporan_id,
+            'nama_lengkap' => $request->nama_lengkap,
+            'hubungan' => $request->hubungan,
+            'usia' => $request->usia,
+            'satgas' => $request->satgas ? new UserResource($request->satgas) : null,
+            'nik' => $request->nik,
+            'no_kk' => $request->no_kk,
+            'kota_lahir' => $request->kota_lahir ? new KotaResource($request->kota_lahir) : null,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'agama' => $request->agama ? new AgamaResource($request->agama) : null,
+            'pendidikan' => $request->pendidikan ? new PendidikansResource($request->pendidikan) : null,
+            'pekerjaan' => $request->pekerjaan,
+            'status_perkawinan' => $request->status_perkawinan ? new StatusPerkawinanResource($request->status_perkawinan) : null,
+            'alamat_kk' => $request->alamat_kk,
+            'alamat_domisili' => $request->alamat_domisili,
+            'kewarganegaraan' => $request->kewarganegaraan,
+            'no_telp' => $request->no_telp,
+            'hubungan_dengan_klien' => $request->hubungan_dengan_klien,
+        ];
+    }
+
 
     /**
      * Controller associated with this model

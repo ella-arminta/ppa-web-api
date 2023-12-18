@@ -7,6 +7,7 @@ use App\Http\Resources\KeluargaKlienResource;
 use App\Http\Resources\LangkahTelahDilakukanResource;
 use App\Http\Resources\LaporansResource;
 use App\Http\Resources\LintasOPDResource;
+use App\Http\Resources\PelakuCetakResource;
 use App\Http\Resources\PelakuResource;
 use App\Http\Resources\RAKKResource;
 use App\Http\Resources\RRKKResource;
@@ -243,7 +244,7 @@ class LaporansService extends BaseService
         $pelaku = $pelaku->repository()->getByLaporanId($laporan_id);
         $ResourcePelaku = [];
         foreach ($pelaku as $p) {
-            $ResourcePelaku = new PelakuResource($p);
+            $ResourcePelaku = new PelakuCetakResource($p);
         }
 
         $RAKK = new RAKK();
