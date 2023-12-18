@@ -119,7 +119,7 @@ class SumberPengaduan extends Model
     }
 
     public function laporans() {
-        return $this->hasMany(Laporan::class, 'sumber_pengaduan_id', 'id');
+        return $this->hasMany(Laporans::class, 'sumber_pengaduan_id', 'id');
     }
 
 }
