@@ -266,10 +266,30 @@ class LaporansService extends BaseService
         foreach ($lintasOpd as $lintas) {
             $ResourceLintasOpd[] = new LintasOPDResource($lintas);
         }
+
+        function getHariIndo($day){
+            if ($day == 'Sunday') {
+                return 'Minggu';
+            }elseif ($day == 'Monday') {
+                return 'Senin';
+            }elseif ($day == 'Tuesday') {
+                return 'Selasa';
+            }elseif ($day == 'Wednesday') {
+                return 'Rabu';
+            }elseif ($day == 'Thursday') {
+                return 'Kamis';
+            }elseif ($day == 'Friday') {
+                return 'Jumat';
+            }elseif ($day == 'Saturday') {
+                return 'Sabtu';
+            }else{
+                return '-';
+            }
+        }
         return [
             'nomor_register' => isset($laporan->nomor_register) ? $laporan->nomor_register : null,
             'pengaduan' => [
-                    'hari' => isset($laporan->created_at) ? Carbon::parse($laporan->created_at)->format('l') : null,
+                    'hari' => isset($laporan->created_at) ? getHariIndo(Carbon::parse($laporan->created_at)->format('l')) : null,
                     'tanggal' =>isset($laporan->created_at) ? Carbon::parse($laporan->created_at)->format('d/m/Y') : null,
                     'waktu' =>isset($laporan->created_at) ? Carbon::parse($laporan->created_at)->format('H:i') : null,
                     'sumber_aduan' =>isset($laporan->sumber_pengaduan) ? $laporan->sumber_pengaduan : null,
@@ -284,12 +304,12 @@ class LaporansService extends BaseService
             ],
             'penanganan_awal' =>isset($penanganan_awal) && count($penanganan_awal) > 0 ?
             [
-                'hari' => Carbon::parse($penanganan_awal[0]->tanggal_penanganan_awal)->format('l'),
+                'hari' => getHariIndo(Carbon::parse($penanganan_awal[0]->tanggal_penanganan_awal)->format('l')),
                 'tanggal' => Carbon::parse($penanganan_awal[0]->tanggal_penanganan_awal)->format('d/m/Y'),
                 'waktu' => Carbon::parse($penanganan_awal[0]->tanggal_penanganan_awal)->format('H:i'),
             ] :  null,
             'tanggal_penjangkauan' => [
-                'hari' =>isset($laporan->tanggal_penjangkauan) ? Carbon::parse($laporan->tanggal_penjangkauan)->format('l') : null,
+                'hari' =>isset($laporan->tanggal_penjangkauan) ? getHariIndo(Carbon::parse($laporan->tanggal_penjangkauan)->format('l')) : null,
                 'tanggal' => isset($laporan->tanggal_penjangkauan) ? Carbon::parse($laporan->tanggal_penjangkauan)->format('d/m/Y') : null,
                 'waktu' => isset($laporan->tanggal_penjangkauan) ? Carbon::parse($laporan->tanggal_penjangkauan)->format('H:i') : null,
             ],

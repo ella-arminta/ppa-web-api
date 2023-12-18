@@ -34,9 +34,11 @@ class User extends Authenticatable
     protected $fillable = [
         'nama',
         'no_telp',
+        'username',
         'email',
         'password',
         'role_id',
+        'kelurahan_id'
     ];
 
     /**
@@ -70,10 +72,12 @@ class User extends Authenticatable
             ];
         }
         return [
-            'nama' => 'sometimes|required',
-            'no_telp' => 'sometimes|required',
-            'password' => 'sometimes|required',
-            'role_id' => 'sometimes|required',
+            'nama' => 'required',
+            'username' => 'required',
+            'no_telp' => 'required',
+            'password' => 'required',
+            'role_id' => 'required',
+            'kelurahan_id' => 'required',
         ];
     }
 
