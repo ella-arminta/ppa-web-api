@@ -10,7 +10,9 @@ use App\Http\Resources\LintasOPDResource;
 use App\Http\Resources\PelakuCetakResource;
 use App\Http\Resources\PelakuResource;
 use App\Http\Resources\RAKKResource;
+use App\Http\Resources\RAKKResourceCetak;
 use App\Http\Resources\RRKKResource;
+use App\Http\Resources\RRKKResourceCetak;
 use App\Models\DetailKasus;
 use App\Models\DetailKlien;
 use App\Models\DokumenPendukung;
@@ -251,14 +253,27 @@ class LaporansService extends BaseService
         $RAKK =
             count($RAKK->repository()->getByLaporanId($laporan_id)) > 0 ? 
                 new RAKKResource($RAKK->repository()->getByLaporanId($laporan_id)[0]) 
-                : null;
+                : [
+                    'laporan_id' => null,
+                    'id' => null,
+                    'kebutuhan' => null,
+                    'deskripsi' => null,
+                    'dokumen_pendukung' => null
+                ];
     
 
         $RRKK = new RRKK();
         $RRKK =
             count($RRKK->repository()->getByLaporanId($laporan_id)) > 0 ? 
                 new RRKKResource($RRKK->repository()->getByLaporanId($laporan_id)[0]) 
-                : null;
+                : [
+                    'laporan_id' => null,
+                    'id' => null,
+                    'kebutuhan' => null,
+                    'opd' => null,
+                    'layanan_yang_diberikan' => null,
+                    'dokumen_pendukung' => null,
+                ];
 
         $lintasOpd = new LintasOPD();
         $lintasOpd = $lintasOpd->repository()->getByLaporanId($laporan_id);
