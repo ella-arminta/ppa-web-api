@@ -56,7 +56,7 @@ class LaporansService extends BaseService
         $admin = User::where('role_id', 2)->first()->id;
         $data['satgas_pelapor_id'] = $admin;
         $data['previous_satgas_id'] = $admin;
-        // $data['kota_id_pelapor'] = 1;
+        $data['kota_id_pelapor'] = 1;
         // $data['rt'] = "1";
         // $data['rw'] = "1";
 

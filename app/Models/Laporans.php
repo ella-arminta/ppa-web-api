@@ -70,7 +70,6 @@ class Laporans extends Model
             'kronologi_kejadian' => 'nullable|string',
             'harapan_klien_dan_keluarga' => 'nullable|string',
             'satgas_pelapor_id' => 'nullable|exists:users,id',
-            'kota_id_pelapor' => 'required|exists:kotas,id',
             // 'langkah_telah_dilakukan' => 'nullable|string',
             'status_keluarga' => 'nullable|integer|in:0,1,2',
             'status_detail_klien' => 'nullable|integer|in:0,1,2',
