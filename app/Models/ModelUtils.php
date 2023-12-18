@@ -82,7 +82,7 @@ class ModelUtils
             'kronologi_kejadian' => $request->kronologi_kejadian,
             'harapan_klien_dan_keluarga' => $request->harapan_klien_dan_keluarga,
             'detail_kasus' => $request->detail_kasus ? new DetailKasusResource($request->detail_kasus) : null,
-            
+
             // Status Penjangkauan
             'status_detail_klien' => (int) $request->status_detail_klien,
             'status_keluarga' => (int) $request->status_keluarga,
@@ -111,7 +111,7 @@ class ModelUtils
             'pelaku' => $request->pelaku ?  new PelakuResource($request->pelaku) : null,
             'kondisi_klien' => $request->kondisi_klien ?  new KondisiKlienResource($request->kondisi_klien) : null,
             'penjadwalan' => $request->penjadwalan ? new PenjadwalanResource($request->penjadwalan) : null,
-            'dokumen_pendukung' => $request->dokumen_pendukung ? new DokumenPendukungResource($request->dokumen_pendukung) : null,
+            'dokumen_pendukung' => new DokumenPendukungResource($request->dokumen_pendukung),
             'nomor_register' => $request->nomor_register,
             'tanggal_penjangkauan' => $request->tanggal_penjangkauan,
             'kota_pelapor' => $request->kota_pelapor ? new KotaResource($request->kota_pelapor) : null,
