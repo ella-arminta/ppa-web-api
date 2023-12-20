@@ -24,9 +24,6 @@ class AuthController extends Controller
             $request->password
         );
 
-        if(isset($data['message'])){
-            return $this->error($data, HttpResponseCode::HTTP_UNAUTHORIZED);
-        }
         if(isset($data["token"])) {
             return $this->success($data, HttpResponseCode::HTTP_OK);
         }

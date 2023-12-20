@@ -21,8 +21,7 @@ trait AuthenticationUtil
             $user = Auth::user();
 
             if($user->is_active == 0){
-                $success['message'] = 'Akun anda tidak aktif, silahkan hubungi admin';
-                return $success;
+                return 'Akun anda tidak aktif, silahkan hubungi admin';
             }
             
             if($user->role->nama == 'Kelurahan'){
