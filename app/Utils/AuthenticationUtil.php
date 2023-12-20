@@ -19,19 +19,24 @@ trait AuthenticationUtil
             ]
         )) {
             $user = Auth::user();
+
+            if($user->is_active == 0){
+                $success['message'] = 'Akun anda tidak aktif, silahkan hubungi admin';
+                return $success;
+            }
             
             if($user->role->nama == 'Kelurahan'){
                 $abilities = ['superadmin'];
             }else if($user->role->nama == 'Satuan Tugas (Satgas)'){
                 $abilities = ['admin'];
             }
-
+            
             $success['token'] = $user->createToken($user->nama, $abilities)->plainTextToken;
             $success['id'] = $user->id;
             $success['name'] = $user->nama;
             $success['username'] = $user->username;
             $success['role'] = $user->role->nama;
-
+            
             return $success;
         }
         

@@ -124,7 +124,7 @@ class User extends Authenticatable
             'email' => $request->email,
             'role' => new RolesResource($request->role),
             'kelurahan' => new KelurahansResource($request->kelurahan),
-            'is_active' => $request->is_active,
+            'is_active' => (int) $request->is_active,
         ]);
     }
 
