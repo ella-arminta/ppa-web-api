@@ -38,7 +38,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
-        'kelurahan_id'
+        'kelurahan_id',
+        'is_active'
     ];
 
     /**
@@ -71,6 +72,16 @@ class User extends Authenticatable
                 'role_id' => 'sometimes|required',
             ];
         }
+        if (request()->isMethod('patch')) {
+            return [
+                'nama' => 'sometimes|required',
+                'username' => 'sometimes|required',
+                'no_telp' => 'sometimes|required',
+                'password' => 'sometimes|required',
+                'role_id' => 'sometimes|required',
+                'kelurahan_id' => 'sometimes|required',
+            ];
+        }
         return [
             'nama' => 'required',
             'username' => 'required',
@@ -78,6 +89,7 @@ class User extends Authenticatable
             'password' => 'required',
             'role_id' => 'required',
             'kelurahan_id' => 'required',
+            'is_active' => 'nullable|boolean'
         ];
     }
 
@@ -112,6 +124,7 @@ class User extends Authenticatable
             'email' => $request->email,
             'role' => new RolesResource($request->role),
             'kelurahan' => new KelurahansResource($request->kelurahan),
+            'is_active' => $request->is_active,
         ]);
     }
 
