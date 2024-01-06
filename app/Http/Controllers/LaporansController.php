@@ -142,7 +142,7 @@ class LaporansController extends BaseController
         if(!$request->has('kategori_id')){
             $request['kategori_id'] =  null;
         }
-        if($request->has('kategori_kasus_id')){
+        if(!$request->has('kategori_kasus_id')){
             $request['kategori_kasus_id'] =  null;
         }
         $data = $this->service->rekapTahunan($request->thn_awal,$request->thn_akhir, $request->kategori_id, $request->kategori_kasus_id);
