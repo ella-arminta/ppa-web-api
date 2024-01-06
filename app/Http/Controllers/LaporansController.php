@@ -171,6 +171,9 @@ class LaporansController extends BaseController
                 'kecamatan_id' => 'nullable|exists:kecamatans,id',
                 'pendidikan_id' => 'nullable|exists:pendidikans,id',
             ],
+            [
+                'periode_tanggal.in' => 'Periode tanggal hanya boleh : semua, bulanini, 3bulan, 1tahun, tanggal',
+            ]
         );
         
         if ($valid->fails()) {
