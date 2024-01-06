@@ -378,4 +378,107 @@ class LaporansService extends BaseService
             'langkah_yang_telah_dilakukan_lintas_opd' => $ResourceLintasOpd,
         ];
     }
+
+    public function rekapTahunan($thn_awal,$thn_akhir, $kategori_id = null, $kategori_kasus_id = null){
+        // $hasil =>  {
+        //     {
+        //         'tahun' : 2023
+                
+        //     },
+        //     {
+        //         'tahun'
+        //         'kategori_klien'
+        //     }
+        // }
+    }
+
+    public function rekapKasusKlien($data){
+        $filter_param = [];
+        $filter_related_param = [];
+
+        $filter_param[] = [
+            'status_id', 
+            '>=', 
+            2
+        ];
+        $filter_param[] = [
+            'status_id', 
+            '<=', 
+            3
+        ];
+        // tanggal_awal
+        if(isset($data['tgl_awal']) && $data['tgl_awal'] != null){
+            $tglAwal = Carbon::parse($data['tgl_awal']);
+            $filter_param[] = [
+                'tanggal_jam_pengaduan',
+                '>=',
+                $tglAwal->toDateString()
+            ];
+        }
+
+        // tanggal_akhir
+        if(isset($data['tgl_akhir']) && $data['tgl_akhir'] != null){
+            $tglAkhir = Carbon::parse($data['tgl_akhir']);
+            $tglAkhir->addDay(); // add 1 day
+            $filter_param[] = [
+                'tanggal_jam_pengaduan',
+                '<=',
+                $tglAkhir->toDateString()
+            ];
+        }
+        
+        // kategori_id
+        if(isset($data['kategori_id']) && $data['kategori_id'] != null){
+            $filter_param[] = [
+                'kategori_id',
+                '=',
+                $data['kategori_id']
+            ];
+        }
+        
+        // kategori_klien
+        if(isset($data['kategori_klien']) && $data['kategori_klien'] != null){
+            $filter_related_param[] = [
+                'detail_klien' => [
+                    'kategori_klien' => $data['kategori_klien']
+                ],
+            ];
+        }
+        
+        // kategori_kasus_klien_id
+        if(isset($data['kategori_kasus_klien_id']) && $data['kategori_kasus_klien_id'] != null){
+            $filter_related_param[] = [
+                'detail_kasus' => [
+                    'kategori_kasus_id' => $data['kategori_kasus_klien_id']
+                ],
+            ];
+        }
+
+        // kecamatan_id
+        if (isset($data['kecamatan_id']) && $data['kecamatan_id'] != null) {
+            $filter_related_param[] = [
+                'kelurahan.kecamatan' => [
+                    'kecamatan_id'=> $data['kecamatan_id']
+                ],
+            ];
+        }
+        
+        // pendidikan_id
+        if (isset($data['pendidikan_id']) && $data['pendidikan_id'] != null) {
+            $filter_param[] = [
+                'pendidikan_id',
+                '=',
+                $data['pendidikan_id']
+            ];
+        }
+        
+        $laporans = $this->repository->getAllWithParam($filter_param, $filter_related_param);
+        return $laporans;
+        $hasilData = [];
+        foreach ($laporans as $l) {
+            $hasilData[] = $this->cetakLaporan($l->id);
+        }
+        dd($hasilData);
+        return $hasilData;
+    }
 }

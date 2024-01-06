@@ -30,7 +30,7 @@ class DetailKlienSeeder extends Seeder
             'kota_lahir_id' => 1,
             'tanggal_lahir' => '2023-10-10',
             'agama_id' => 2,
-            'kategori_klien' => 'sdfsd',
+            'kategori_klien' => 'anak',
             'jenis_klien' => 'sdfa',
             'pekerjaan_id' => 1,
             'penghasilan_bulanan' => 1000,

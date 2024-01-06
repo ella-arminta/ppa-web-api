@@ -116,4 +116,87 @@ class LaporansController extends BaseController
         $data = $this->service->cetakLaporan($request->laporan_id);
         return $this->success($data, HttpResponseCode::HTTP_OK);
     }
+
+    public function rekapTahunan(Request $request){
+        $valid = Validator::make(
+            [
+                'thn_awal' => $request->thn_awal,
+                'thn_akhir' => $request->thn_akhir,
+                'kategori_id' => $request->kategori_id,
+                'kategori_kasus_id' => $request->kategori_kasus_id
+            ],
+            [
+                'thn_awal' => 'required|date_format:Y',
+                'thn_akhir' => 'required|date_format:Y|after:thn_awal',
+                'kategori_id' => 'nullable|exists:kategoris,id',
+                'kategori_kasus_id' => 'nullable|exists:kategori_kasuses,id'
+            ],
+            [
+                'kategori_id.exists' => 'Kategori adalah tipe permasalahan. Kategori id tidak ditemukan!',
+                'kategori_kasus_id.exists' => 'Kategori kasus id tidak ditemukan!',
+            ]
+        );
+        if ($valid->fails()) {
+            return $this->error($valid->errors()->first());
+        }
+        if(!$request->has('kategori_id')){
+            $request['kategori_id'] =  null;
+        }
+        if($request->has('kategori_kasus_id')){
+            $request['kategori_kasus_id'] =  null;
+        }
+        $data = $this->service->rekapTahunan($request->thn_awal,$request->thn_akhir, $request->kategori_id, $request->kategori_kasus_id);
+        return $this->success($data, HttpResponseCode::HTTP_OK);
+    }
+
+    public function rekapKasusKlien(Request $request){
+        $valid = Validator::make(
+            [
+                'periode_tanggal' => $request->periode_tanggal,
+                'tgl_awal' => $request->tgl_awal,
+                'tgl_akhir' => $request->tgl_akhir,
+                'kategori_id' => $request->kategori_id,
+                'kategori_klien' => $request->kategori_klien,
+                'kategori_kasus_klien_id' => $request->kategori_kasus_klien_id,
+                'kecamatan_id' => $request->kecamatan_id,
+                'pendidikan_id' => $request->pendidikan_id,
+            ],
+            [
+                'periode_tanggal' => 'required|in:semua,bulanini,3bulan,1tahun,tanggal',
+                'tgl_awal' => 'nullable|date',
+                'tgl_akhir' => 'nullable|date|after:tgl_awal',
+                'kategori_id' => 'nullable|exists:kategoris,id',
+                'kategori_klien' => 'nullable|string|in:anak,dewasa',
+                'kategori_kasus_klien_id' => 'nullable|exists:kategori_kasuses,id',
+                'kecamatan_id' => 'nullable|exists:kecamatans,id',
+                'pendidikan_id' => 'nullable|exists:pendidikans,id',
+            ],
+        );
+        
+        if ($valid->fails()) {
+            return $this->error($valid->errors()->first());
+        }
+        
+        $validatedData = $valid->validated();
+
+        if($validatedData['periode_tanggal'] == 'semua'){
+            $validatedData['tgl_awal'] = null;
+            $validatedData['tgl_akhir'] = null;
+        }else if($validatedData['periode_tanggal'] == 'bulanini'){
+            $validatedData['tgl_awal'] = date('Y-m-01');
+            $validatedData['tgl_akhir'] = date('Y-m-t');
+        }else if($validatedData['periode_tanggal'] == '3bulan'){
+            $validatedData['tgl_awal'] = date('Y-m-d', strtotime('-3 months'));
+            $validatedData['tgl_akhir'] = date('Y-m-d');
+        } else if($validatedData['periode_tanggal'] == '1tahun'){
+            $validatedData['tgl_awal'] = date('Y-m-d', strtotime('-1 year'));
+            $validatedData['tgl_akhir'] = date('Y-m-d');
+        } else if($validatedData['periode_tanggal'] == 'tanggal'){
+            $validatedData['tgl_awal'] = $validatedData['tgl_awal'];
+            $validatedData['tgl_akhir'] = $validatedData['tgl_akhir'];
+        }
+        
+        $data = $this->service->rekapKasusKlien($validatedData);
+        return $this->success($data, HttpResponseCode::HTTP_OK);
+    }
 }
