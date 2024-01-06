@@ -14,10 +14,22 @@ class KategoriKasusSeeder extends Seeder
     public function run(): void
     {
         KategoriKasus::create([
-            'nama' => 'Personal Problem'
+            'nama' => 'Non KDRT',
+            'kategori_id' => 2
         ]);
         KategoriKasus::create([
-            'nama' => 'Kekerasan'
+            'nama' => 'KDRT',
+            'kategori_id' => 2
+        ]);
+
+        KategoriKasus::create([
+            'nama' => 'Kesehatan',
+            'kategori_id' => 1
+        ]);
+
+        KategoriKasus::create([
+            'nama' => 'Pendidikan',
+            'kategori_id' => 1
         ]);
     }
 }

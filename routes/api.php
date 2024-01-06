@@ -88,7 +88,7 @@ Route::middleware(['cors'])->group(function () {
         // cetak & rekap
         Route::get('/laporans/{laporan_id}/cetak',[LaporansController::class,'cetakLaporan']);
         Route::get('/laporans-kasus-klien',[LaporansController::class,'rekapKasusKlien']);
-        Route::get('/laporans/rekap',[LaporansController::class,'rekapTahunan']);
+        Route::get('/laporans-rekap',[LaporansController::class,'rekapTahunan']);
 
         // set status penjangkauan untuk semua data penjangkauan yang tersedia
         Route::post('/laporans/{laporan_id}/status-penjangkauan',[LaporansController::class,'setStatusPenjangkauan']);

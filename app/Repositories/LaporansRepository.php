@@ -140,5 +140,31 @@ class LaporansRepository extends BaseRepository
                 ->get();
         return $data;
     }
+
+    public function getCountLaporan($thn, $tipe_permasalahan=null,$kategori_kasus=null,$jenis_kasus=null,$kategori_klien=null){
+        $query = $this->model
+        ->join('detail_kasuses as dk', 'laporans.id', '=', 'dk.laporan_id')
+        ->join('detail_kliens as klien', 'laporans.id', '=', 'klien.laporan_id')
+        ->whereRaw('YEAR(laporans.tanggal_jam_pengaduan) = ?', [$thn])
+        ->where('laporans.status_id', '>=', 2)
+        ->where('laporans.status_id', '<=', 3);
+
+        if ($tipe_permasalahan != null) {
+            $query->where('laporans.kategori_id', $tipe_permasalahan);
+        }
+        if ($kategori_kasus != null) {
+            $query->where('dk.kategori_kasus_id', $kategori_kasus);
+        }
+        if ($jenis_kasus != null) {
+            $query->where('dk.jenis_kasus_id', $jenis_kasus);
+        }
+        if ($kategori_klien != null) {
+            $query->where('klien.kategori_klien', $kategori_klien);
+        }
+        // return $query->get();
+        $count = $query->count();
+
+        return $count;
+    }
 }
 

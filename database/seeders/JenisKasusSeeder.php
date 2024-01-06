@@ -14,7 +14,36 @@ class JenisKasusSeeder extends Seeder
     public function run(): void
     {
         JenisKasus::create([
-            'nama' => 'Intra Personal'
+            'nama' => 'Pengobatan',
+            'kategori_kasus_id' => 3
+        ]);
+        JenisKasus::create([
+            'nama' => 'Pemeriksaan',
+            'kategori_kasus_id' => 3
+        ]);
+        JenisKasus::create([
+            'nama' => 'Putus Sekolah',
+            'kategori_kasus_id' => 4
+        ]);
+        JenisKasus::create([
+            'nama' => 'Fisik',
+            'kategori_kasus_id' => 2
+        ]);
+        JenisKasus::create([
+            'nama' => 'Psikis',
+            'kategori_kasus_id' => 2
+        ]);
+        JenisKasus::create([
+            'nama' => 'Fisik',
+            'kategori_kasus_id' => 1
+        ]);
+        JenisKasus::create([
+            'nama' => 'Psikis',
+            'kategori_kasus_id' => 1
+        ]);
+        JenisKasus::create([
+            'nama' => 'Seks',
+            'kategori_kasus_id' => 1
         ]);
     }
 }

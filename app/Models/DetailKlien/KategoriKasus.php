@@ -2,6 +2,7 @@
 
 namespace App\Models\DetailKlien;
 
+use App\Http\Resources\DetailKlien\JenisKasusResource;
 use App\Models\ModelUtils;
 use App\Repositories\DetailKlien\KategoriKasusRepository;
 use App\Services\DetailKlien\KategoriKasusService;
@@ -22,7 +23,8 @@ class KategoriKasus extends Model
      * @var array
      */
     protected $fillable = [
-        'nama'
+        'nama',
+        'kategori_id'
     ]; 
 
     /**
@@ -33,7 +35,8 @@ class KategoriKasus extends Model
     public static function validationRules()
     {
         return [
-            'nama' => 'required|string'
+            'nama' => 'required|string',
+            'kategori_id' => 'required|exists:kategoris,id'
         ];
     }
 
@@ -57,6 +60,8 @@ class KategoriKasus extends Model
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'nama' => $request->nama,
+            'kategori_id' => $request->kategori_id,
+            'jenis_kasus' => JenisKasusResource::collection($request->jenis_kasus)
         ]);
     }
 
@@ -111,7 +116,9 @@ class KategoriKasus extends Model
     public function relations()
     {
         return [
-            'detail_kasus'
+            'detail_kasus',
+            'jenis_kasus',
+            'kategori'
         ];
     }
 
@@ -120,4 +127,13 @@ class KategoriKasus extends Model
         return $this->hasMany('App\Models\DetailKasus', 'kategori_kasus_id','id');
     }
 
+    public function jenis_kasus()
+    {
+        return $this->hasMany('App\Models\DetailKlien\JenisKasus', 'kategori_kasus_id', 'id');
+    }
+
+    public function kategori()
+    {
+        return $this->belongsTo('App\Models\Kategoris', 'kategori_id', 'id');
+    }
 }

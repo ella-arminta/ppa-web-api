@@ -15,6 +15,8 @@ use App\Http\Resources\RRKKResource;
 use App\Http\Resources\RRKKResourceCetak;
 use App\Models\DetailKasus;
 use App\Models\DetailKlien;
+use App\Models\DetailKlien\JenisKasus;
+use App\Models\DetailKlien\KategoriKasus;
 use App\Models\DokumenPendukung;
 use App\Models\Kategoris;
 use App\Models\KeluargaKlien;
@@ -380,17 +382,87 @@ class LaporansService extends BaseService
     }
 
     public function rekapTahunan($thn_awal,$thn_akhir, $kategori_id = null, $kategori_kasus_id = null){
-        // $hasil =>  {
-        //     {
-        //         'tahun' : 2023
-                
-        //     },
-        //     {
-        //         'tahun'
-        //         'kategori_klien'
-        //     }
-        // }
+        $hasil = [
+            // ex. hasil
+            // '2023' => [
+            //     [
+            //         'tipe_permasalahan' => 'puspaga',
+            //         'id_tipe_permalahan' => 1,
+            //         'coutn_anak' => 2,
+            //         'count_dewasa' => 3,
+            //         'count_total' => 2,
+            //         'kategori_kasus' => [
+            //             [
+            //                 'kategori_kasus_id' => 1,
+            //                 'kategori_kasus_nama' => 'sdf',
+            //                 'count_anak' => 2,
+            //                 'count_dewasa' => 3,
+            //                 'count_total' => 1,
+            //                 'jenis_kasus' => [
+            //                     [
+            //                         'nama_jenis_kasus_id' => '',
+            //                         'jenis_kasus_nama' => '',
+            //                         'count_anak' => 1,
+            //                         'count_dewasa' => 2,
+            //                         'count_total' => 3
+            //                     ]
+            //                 ]
+            //             ],
+            //             [
+
+            //             ]
+            //         ]
+            //     ]
+            // ]
+        ];
+        for ($thn=$thn_awal; $thn <= $thn_akhir; $thn++) { 
+            $hasil[$thn] = [];
+            $tipe_permasalahans = Kategoris::all();
+            if($kategori_id != null){
+                $tipe_permasalahans = Kategoris::where('id',$kategori_id)->get();
+            }
+            foreach ($tipe_permasalahans as $tipe_permasalahan) {
+                // return $this->repository->getCountLaporan(2024,1, 3, null, 'anak');
+                $hasil[$thn][] = [
+                    'tipe_permasalahan' => $tipe_permasalahan->nama,
+                    'id_tipe_permalahan' => $tipe_permasalahan->id,
+                    'count_anak' =>(int) $this->repository->getCountLaporan($thn,$tipe_permasalahan->id, null, null, 'anak'),
+                    'count_dewasa' =>(int)  $this->repository->getCountLaporan($thn,$tipe_permasalahan->id, null, null, 'dewasa'),
+                    'count_total' => (int) $this->repository->getCountLaporan($thn,$tipe_permasalahan->id, null, null, null),
+                    'kategori_kasus' => []
+                ];
+
+                $kategori_kasuses = KategoriKasus::where('kategori_id',$tipe_permasalahan->id);
+                if($kategori_kasus_id != null){
+                    $kategori_kasuses->where('id',$kategori_kasus_id);
+                }
+                $kategori_kasuses = $kategori_kasuses->get();
+
+                foreach ($kategori_kasuses as $kategori_kasus) {
+                    $hasil[$thn][count($hasil[$thn])-1]['kategori_kasus'][] = [
+                        'kategori_kasus_id' => $kategori_kasus->id,
+                        'kategori_kasus_nama' => $kategori_kasus->nama,
+                        'count_anak' => $this->repository->getCountLaporan($thn, $tipe_permasalahan->id, $kategori_kasus->id,null,'anak'),
+                        'count_dewasa' => $this->repository->getCountLaporan($thn, $tipe_permasalahan->id, $kategori_kasus->id,null,'dewasa'),
+                        'count_total' => $this->repository->getCountLaporan($thn, $tipe_permasalahan->id, $kategori_kasus->id,null,null),
+                        'jenis_kasus' => []
+                    ];
+                    $jenis_kasuses = JenisKasus::where('kategori_kasus_id',$kategori_kasus->id)->get();
+                    foreach ($jenis_kasuses as $jenis_kasus) {
+                        $hasil[$thn][count($hasil[$thn])-1]['kategori_kasus'][count($hasil[$thn][count($hasil[$thn])-1]['kategori_kasus'])-1]['jenis_kasus'][] = [
+                            'jenis_kasus_id' => $jenis_kasus->id,
+                            'jenis_kasus_nama' => $jenis_kasus->nama,
+                            'count_anak' => $this->repository->getCountLaporan($thn, $tipe_permasalahan->id, $kategori_kasus->id,$jenis_kasus->id,'anak'),
+                            'count_dewasa' => $this->repository->getCountLaporan($thn, $tipe_permasalahan->id, $kategori_kasus->id,$jenis_kasus->id,'dewasa'),
+                            'count_total' => $this->repository->getCountLaporan($thn, $tipe_permasalahan->id, $kategori_kasus->id,$jenis_kasus->id,null),
+                        ];
+                    }
+                }
+            }
+        }
+        return $hasil;
     }
+
 
     public function rekapKasusKlien($data){
         $filter_param = [];

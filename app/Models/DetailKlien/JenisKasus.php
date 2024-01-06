@@ -22,7 +22,8 @@ class JenisKasus extends Model
      * @var array
      */
     protected $fillable= [
-        'nama'
+        'nama',
+        'kategori_kasus_id'
     ]; 
 
     /**
@@ -33,7 +34,8 @@ class JenisKasus extends Model
     public static function validationRules()
     {
         return [
-            'nama' => 'required|string'
+            'nama' => 'required|string',
+            'kategori_kasus_id' => 'required|exists:kategori_kasuses,id'
         ];
     }
 
@@ -57,6 +59,7 @@ class JenisKasus extends Model
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'nama' => $request->nama,
+            'kategori_kasus_id' => $request->kategori_kasus_id
         ]);
     }
 
@@ -111,13 +114,18 @@ class JenisKasus extends Model
     public function relations()
     {
         return [
-            'detail_kasus'
+            'detail_kasus',
+            'kategori_kasus'
         ];
     }
 
     public function detail_kasus()
     {
         return $this->hasMany('App\Models\DetailKasus', 'jenis_kasus_id', 'id');
+    }
+
+    public function kategori_kasus(){
+        return $this->belongsTo('App\Models\DetailKlien\KategoriKasus', 'kategori_kasus_id', 'id');
     }
 
 }

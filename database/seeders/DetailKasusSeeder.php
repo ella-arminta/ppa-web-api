@@ -20,7 +20,7 @@ class DetailKasusSeeder extends Seeder
 
         DetailKasus::create([
             'laporan_id' => $laporan2->id,
-            'kategori_kasus_id' => 1,
+            'kategori_kasus_id' => 3,
             'jenis_kasus_id' => 1,
             'lokasi_kasus' => 'hai',
             'deskripsi' => 'jadi ya begitu',
@@ -28,8 +28,8 @@ class DetailKasusSeeder extends Seeder
         ]);
         DetailKasus::create([
             'laporan_id' => $laporan->id,
-            'kategori_kasus_id' => 1,
-            'jenis_kasus_id' => 1,
+            'kategori_kasus_id' => 4,
+            'jenis_kasus_id' => 3,
             'lokasi_kasus' => 'hai',
             'deskripsi' => 'dianya kasih harapan tapi kabur',
             'tanggal_jam_kejadian' => '2023-10-10 10:10:10'

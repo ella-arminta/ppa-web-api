@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('kategori_kasuses', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->foreignIdFor('App\Models\Kategoris', 'kategori_id');
             $table->timestamps();
             $table->softDeletes();
         });
