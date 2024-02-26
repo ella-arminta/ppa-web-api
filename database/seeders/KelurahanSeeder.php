@@ -19,16 +19,10 @@ class KelurahanSeeder extends Seeder
                 'nama' => 'Tambakrejo', 
                 'kecamatan_id' => 1
             ], 
-        // Sesuaikan id kecamatan
-            // [
-            //     'nama' => 'Kelurahan 2', 
-            //     'kecamatan_id' => 1
-            // ], // Sesuaikan id kecamatan
-            // [
-            //     'nama' => 'Kelurahan 3', 
-            //     'kecamatan_id' => 2
-            // ], // Sesuaikan id kecamatan
-            // Tambahkan data kelurahan lainnya di sini sesuai dengan data yang Anda miliki
+            [
+                'nama' => 'Kelurahan 2', 
+                'kecamatan_id' => 1
+            ], 
         ];
 
         DB::table('kelurahans')->insert($kelurahans);

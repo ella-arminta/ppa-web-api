@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('no_telp')->unique();
             $table->foreignId('role_id')->nullable();
+            $table->foreignId('kelurahan_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

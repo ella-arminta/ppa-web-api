@@ -4,7 +4,23 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\LaporanController;
+use App\Http\Controllers\DetailKlienController;
+use App\Http\Controllers\KeluargaKlienController;
+use App\Http\Controllers\KondisiKlienController;
+use App\Http\Controllers\LangkahTelahDilakukanController;
 use App\Http\Controllers\LaporansController;
+use App\Http\Controllers\LintasOPDController;
+use App\Http\Controllers\PelakuController;
+use App\Http\Controllers\PenjadwalanController;
+use App\Http\Controllers\RAKKController;
+use App\Http\Controllers\RRKKController;
+use App\Models\Pelaku;
+use App\Http\Middleware\CorsMiddleware2;
+use App\Models\LangkahTelahDilakukan;
+use App\Models\LintasOPD;
+use App\Repositories\LaporansRepository;
+use App\Services\LaporansService;
 
 require_once __DIR__ . '/utils.php';
 
@@ -29,6 +45,7 @@ Route::get('/', function () {
     ]);
 });
 
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -43,6 +60,9 @@ Route::get('/testing', function () {
 // disini cek routing
 
 Route::middleware(['cors'])->group(function () {
+// Route::middleware(['App\Http\Middleware\CorsMiddleware'])->group(function () {
+// Route::middleware(['App\Http\Middleware\CorsMiddleware2'])->group(function () {
+
     Route::controller(AuthController::class)->group(function () {
         Route::post('/login', 'login')->name('login');
         Route::post('/logout', 'logout')->name('logout')->middleware('auth:sanctum');
@@ -50,15 +70,37 @@ Route::middleware(['cors'])->group(function () {
     
     Route::group(['middleware' => ['auth:sanctum', 'ability:superadmin,admin']], function () {
         Route::get('/statuses/count', 'App\Http\Controllers\StatusesController@getCountKasus');
+        Route::get('/laporans/count-by-kategoris', [LaporansController::class, 'getCountByRwKategori']);
+        // Route::get('/laporans/rw', [LaporansRepository::class, 'getRw']);
+        
         Route::apiResources(createRoutes());
-    });
 
+        Route::get('/laporans/{laporan_id}/detail-kliens',[DetailKlienController::class,'getByLaporanId']);
+        Route::get('/laporans/{laporan_id}/pelakus',[PelakuController::class,'getByLaporanId']);
+        Route::get('/laporans/{laporan_id}/kondisi-kliens',[KondisiKlienController::class,'getByLaporanId']);
+        Route::get('/laporans/{laporan_id}/keluarga-kliens',[KeluargaKlienController::class,'getByLaporanId']);
+        Route::get('/laporans/{laporan_id}/penjadwalans',[PenjadwalanController::class,'getByLaporanId']);
+        Route::get('/laporans/{laporan_id}/langkah-telah-dilakukans',[LangkahTelahDilakukanController::class,'getByLaporanId']);
+        Route::get('/laporans/{laporan_id}/lintas-o-p-ds',[LintasOPDController::class,'getByLaporanId']);
+        Route::get('/laporans/{laporan_id}/r-a-k-ks',[RAKKController::class,'getByLaporanId']);
+        Route::get('/laporans/{laporan_id}/r-r-k-ks',[RRKKController::class,'getByLaporanId']);
+
+        // cetak & rekap
+        Route::get('/laporans/{laporan_id}/cetak',[LaporansController::class,'cetakLaporan']);
+        Route::get('/laporans-kasus-klien',[LaporansController::class,'rekapKasusKlien']);
+        Route::get('/laporans-rekap',[LaporansController::class,'rekapTahunan']);
+
+        // set status penjangkauan untuk semua data penjangkauan yang tersedia
+        Route::post('/laporans/{laporan_id}/status-penjangkauan',[LaporansController::class,'setStatusPenjangkauan']);
+    });
+    
     Route::group(['prefix' => 'public'], function() {
         Route::apiResource('laporans', 'App\Http\Controllers\LaporansController', ["only" => ["store"]]);
 
         Route::apiResources(createPublicRoutes(), ["only" => ["index", "show"]]);
 
         Route::get('/laporans/{token:token}', 'App\Http\Controllers\LaporansController@getByToken');
+        
     });
     
     // Route::group(['middleware' => ['auth:sanctum', 'ability:superadmin']], function () {

@@ -13,32 +13,45 @@ return new class extends Migration
     {
         Schema::create('laporans', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('judul');
+            $table->dateTime('tanggal_jam_pengaduan')->nullable();
+            $table->string('uraian_singkat_masalah');
             $table->string('no_telp_pelapor');
-            $table->string('nama_korban');
+            $table->string('no_telp_klien')->nullable();
+            $table->string('nama_klien')->nullable();
             $table->string('nama_pelapor');
+            $table->string('inisial_klien')->nullable();
+            $table->string('nik_pelapor')->nullable();
+            $table->string('nik_klien')->nullable();
             $table->boolean('validated')->default(false);
-            $table->tinyInteger('usia');
-            $table->string('alamat');
-            $table->string('rw');
-            $table->string('rt');
+            $table->tinyInteger('usia')->nullable();
+            $table->string('alamat_pelapor')->nullable();
+            $table->string('alamat_klien')->nullable();
+            $table->string('rw')->nullable();
+            $table->string('rt')->nullable();
             $table->foreignIdFor('App\Models\Kategoris', 'kategori_id');
-            $table->foreignIdFor('App\Models\Kelurahans', 'kelurahan_id')->default(1)->nullable();
-            // $table->foreignIdFor('App\Models\Alamats', 'alamat_id');
-            $table->char('jenis_kelamin', 1);
+            $table->foreignIdFor('App\Models\Kelurahans', 'kelurahan_id')
+            ->default(1)
+            ->nullable();
+            $table->char('jenis_kelamin', 1)->nullable();
             $table->foreignUuid('satgas_pelapor_id')
-                ->references('id')
-                ->on('users')
                 ->nullable()
-                ->default(null);
+                ->default(null)
+                ->references('id')
+                ->on('users');
             $table->foreignUuid('previous_satgas_id')
-                ->references('id')
-                ->on('users')
                 ->nullable()
-                ->default(null);
+                ->default(null)
+                ->references('id')
+                ->on('users');
             $table->foreignIdFor('App\Models\Statuses', 'status_id')->default(1);
             $table->string('token', 8);
-            $table->foreignIdFor('App\Models\Pendidikans', 'pendidikan_id');
+            $table->foreignIdFor('App\Models\Pendidikans', 'pendidikan_id')->nullable();
+            $table->foreignIdFor('App\Models\SumberPengaduan', 'sumber_pengaduan_id')->nullable();
+            $table->longText('dokumentasi_pengaduan')->nullable();
+            $table->longText('situasi_keluarga')->nullable();
+            $table->longText('kronologi_kejadian')->nullable();
+            $table->longText('harapan_klien_dan_keluarga')->nullable();
+            // $table->longText('langkah_telah_dilakukan')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

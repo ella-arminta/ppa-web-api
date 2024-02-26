@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use App\Utils\HttpResponse;
 use App\Utils\HttpResponseCode;
 use App\Utils\ValidateRequest;
+use App\Utils\ValidateRequestPatch;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class BaseController extends Controller
 {
-    use HttpResponse, ValidateRequest;
+    use HttpResponse, ValidateRequest, ValidateRequestPatch;
 
     public $model;
     protected $service;
@@ -39,10 +42,17 @@ class BaseController extends Controller
     {
         // validate
         // $this->validate($request, $this->model->rules());
-        $this->validateRequest($request->all(), $this->model);
-
-        // store
-        $data = $this->service->create($request->all());
+        if($request->has('id') && $request->id != null && is_numeric($request->id) && !is_nan($request->id)){
+            $this->validateRequestPatch($request->all(), $this->model);
+            $data = $this->service->update($request->id, $request->all());
+        }
+        else
+        {
+            $this->validateRequest($request->all(), $this->model);
+    
+            // store
+            $data = $this->service->create($request->all());
+        }
 
         // return
         return $this->success($data, HttpResponseCode::HTTP_CREATED);
@@ -55,7 +65,11 @@ class BaseController extends Controller
     public function update(Request $request, string $id)
     {
         //validate
-        $this->validateRequest($request->all(), $this->model);
+        // dd($request->all(),$id);
+        $requestData = $request->all();
+        $requestData['id'] = $id;
+
+        $this->validateRequestPatch($requestData, $this->model);
 
         //update
         $data = $this->service->update($id, $request->all());
@@ -81,6 +95,25 @@ class BaseController extends Controller
     {
         //
         $data = $this->service->getById($id);
+
+        return $this->success($data, HttpResponseCode::HTTP_OK);
+    }
+
+    public function getByLaporanId(string $id){
+        $valid = Validator::make(
+            ['laporan_id' => $id],
+            [
+                'laporan_id' => 'required|exists:laporans,id',
+            ],
+            [
+                'laporan_id.required' => 'Laporan id is required!',
+                'laporan_id.exists' => 'Laporan id is not exists!',
+            ]
+        );
+        if ($valid->fails()) {
+            return $this->error($valid->errors()->first());
+        }
+        $data = $this->service->getByLaporanId($id);
 
         return $this->success($data, HttpResponseCode::HTTP_OK);
     }

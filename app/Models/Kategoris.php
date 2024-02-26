@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Http\Resources\DetailKlien\KategoriKasusResource;
 use App\Models\ModelUtils;
 use App\Models\Laporans;
 use App\Repositories\KategorisRepository;
 use App\Services\KategorisService;
 use App\Http\Resources\KategorisResource;
 use App\Http\Resources\LaporansResource;
+use App\Models\DetailKlien\KategoriKasus;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -63,6 +65,7 @@ class Kategoris extends Model
             'id' => $request->id,
             'nama' => $request->nama,
             'laporans' => $withLaporans ? LaporansResource::collection($request->laporans) : null,
+            'kategori_kasus' => KategoriKasusResource::collection($request->kategori_kasus)
         ]);
     }
 
@@ -118,11 +121,17 @@ class Kategoris extends Model
     {
         return [
             'laporans',
+            'kategori_kasus',
+            'kategori_kasus.jenis_kasus'
         ];
     }
 
     public function laporans() {
         return $this->hasMany(Laporans::class, 'kategori_id', 'id');
+    }
+
+    public function kategori_kasus() {
+        return $this->hasMany(KategoriKasus::class, 'kategori_id', 'id');
     }
 
 }

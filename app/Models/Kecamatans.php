@@ -9,6 +9,7 @@ use App\Repositories\KecamatansRepository;
 use App\Services\KecamatansService;
 use App\Http\Resources\KecamatansResource;
 use App\Http\Resources\KelurahansResource;
+use App\Http\Resources\WilayahResource;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,7 +26,8 @@ class Kecamatans extends Model
      * @var array
      */
     protected $fillable = [
-        'nama'
+        'nama',
+        'wilayah_id'
     ]; 
 
     /**
@@ -36,7 +38,8 @@ class Kecamatans extends Model
     public static function validationRules()
     {
         return [
-            'nama' => 'required'
+            'nama' => 'required',
+            'wilayah_id' => 'nullable|exists:wilayah,id'
         ];
     }
 
@@ -48,7 +51,8 @@ class Kecamatans extends Model
     public static function validationMessages()
     {
         return [
-            'nama.required' => 'Nama Kecamatan tidak boleh kosong'
+            'nama.required' => 'Nama Kecamatan tidak boleh kosong',
+            'wilayah_id.exists' => 'Wilayah tidak ditemukan'
         ];
     }
 
@@ -67,11 +71,13 @@ class Kecamatans extends Model
     public function resourceData($request)
     {
         $withKelurahans = ModelUtils::checkParam(request('withKelurahans'));
+        $withWilayah = ModelUtils::checkParam(request('withWilayah'));
         
         return ModelUtils::filterNullValues([
             'id' => $request->id,
             'nama' => $request->nama,
             'kelurahans' => $withKelurahans ? KelurahansResource::collection($request->kelurahans) : null,
+            'wilayah' => $withWilayah ? new WilayahResource($request->wilayah) : null,
         ]);
     }
 
@@ -124,11 +130,15 @@ class Kecamatans extends Model
     */
     public function relations()
     {
-        return ['kelurahans'];
+        return ['kelurahans','wilayah'];
     }
 
     public function kelurahans() {
         return $this->hasMany(Kelurahans::class, 'kecamatan_id', 'id');
+    }
+
+    public function wilayah() {
+        return $this->belongsTo(Wilayah::class, 'wilayah_id', 'id');
     }
 
 }

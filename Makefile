@@ -93,3 +93,6 @@ runTest:
 
 seeRoute:
 	${ARTISAN} route:list
+
+tinker:
+	${ARTISAN} tinker

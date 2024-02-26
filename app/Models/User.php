@@ -18,9 +18,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 use App\Http\Resources\RolesResource;
-use App\Http\Resources\KronologisResource;
-use App\Http\Resources\LaporansResource;
-use App\Http\Resources\ProgressReportsResource;
+use App\Http\Resources\KelurahansResource;
+
 
 class User extends Authenticatable
 {
@@ -35,9 +34,12 @@ class User extends Authenticatable
     protected $fillable = [
         'nama',
         'no_telp',
+        'username',
         'email',
         'password',
         'role_id',
+        'kelurahan_id',
+        'is_active'
     ];
 
     /**
@@ -70,11 +72,24 @@ class User extends Authenticatable
                 'role_id' => 'sometimes|required',
             ];
         }
+        if (request()->isMethod('patch')) {
+            return [
+                'nama' => 'sometimes|required',
+                'username' => 'sometimes|required',
+                'no_telp' => 'sometimes|required',
+                'password' => 'sometimes|required',
+                'role_id' => 'sometimes|required',
+                'kelurahan_id' => 'sometimes|required',
+            ];
+        }
         return [
-            'nama' => 'sometimes|required',
-            'no_telp' => 'sometimes|required',
-            'password' => 'sometimes|required',
-            'role_id' => 'sometimes|required',
+            'nama' => 'required',
+            'username' => 'required',
+            'no_telp' => 'required',
+            'password' => 'required',
+            'role_id' => 'required',
+            'kelurahan_id' => 'required',
+            'is_active' => 'nullable|boolean'
         ];
     }
 
@@ -108,9 +123,8 @@ class User extends Authenticatable
             'no_telp' => $request->no_telp,
             'email' => $request->email,
             'role' => new RolesResource($request->role),
-            // 'kronologis' => KronologisResource::collection($request->kronologis),
-            // 'laporans' => LaporansResource::collection($request->laporans),
-            // 'progressReports' => ProgressReportsResource::collection($request->progress_reports),
+            'kelurahan' => new KelurahansResource($request->kelurahan),
+            'is_active' => (int) $request->is_active,
         ]);
     }
 
@@ -168,7 +182,12 @@ class User extends Authenticatable
         return [
             'role',
             'laporans',
+            'kelurahan'
         ];
+    }
+
+    public function scopeKelurahan($query,$value){
+        return $query->where('kelurahan_id',$value);
     }
 
     public function role()
@@ -193,6 +212,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Kronologis', 'admin_id', 'id');
     }
 
+    public function kelurahan() {
+        return $this->belongsTo('App\Models\Kelurahans', 'kelurahan_id', 'id');
+    }
     // public function getRoleAttribute()
     // {
     //     return new RoleResource($this->role()->first());
